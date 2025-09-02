@@ -4,12 +4,7 @@ import Footer from "../components/Footer";
 import Section from "../components/Section";
 
 /**
- * UUDU — Home Page (Slide 8 Corrected Flow)
- * Tech: React (Vite, JS + SWC), Tailwind v4.1
- * Following presentation strictly:
- * - Hero full image with overlay text: "UUDU. Fearless Ramen Hack"
- * - Next section: "The ramen hack mothership has landed" with description paragraph
- * - Then: "So hackin' easy", "Value beyond the hype", "Chilled vibe…", "Takeout, re‑imagined", "Cook preview".
+ * UUDU – Home Page
  */
 
 export default function Home() {
@@ -92,7 +87,7 @@ function SoHackinEasy() {
   return (
     <Section
       title="So hackin' easy"
-      content="Instant ramen fans take their bowls beyond the basic packet. UUDU stocks 28 toppings and bold hack sauces with step‑by‑step visuals, pairings, and techniques so hacking feels straightforward."
+      content="Scroll through social and you’ll see it—instant ramen fans taking their bowls to the next level, far beyond the basic packet. That kind of flavor magic and hack‑level fun takes more than noodles alone, which is why UUDU stocks 28 unique toppings and bold hack sauces to make any instant ramen—Korean, Japanese, or otherwise—taste incredible… even out of this world.  <br /> <br /> And no sweat on your next amazing nuudu creation. At UUDU, we break it all down with step‑by‑step visuals, smart pairings, and fail‑safe techniques so hacking feels straightforward, not overwhelming. Now, the possibilities are truly endless."
       img="/images/easy-desktop.png"
     />
   );
@@ -147,7 +142,8 @@ function ChilledVibe() {
   return (
     <Section
       title="Chilled vibe for a new foodie generation"
-      content="With subtle ambiance, spacious seating, and curated entertainment, UUDU is the place to vibe, try new foods, and share bold flavors."
+      content="UUDU isn’t just a resourceful nuudu hack lab—it’s where you vibe. With an inviting, subtle ambiance, spacious seating, and curated socialtainment playing on the big screen, we’ve built a space where casual creatives can chill and try new foods. <br /> <br />There’s an uncommon rhythm and spirit that you’ll feel right away, echoing the range of our global flavors. UUDU brings people together over bold tastes, fresh ideas, and a love for doing things differently. Who knows how this self-serve ramen trend will unfold—but together, WE will help shape the next chapter.
+"
       img="/images/vibe-desktop.png"
     />
   );
@@ -157,7 +153,7 @@ function TakeoutReimagined() {
   return (
     <Section
       title="Takeout, re‑imagined"
-      content="Break the boring cycle with ramen kits, pre‑packed for grab‑and‑go or delivery. Quick, craveable, and fun for family dinners too."
+      content="Boring burgers and flimsy salads again at the cubicle? Break the cycle with one of UUDU's popular ramen kits, conveniently pre-packed for easy grab-and-go—or have it delivered straight to your office. It's a quick, craveable upgrade to your usual lunch routine—easy to prep, hard to beat.<br /><br />And when the workday's finally over, our ramen kits can also bring that convenience home. For busy moms and professionals alike, UUDU offers a hearty, satisfying meal that's ready in minutes and costs less than most takeout. Better yet, kids love customizing their own bowls—turning dinnertime into a festive, self-serve treat."
       img="/images/takeout-desktop.png"
       imageLeft
     />
