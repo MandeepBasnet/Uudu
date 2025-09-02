@@ -1,0 +1,71 @@
+// src/pages/Cook.jsx
+
+export default function Cook() {
+  return (
+    <div className="min-h-screen bg-[#F2F2F2] pb-20">
+      {/* Hero */}
+      <div className="relative h-64 w-full">
+        <img
+          src="/images/cook-hero.jpg"
+          alt="Cook ramen"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+          <h1
+            className="text-3xl sm:text-4xl font-semibold text-white text-center"
+            style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+          >
+            Cook your ramen, the Uudu way
+          </h1>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="mx-auto max-w-4xl px-4 mt-12">
+        {/* Intro */}
+        <p className="text-center text-gray-700 text-lg mb-10 leading-relaxed">
+          Follow these simple steps to prepare your perfect bowl of ramen. Fast,
+          fun, and fearless – just how Uudu likes it.
+        </p>
+
+        {/* Steps */}
+        <div className="bg-white rounded-3xl shadow-sm p-8">
+          <h2
+            className="text-2xl font-semibold mb-6"
+            style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+          >
+            Step-by-Step
+          </h2>
+          <ol className="list-decimal pl-5 space-y-4 text-gray-700 leading-relaxed">
+            <li>Add noodles & seasoning to the cooker bowl.</li>
+            <li>
+              Select <strong>Menu 1</strong> (460 ml water; 280 seconds).
+            </li>
+            <li>Stir noodles during the cooking process.</li>
+            <li>
+              Add toppings during the final 60 seconds if you want that perfect
+              hack.
+            </li>
+            <li>Carefully remove bowl, stir, and enjoy fearlessly!</li>
+          </ol>
+        </div>
+
+        {/* Tips & Safety */}
+        <div className="mt-10 bg-[#FFF4ED] border-l-4 border-[#C84E00] p-6 rounded-2xl">
+          <h3
+            className="text-xl font-semibold mb-2 text-[#C84E00]"
+            style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+          >
+            Pro Tips & Safety
+          </h3>
+          <ul className="list-disc pl-5 space-y-2 text-gray-700 text-sm">
+            <li>Handle the cooker bowl carefully – it will be hot.</li>
+            <li>Experiment with sauces and toppings to create your hack.</li>
+            <li>Don’t overcrowd – keep broth-to-noodle ratio balanced.</li>
+            <li>Always stir well before serving.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
