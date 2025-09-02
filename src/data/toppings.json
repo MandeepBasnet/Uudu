@@ -1,0 +1,256 @@
+{
+  "toppings": [
+    {
+      "id": 1,
+      "name": "Bok Choy",
+      "category": "Veggies",
+      "description": "A fresh, blanched green that works with nearly every ramen style—soupy or dry, mild or spicy. It adds crispness, balance, and a hint of sweetness to any bowl. Also great for a visual pop.",
+      "price": 0.65,
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=1",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 2,
+      "name": "Corn",
+      "category": "Veggies",
+      "description": "Corn brings that sweet, juicy hit every bowl deserves. Sure, it's a classic Japanese ramen add-on—but actually, these golden nuggets crush it in any noodle style across the board. Looks good, tastes even better.",
+      "price": 0.65,
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=1",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 3,
+      "name": "Kimchi",
+      "category": "Veggies",
+      "description": "This fermented Korean side dish brings bold, tangy heat that punches up Shin-style broths or cuts through creamy Buldak hacks like a pro. With its cool crunch and hit of fermented funk, it elevates any bowl.",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 4,
+      "name": "Green Peas",
+      "category": "Veggies",
+      "description": "An underrated winner in the ramen game, green peas make total sense in cheesy hacks or creamy creations—think Buldak Carbonara or Shin Mayo.  Like corn, they add a snappy sweetness to every bite.",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 5,
+      "name": "Mushroom",
+      "category": "Veggies",
+      "description": "Umami bomb. These earthy morsels come pre-sautéed for max convenience and deep flavor. They enrich brothy ramens—miso, soy, spicy—and absolutely kill in sesame or peanut-based dry noodle hacks.",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 6,
+      "name": "Jalapeños",
+      "category": "Veggies",
+      "description": "Lightly pickled and always FREE, these sliced jalapeños bring clean heat with a tangy twist. They’re perfect for cutting through rich broths or creamy hacks. On the house so, yeah, go ahead and scoop some on your next hack creation.",
+      "price": 0.0,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 7,
+      "name": "Mozzarella Cheese",
+      "category": "Garnishes",
+      "description": "A social media darling that delivers fun, gooey texture to dry-style noodles, Mozzarella is equally popular as a savory upgrade to brothy favorites from all regions. Think Indomie Original and Sapporo Tonkotsu. So stir ...",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 8,
+      "name": "Mexican Blend Cheese",
+      "category": "Garnishes",
+      "description": "",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 9,
+      "name": "Flamin’ Hot Cheetos Crumble",
+      "category": "Garnishes",
+      "description": "",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 10,
+      "name": "Scallions",
+      "category": "Garnishes",
+      "description": "",
+      "price": 0.0,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 11,
+      "name": "Tteokbokki",
+      "category": "Garnishes",
+      "description": "",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 12,
+      "name": "Mayonnaise",
+      "category": "Flavoring",
+      "description": "",
+      "price": 0.35,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 13,
+      "name": "Crema Jocoque",
+      "category": "Flavoring",
+      "description": "",
+      "price": 0.35,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 14,
+      "name": "Butter",
+      "category": "Flavoring",
+      "description": "",
+      "price": 0.35,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 15,
+      "name": "Peanut Butter",
+      "category": "Flavoring",
+      "description": "",
+      "price": 0.35,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 16,
+      "name": "Sriracha Sauce",
+      "category": "Flavoring",
+      "description": "",
+      "price": 0.35,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 17,
+      "name": "Chili Oil (House & Lao Gan Ma)",
+      "category": "Flavoring",
+      "description": "",
+      "price": 0.35,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 18,
+      "name": "Bang Sauce",
+      "category": "Flavoring",
+      "description": "",
+      "price": 0.35,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 19,
+      "name": "Lime",
+      "category": "Flavoring",
+      "description": "",
+      "price": 0.35,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 20,
+      "name": "Egg - Plain, Hard-boiled",
+      "category": "Protein",
+      "description": "",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 21,
+      "name": "Egg - Soft-boiled, Ramen Style",
+      "category": "Protein",
+      "description": "",
+      "price": 0.9,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 22,
+      "name": "Egg - Extra Crispy",
+      "category": "Protein",
+      "description": "An Asian street-food favorite that takes eggs to the edge. Its blistered, golden crust adds a satisfying crunch while keeping the yolk soft inside. A bold twist that pushes ramen hacking past the usual egg game.",
+      "price": 0.9,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 23,
+      "name": "Korean Fish cake",
+      "category": "Protein",
+      "description": "Flat strips of tasty Korean fish cake, lightly sautéed for savory depth. A street-food staple that’s soft, slightly bouncy, and soaks up broths and sauces like a champ—an easy flavor boost for any ramyun hack.",
+      "price": 0.65,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 24,
+      "name": "Korean Mini Smokies",
+      "category": "Protein",
+      "description": "These popular bite-sized sausages are the star of any noodle hack—think cute little kielbasas with a Korean edge. Juicy, smoky, and packed with umami, they instantly upgrade a simple bowl into street-food fun.",
+      "price": 0.9,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 25,
+      "name": "Lap Cheong Sausage",
+      "category": "Protein",
+      "description": "This Chinese classic brings an unforgettable sweet-savory punch. A familiar component of dim sum and fried rice dishes so you know the vibe—rich, tender, and slightly smoky. It’s gonna wake up any broth or add bold pops to dry-style hacks.",
+      "price": 0.9,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 26,
+      "name": "Crispy Pork Egg Roll",
+      "category": "Protein",
+      "description": "Golden, crunchy, and packed with savory pork and veggies—this reliable snack feels right at home next to a steaming ramen bowl. Perfect for dunking in broth or hacking into dry noodles for extra crunch and flavor.",
+      "price": 0.9,
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=1",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 27,
+      "name": "K-Spam Crunch",
+      "category": "Protein",
+      "description": "K-Spam Crunch brings street-food pop and drama to your hack creations—thick, juicy Spam coated in a golden, fluffy batter loaded with crispy ramen bits. A deliciously unique side built to dunk, share, or hack right into your noodles.",
+      "price": 2.0,
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=1",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    },
+    {
+      "id": 28,
+      "name": "Bean Sprout",
+      "category": "Veggies",
+      "description": "",
+      "price": 0.0,
+      "manufacturer_url": "",
+      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."
+    }
+  ]
+}

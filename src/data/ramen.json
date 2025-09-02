@@ -1,0 +1,451 @@
+{
+  "ramen": [
+    {
+      "id": 1,
+      "name": "Nongshim Shin Original",
+      "country": "S. Korea",
+      "description": "A generous portion of thick chewy noodles paired with a bold comforting broth that features a rich, umami taste with layers of beefy warmth, aromatic garlic, sweet onion, as well as subtle hints of mushroom and soy sauce.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=1",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "Protein: Hard-boiled egg or Korean smokies\nVeggie: Bok choy or corn\nHack ingredient (optional): Mayonnaise or sesame paste\nFREE garnishes (optional): Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=FuM1dGWfCTw&ab_channel=KimchiBites",
+          "description": "Hack - Kimchi Bites (2:07)"
+        },
+        {
+          "url": "https://tinyurl.com/yc7fywvj",
+          "description": "Hack - Aaron and Claire (13:54)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=0UnoH6hm-S0&ab_channel=NoodleJourney",
+          "description": "Taste test - Noodle Journey (6:12)"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Nongshim Shin Black",
+      "country": "S. Korea",
+      "description": "Similar to the classic Shin Original, but with a creamier broth that draws extra richness from premium beef bone stock, enhanced garlic, and an added kick from black garlic oil for a smoother, more luxurious finish.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "8 out of 10 flames",
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=2",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "Protein: Soft-boiled egg or Korean fish cake\nVeggie: Spinach or bean sprouts\nHack ingredient (optional):\nFREE garnishes (optional): Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/i-5vEUqeWvU",
+          "description": "Hack - Anita's Kitchen XO (00:55)"
+        },
+        {
+          "url": "https://tinyurl.com/3nbnrx86",
+          "description": "Taste test - NongshimUSA (3:20)"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Nongshim Shin Light",
+      "country": "S. Korea",
+      "description": "A lighter take on Shin Original’s spicy beefy mushroom flavors, Shin Light has fewer calories and less fat, with non-fried, springy noodles and extra vegetables for a fresh twist.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=3",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 4,
+      "name": "Nongshim Soon Veggie",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=16",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 5,
+      "name": "Nongshim Kimchi",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=9",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 6,
+      "name": "Nongshim Hot & Spicy",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=37",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 7,
+      "name": "Nongshim Savory Chicken",
+      "country": "S. Korea",
+      "description": "A mild, comforting chicken-flavored bowl with a rich pleasant broth that's dependably on point. Perfect for anyone avoiding spice or taking a break from the classic Korean umami taste, this budget-friendly choice makes a cozy, anytime meal.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "5 out of 10 flames",
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=44",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "Protein: Hard-boiled egg or sliced rotisserie chicken\nVeggie: Snap peas or Kimchi\nHack ingredient (optional): Gochujang\nFREE garnishes (optional): Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=swr2ZShwrnI&ab_channel=aa5k",
+          "description": "Taste Test - AA5K (02:15)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=0MhLEpMkEi0&ab_channel=SimplyUnboxing",
+          "description": "Unbox - Simply Unboxing (3:12)"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Ottogi Jin Mild",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://www.otoki.com/en/product/product_detail?categorySeqFirst=1&productIdx=11",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 9,
+      "name": "Ottogi Jin Spicy Seafood",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://www.otoki.com/en/product/product_detail?categorySeqFirst=1&productIdx=3",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 10,
+      "name": "Paldo Green Tea Noodle",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "http://www.paldofood.com/product/details-noodle-01-21.php",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 11,
+      "name": "Paldo Black Bean Sauce",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://www.japancentre.com/en/products/17765-paldo-jjajangmen-instant-noodles-with-black-bean-sauce?srsltid=AfmBOopAdGCSjYGvK1cplxmfeTlG4RAhu_Om4eddq8l12AC5makvu9ok",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 12,
+      "name": "Buldak Original",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://samyangamerica.com/buldak/original",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 13,
+      "name": "Buldak 2X Spicy",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://samyangamerica.com/buldak/2x-spicy",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 14,
+      "name": "Buldak Carbonara",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://samyangamerica.com/buldak/carbonara",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 15,
+      "name": "Buldak Cream Carbonara",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://samyangamerica.com/buldak/cream-carbonara",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 16,
+      "name": "Buldak Carbonara Topokki",
+      "country": "S. Korea",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://samyangamerica.com/buldak/carbonara-topokki",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 17,
+      "name": "Nissin Raoh Tonkotsu",
+      "country": "Japan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://www.nissinfoods.com/product/raoh/raoh-tonkotsu/",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 18,
+      "name": "Sapporo Ichiban Tonkotsu",
+      "country": "Japan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://sanyofoodsamerica.com/products/sapporo-ichiban-tonkotsu-ramen",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 19,
+      "name": "Sapporo Ichiban Miso",
+      "country": "Japan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://sanyofoodsamerica.com/products/sapporo-ichiban-miso-ramen",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 20,
+      "name": "Sapporo Ichiban Chicken",
+      "country": "Japan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://sanyofoodsamerica.com/products/sapporo-ichiban-chicken",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 21,
+      "name": "Sapporo Chow Mein",
+      "country": "Japan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://sanyofoodsamerica.com/collections/north-america/products/sapporo-ichiban-chow-mein",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 22,
+      "name": "Sapporo Sriracha Yakisoba",
+      "country": "Japan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://sanyofoodsamerica.com/collections/north-america/products/sriracha-yakisoba",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 23,
+      "name": "A-Sha Mandarin Original Soy",
+      "country": "Taiwan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://ashadrynoodle.com/products/meteor-noodles-with-dandan-sauce",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 24,
+      "name": "A-Sha Tainan Sesame",
+      "country": "Taiwan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://ashadrynoodle.com/products/tainan-thin-noodles-sesame-paste-flavor-pack-of-5?srsltid=AfmBOoq_yVVo9DIWH1nHzPHOX31i-kbOixxbT2e4glCHwcEsV-J751G-",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 25,
+      "name": "A-Sha Hakka Chili Sauce",
+      "country": "Taiwan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "https://ashadrynoodle.com/products/hakka-wide-noodles-chili-flavor-pack-of-5?srsltid=AfmBOoqQAYCguUn2bVuEa4KtbAmD2NOOay6DLcPvpCpv6pFoo03xbwQ_",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 26,
+      "name": "A-Sha Hello Kitty",
+      "country": "Taiwan",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 27,
+      "name": "Indomie Original",
+      "country": "Other Asia",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 28,
+      "name": "Indomie Hot & Spicy",
+      "country": "Other Asia",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 29,
+      "name": "Indomie BBQ Chicken",
+      "country": "Other Asia",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 30,
+      "name": "Mana Shrimp Tom Yum",
+      "country": "Other Asia",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 31,
+      "name": "Mama Green Curry",
+      "country": "Other Asia",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    },
+    {
+      "id": 32,
+      "name": "Prima Taste Singapore Curry",
+      "country": "Other Asia",
+      "description": "",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "",
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": []
+    }
+  ]
+}
