@@ -26,10 +26,14 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-4">
         <nav className="mt-4 mb-3 flex items-center justify-between rounded-2xl bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
-          <a href="/" className="flex items-center gap-2 px-4 py-3">
-            <div className="size-8 rounded-full bg-[#C84E00]" />
+          <a href="/" className="flex flex-col items-center px-4 py-3">
+            <img
+              src="/images/logo.png"
+              alt="UUDU Logo"
+              className="size-8 rounded-full object-cover"
+            />
             <span
-              className="font-semibold tracking-wide"
+              className="text-xs font-semibold tracking-wide mt-1"
               style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
             >
               UUDU
@@ -38,14 +42,17 @@ export default function Navbar() {
           <ul className="hidden gap-6 md:flex text-sm">
             {"Menu Cook Location What's Uudu? Events"
               .split(" ")
-              .map((label) => (
-                <li key={label}>
+              .map((label, index, array) => (
+                <li key={label} className="flex items-center">
                   <a
-                    className="inline-block px-2 py-4 hover:text-[#C84E00] transition-colors"
+                    className="inline-block px-2 py-4 text-[#C84E00] hover:text-[#B73D00] transition-colors"
                     href={`/${label.toLowerCase().replace(/'|\s/g, "-")}`}
                   >
                     {label}
                   </a>
+                  {index < array.length - 1 && (
+                    <span className="ml-6 text-[#C84E00]">•</span>
+                  )}
                 </li>
               ))}
           </ul>
