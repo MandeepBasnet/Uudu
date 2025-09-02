@@ -9,14 +9,12 @@ import Footer from "../components/Footer";
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#F2F2F2] text-[#3E3E3E]">
-      <Navbar />
       <Hero />
       <Mothership />
       <SoHackinEasy />
       <ValueBeyondHype />
       <ChilledVibe />
       <TakeoutReimagined />
-      <Footer />
     </div>
   );
 }

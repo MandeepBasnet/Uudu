@@ -1,4 +1,5 @@
 // src/pages/Location.jsx
+import React from "react";
 
 export default function Location() {
   return (

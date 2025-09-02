@@ -1,4 +1,5 @@
 // src/pages/WhatsUudu.jsx
+import React from "react";
 
 export default function WhatsUudu() {
   return (

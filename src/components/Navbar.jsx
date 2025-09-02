@@ -18,6 +18,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Define navigation links with labels and corresponding routes
+  const navLinks = [
+    { label: "Menu", path: "/menu" },
+    { label: "Cook", path: "/cook" },
+    { label: "Location", path: "/location" },
+    { label: "What's Uudu?", path: "/whats-uudu" },
+    { label: "Events", path: "/events" },
+  ];
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
@@ -40,21 +49,19 @@ export default function Navbar() {
             </span>
           </a>
           <ul className="hidden gap-6 md:flex text-sm">
-            {"Menu Cook Location What's Uudu? Events"
-              .split(" ")
-              .map((label, index, array) => (
-                <li key={label} className="flex items-center">
-                  <a
-                    className="inline-block px-2 py-4 text-[#C84E00] hover:text-[#B73D00] transition-colors"
-                    href={`/${label.toLowerCase().replace(/'|\s/g, "-")}`}
-                  >
-                    {label}
-                  </a>
-                  {index < array.length - 1 && (
-                    <span className="ml-6 text-[#C84E00]">•</span>
-                  )}
-                </li>
-              ))}
+            {navLinks.map((link, index) => (
+              <li key={link.label} className="flex items-center">
+                <a
+                  className="inline-block px-2 py-4 text-[#C84E00] hover:text-[#B73D00] transition-colors"
+                  href={link.path}
+                >
+                  {link.label}
+                </a>
+                {index < navLinks.length - 1 && (
+                  <span className="ml-6 text-[#C84E00]">•</span>
+                )}
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

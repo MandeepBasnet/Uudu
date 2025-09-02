@@ -1,5 +1,6 @@
 // src/pages/Menu/Product.jsx
 
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import ramenData from "../../data/ramen.json";
 import toppingsData from "../../data/toppings.json";

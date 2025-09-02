@@ -1,4 +1,5 @@
 // src/pages/Events.jsx
+import React from "react";
 
 export default function Events() {
   // Later, events could be fetched from a CMS / API

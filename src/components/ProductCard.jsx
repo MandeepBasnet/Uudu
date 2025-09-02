@@ -1,5 +1,5 @@
 // src/components/ProductCard.jsx
-
+import React from "react";
 export default function ProductCard({ name, image, price }) {
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow duration-300">

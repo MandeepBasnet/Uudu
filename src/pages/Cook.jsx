@@ -1,5 +1,5 @@
 // src/pages/Cook.jsx
-
+import React from "react";
 export default function Cook() {
   return (
     <div className="min-h-screen bg-[#F2F2F2] pb-20">
