@@ -34,7 +34,7 @@ function Hero() {
         <div className="relative overflow-hidden rounded-3xl bg-white shadow-sm">
           <div className="relative h-[90vh] min-h-[520px] w-full">
             <img
-              src="/images/hero-desktop.jpg"
+              src="/images/hero-desktop.png"
               alt="Hero ramen"
               className="absolute inset-0 h-full w-full object-cover"
             />
@@ -78,7 +78,7 @@ function Mothership() {
         </div>
         <div>
           <img
-            src="/images/mothership-desktop.jpg"
+            src="/images/mothership-desktop.png"
             alt="The ramen hack mothership has landed"
             className="w-full rounded-3xl object-cover shadow-sm"
           />
@@ -93,7 +93,7 @@ function SoHackinEasy() {
     <Section
       title="So hackin' easy"
       content="Instant ramen fans take their bowls beyond the basic packet. UUDU stocks 28 toppings and bold hack sauces with step‑by‑step visuals, pairings, and techniques so hacking feels straightforward."
-      img="/images/easy-desktop.jpg"
+      img="/images/easy-desktop.png"
     />
   );
 }
@@ -133,7 +133,7 @@ function ValueBeyondHype() {
         </div>
         <div className="md:order-2">
           <img
-            src="/images/value-desktop.jpg"
+            src="/images/value-desktop.png"
             alt="Value beyond the hype"
             className="w-full rounded-3xl object-cover shadow-sm"
           />
@@ -148,7 +148,7 @@ function ChilledVibe() {
     <Section
       title="Chilled vibe for a new foodie generation"
       content="With subtle ambiance, spacious seating, and curated entertainment, UUDU is the place to vibe, try new foods, and share bold flavors."
-      img="/images/vibe-desktop.jpg"
+      img="/images/vibe-desktop.png"
     />
   );
 }
@@ -158,7 +158,7 @@ function TakeoutReimagined() {
     <Section
       title="Takeout, re‑imagined"
       content="Break the boring cycle with ramen kits, pre‑packed for grab‑and‑go or delivery. Quick, craveable, and fun for family dinners too."
-      img="/images/takeout-desktop.jpg"
+      img="/images/takeout-desktop.png"
       imageLeft
     />
   );
