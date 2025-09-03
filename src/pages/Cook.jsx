@@ -1,5 +1,6 @@
 // src/pages/Cook.jsx
 import React from "react";
+
 export default function Cook() {
   return (
     <div className="min-h-screen bg-[#F2F2F2] pb-20">
@@ -21,33 +22,50 @@ export default function Cook() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-4xl px-4 mt-12">
+      <div className="mx-auto max-w-6xl px-4 mt-12">
         {/* Intro */}
         <p className="text-center text-gray-700 text-lg mb-10 leading-relaxed">
           Follow these simple steps to prepare your perfect bowl of ramen. Fast,
           fun, and fearless – just how Uudu likes it.
         </p>
 
-        {/* Steps */}
-        <div className="bg-white rounded-3xl shadow-sm p-8">
-          <h2
-            className="text-2xl font-semibold mb-6"
-            style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
-          >
-            Step-by-Step
-          </h2>
-          <ol className="list-decimal pl-5 space-y-4 text-gray-700 leading-relaxed">
-            <li>Add noodles & seasoning to the cooker bowl.</li>
-            <li>
-              Select <strong>Menu 1</strong> (460 ml water; 280 seconds).
-            </li>
-            <li>Stir noodles during the cooking process.</li>
-            <li>
-              Add toppings during the final 60 seconds if you want that perfect
-              hack.
-            </li>
-            <li>Carefully remove bowl, stir, and enjoy fearlessly!</li>
-          </ol>
+        {/* Two-column layout: Video + Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+          {/* Left: Video */}
+          <div className="aspect-video w-full rounded-3xl overflow-hidden shadow-sm">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/efXXkKFUe5M?start=3"
+              title="Uudu Cooking Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            ></iframe>
+          </div>
+
+          {/* Right: Steps */}
+          <div className="bg-white rounded-3xl shadow-sm p-8">
+            <h2
+              className="text-2xl font-semibold mb-6"
+              style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+            >
+              Step-by-Step
+            </h2>
+            <ol className="list-decimal pl-5 space-y-4 text-gray-700 leading-relaxed">
+              <li>Add noodles & seasoning to the cooker bowl.</li>
+              <li>
+                Select <strong>Menu 1</strong> (460 ml water; 280 seconds).
+              </li>
+              <li>Stir noodles during the cooking process.</li>
+              <li>
+                Add toppings during the final 60 seconds if you want that
+                perfect hack.
+              </li>
+              <li>Carefully remove bowl, stir, and enjoy fearlessly!</li>
+            </ol>
+          </div>
         </div>
 
         {/* Tips & Safety */}

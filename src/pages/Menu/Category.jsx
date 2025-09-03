@@ -1,4 +1,5 @@
 // src/pages/Menu/Category.jsx
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import ramenData from "../../data/ramen.json";
 import toppingsData from "../../data/toppings.json";
@@ -34,11 +35,11 @@ export default function Category() {
   // Get product list depending on category
   let products = [];
   if (["korea", "japan", "taiwan", "other-asia"].includes(category)) {
-    products = ramenData.filter(
-      (r) => r.origin.toLowerCase().replace(/\s/g, "-") === category
+    products = (ramenData.ramen || ramenData || []).filter(
+      (r) => r.origin?.toLowerCase().replace(/\s/g, "-") === category
     );
   } else if (category === "toppers") {
-    products = toppingsData; // toppings.json structure assumed as flat array
+    products = toppingsData.toppings || toppingsData || [];
   } else {
     products = []; // placeholder for bevs/snax/specials
   }
@@ -67,7 +68,10 @@ export default function Category() {
         {products.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((p) => (
-              <Link key={p.id} to={`/menu/${category}/${slugify(p.name)}`}>
+              <Link
+                key={p.id || p.name}
+                to={`/menu/${category}/${slugify(p.name)}`}
+              >
                 <ProductCard
                   name={p.name}
                   image={p.image || "/images/placeholder.jpg"}
