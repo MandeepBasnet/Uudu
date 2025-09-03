@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Pages
 import Home from "./pages/Home";
 import Menu from "./pages/Menu/MenuMain";
-import Category from "./pages/Menu/Category";
 import Product from "./pages/Menu/Product";
 import Cook from "./pages/Cook";
 import Location from "./pages/Location";
@@ -28,9 +27,10 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
 
-            {/* Menu & Product Routes */}
+            {/* Single Menu Page - no category routing needed */}
             <Route path="/menu" element={<Menu />} />
-            <Route path="/menu/:category" element={<Category />} />
+
+            {/* Individual Product Pages - accessed from menu */}
             <Route path="/menu/:category/:productSlug" element={<Product />} />
 
             {/* Other Pages */}
