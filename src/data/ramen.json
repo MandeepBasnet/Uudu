@@ -7,7 +7,7 @@
       "description": "A generous portion of thick chewy noodles paired with a bold comforting broth that features a rich, umami taste with layers of beefy warmth, aromatic garlic, sweet onion, as well as subtle hints of mushroom and soy sauce.",
       "price_packet": 2.25,
       "price_bowl": 3.0,
-      "spiciness": "",
+      "spiciness": "8 out of 10 flames",
       "manufacturer_url": "https://nongshimusa.com/product-detail?pid=1",
       "allergen": "Please refer to each product’s packaging for detailed allergen information.",
       "suggested_toppings": "Protein: Hard-boiled egg or Korean smokies\nVeggie: Bok choy or corn\nHack ingredient (optional): Mayonnaise or sesame paste\nFREE garnishes (optional): Green onion, jalapenos, red radish, cilantro",
@@ -24,7 +24,8 @@
           "url": "https://www.youtube.com/watch?v=0UnoH6hm-S0&ab_channel=NoodleJourney",
           "description": "Taste test - Noodle Journey (6:12)"
         }
-      ]
+      ],
+      "image_url": "nongshim-original.png"
     },
     {
       "id": 2,
@@ -46,7 +47,8 @@
           "url": "https://tinyurl.com/3nbnrx86",
           "description": "Taste test - NongshimUSA (3:20)"
         }
-      ]
+      ],
+      "image_url": "nongshim-black.png"
     },
     {
       "id": 3,
@@ -55,11 +57,21 @@
       "description": "A lighter take on Shin Original’s spicy beefy mushroom flavors, Shin Light has fewer calories and less fat, with non-fried, springy noodles and extra vegetables for a fresh twist.",
       "price_packet": 2.25,
       "price_bowl": 3.0,
-      "spiciness": "",
+      "spiciness": "8 out of 10 flames",
       "manufacturer_url": "https://nongshimusa.com/product-detail?pid=3",
       "allergen": "Please refer to each product’s packaging for detailed allergen information.",
-      "suggested_toppings": "",
-      "suggested_videos": []
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/lqG0bf4nK0k",
+          "description": "Hack - Dumplingally (00:21)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=aAsaShjDboE&ab_channel=NoodleJourney",
+          "description": "Taste test - Noodle Journey (09:54)"
+        }
+      ],
+      "image_url": "nongshim-light.png"
     },
     {
       "id": 4,
@@ -364,7 +376,7 @@
       "price_packet": 2.25,
       "price_bowl": 3.0,
       "spiciness": "",
-      "manufacturer_url": "",
+      "manufacturer_url": "https://ashadrynoodle.com/products/hello-kitty-noodles-with-supercute-soy-sauce",
       "allergen": "Please refer to each product’s packaging for detailed allergen information.",
       "suggested_toppings": "",
       "suggested_videos": []
@@ -377,7 +389,7 @@
       "price_packet": 2.25,
       "price_bowl": 3.0,
       "spiciness": "",
-      "manufacturer_url": "",
+      "manufacturer_url": "https://indomie.us/collections/dry-noodles/products/2-boxes-mi-goreng-fried-noodle-original-2x40-pk",
       "allergen": "Please refer to each product’s packaging for detailed allergen information.",
       "suggested_toppings": "",
       "suggested_videos": []
@@ -390,7 +402,7 @@
       "price_packet": 2.25,
       "price_bowl": 3.0,
       "spiciness": "",
-      "manufacturer_url": "",
+      "manufacturer_url": "https://indomie.us/collections/dry-noodles/products/indomie-mi-goreng-hot-spicy-instant-noodles-2x30-pk",
       "allergen": "Please refer to each product’s packaging for detailed allergen information.",
       "suggested_toppings": "",
       "suggested_videos": []
@@ -403,7 +415,7 @@
       "price_packet": 2.25,
       "price_bowl": 3.0,
       "spiciness": "",
-      "manufacturer_url": "",
+      "manufacturer_url": "https://indomie.us/collections/frontpage/products/indomie-mi-goreng-bbq-chicken-flavor-instant-noodles-2x30-pk",
       "allergen": "Please refer to each product’s packaging for detailed allergen information.",
       "suggested_toppings": "",
       "suggested_videos": []
@@ -416,7 +428,7 @@
       "price_packet": 2.25,
       "price_bowl": 3.0,
       "spiciness": "",
-      "manufacturer_url": "",
+      "manufacturer_url": "https://www.ustrading.com/en/products/brands/item.php?itemid=45815",
       "allergen": "Please refer to each product’s packaging for detailed allergen information.",
       "suggested_toppings": "",
       "suggested_videos": []

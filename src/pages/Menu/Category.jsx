@@ -35,11 +35,23 @@ export default function Category() {
   // Get product list depending on category
   let products = [];
   if (["korea", "japan", "taiwan", "other-asia"].includes(category)) {
-    products = (ramenData.ramen || ramenData || []).filter(
-      (r) => r.origin?.toLowerCase().replace(/\s/g, "-") === category
+    // Correctly access the ramen array
+    const ramenItems = ramenData.ramen || [];
+
+    // Map category slugs to country names
+    const categoryToCountry = {
+      korea: "S. Korea",
+      japan: "Japan",
+      taiwan: "Taiwan",
+      "other-asia": "Other Asia",
+    };
+
+    products = ramenItems.filter(
+      (r) => r.country === categoryToCountry[category]
     );
   } else if (category === "toppers") {
-    products = toppingsData.toppings || toppingsData || [];
+    // Correctly access the toppings array
+    products = toppingsData.toppings || [];
   } else {
     products = []; // placeholder for bevs/snax/specials
   }
@@ -75,7 +87,7 @@ export default function Category() {
                 <ProductCard
                   name={p.name}
                   image={p.image || "/images/placeholder.jpg"}
-                  price={p.price}
+                  price={p.price || p.price_packet}
                 />
               </Link>
             ))}
