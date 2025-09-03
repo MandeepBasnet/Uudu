@@ -149,7 +149,7 @@
     {
       "id": 7,
       "name": "Nongshim Savory Chicken Bowl",
-      "country": "S. Korea",
+      "country": "Other Asia",
       "description": "A mild, comforting chicken-flavored bowl with a rich pleasant broth that's dependably on point. Perfect for anyone avoiding spice or taking a break from the classic Korean umami taste, this budget-friendly choice makes a cozy, anytime meal.",
       "price_packet": 2.25,
       "price_bowl": 3.0,
@@ -763,7 +763,7 @@
     {
       "id": 33,
       "name": "Nongshim Tonkotsu",
-      "country": "S. Korea",
+      "country": "Other Asia",
       "description": "A creamy, pork-based broth inspired by traditional Japanese tonkotsu but with a distinctly Korean twist — lighter and slightly sweeter, with added garlic and onion notes for a cleaner, more balanced finish.",
       "price_packet": 2.25,
       "price_bowl": 3.0,
