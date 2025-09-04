@@ -2,7 +2,7 @@
 
 /* eslint-disable no-unused-vars */
 // src/pages/Menu/MenuMain.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import ramenData from "../../data/ramen.json";
 import toppingsData from "../../data/toppings.json";
@@ -70,10 +70,27 @@ const categories = [
 export default function MenuMain() {
   const [activeCategory, setActiveCategory] = useState("korea");
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const lastY = useRef(window.scrollY);
+  const [navHidden, setNavHidden] = useState(false);
 
   useEffect(() => {
     loadProducts(activeCategory);
   }, [activeCategory]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      if (currentY > lastY.current && currentY > 120) {
+        setNavHidden(true);
+      } else {
+        setNavHidden(false);
+      }
+      lastY.current = currentY;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const loadProducts = (categorySlug) => {
     let items = [];
@@ -98,55 +115,70 @@ export default function MenuMain() {
 
   const scrollToSection = (categorySlug) => {
     setActiveCategory(categorySlug);
+    setSelectedProduct(null); // Reset selected product when changing categories
     const element = document.getElementById(`section-${categorySlug}`);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
+  const handleProductClick = (product, categorySlug) => {
+    setSelectedProduct({
+      ...product,
+      categorySlug: categorySlug,
+    });
+  };
+
   const activeInfo = categories.find((cat) => cat.slug === activeCategory);
+  const displayInfo = selectedProduct || activeInfo;
 
   return (
     <div className="min-h-screen bg-[#F2F2F2] pt-20">
-      {/* Sticky Menu Navigation */}
-      <div className="fixed top-24 left-0 right-0 z-40 bg-white shadow-sm border-b">
+      {/* Fixed Menu Navigation */}
+      <div
+        className={`fixed top-24 left-0 right-0 z-40 transition-transform duration-300 ${
+          navHidden ? "-translate-y-full" : "translate-y-0"
+        }`}
+      >
         <div className="mx-auto max-w-7xl px-4">
-          <div className="flex items-center justify-between py-3">
-            <div className="flex items-center space-x-6 overflow-x-auto">
-              <span className="text-gray-500 font-medium whitespace-nowrap">
-                NUUDU
-              </span>
-              <span className="text-gray-300">—</span>
-              {categories.slice(0, 4).map((cat) => (
-                <button
-                  key={cat.slug}
-                  onClick={() => scrollToSection(cat.slug)}
-                  className={`whitespace-nowrap font-medium transition-colors ${
-                    activeCategory === cat.slug
-                      ? "text-[#C84E00] border-b-2 border-[#C84E00] pb-1"
-                      : "text-gray-600 hover:text-[#C84E00]"
-                  }`}
-                  style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
-                >
-                  {cat.name}
-                </button>
-              ))}
-            </div>
-            <div className="flex items-center space-x-6">
-              {categories.slice(4).map((cat) => (
-                <button
-                  key={cat.slug}
-                  onClick={() => scrollToSection(cat.slug)}
-                  className={`whitespace-nowrap font-medium transition-colors ${
-                    activeCategory === cat.slug
-                      ? "text-[#C84E00] border-b-2 border-[#C84E00] pb-1"
-                      : "text-gray-600 hover:text-[#C84E00]"
-                  }`}
-                  style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
-                >
-                  {cat.name.toUpperCase()}
-                </button>
-              ))}
+          <div className="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm border rounded-2xl mx-4 mt-4 mb-3">
+            <div className="flex items-center justify-between py-3 px-6">
+              <div className="flex items-center space-x-6 overflow-x-auto">
+                <span className="text-gray-500 font-medium whitespace-nowrap">
+                  NUUDU
+                </span>
+                <span className="text-gray-300">–</span>
+                {categories.slice(0, 4).map((cat) => (
+                  <button
+                    key={cat.slug}
+                    onClick={() => scrollToSection(cat.slug)}
+                    className={`whitespace-nowrap font-medium transition-colors ${
+                      activeCategory === cat.slug
+                        ? "text-[#C84E00] border-b-2 border-[#C84E00] pb-1"
+                        : "text-gray-600 hover:text-[#C84E00]"
+                    }`}
+                    style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center space-x-6">
+                {categories.slice(4).map((cat) => (
+                  <button
+                    key={cat.slug}
+                    onClick={() => scrollToSection(cat.slug)}
+                    className={`whitespace-nowrap font-medium transition-colors ${
+                      activeCategory === cat.slug
+                        ? "text-[#C84E00] border-b-2 border-[#C84E00] pb-1"
+                        : "text-gray-600 hover:text-[#C84E00]"
+                    }`}
+                    style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+                  >
+                    {cat.name.toUpperCase()}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -231,9 +263,12 @@ export default function MenuMain() {
 
                     return items.length > 0 ? (
                       items.map((product) => (
-                        <Link
+                        <div
                           key={product.id}
-                          to={`/menu/${category.slug}/${slugify(product.name)}`}
+                          onClick={() =>
+                            handleProductClick(product, category.slug)
+                          }
+                          className="cursor-pointer"
                         >
                           <ProductCard
                             name={product.name}
@@ -244,7 +279,7 @@ export default function MenuMain() {
                             }
                             price={product.price || product.price_packet}
                           />
-                        </Link>
+                        </div>
                       ))
                     ) : (
                       <div className="col-span-full text-center py-12">
@@ -257,73 +292,176 @@ export default function MenuMain() {
             ))}
           </div>
 
-          {/* Right Sidebar - Country Info - Now with better styling */}
+          {/* Right Sidebar - Product/Category Info */}
           <div className="w-80">
             <div className="sticky top-40">
-              {activeInfo && (
+              {displayInfo && (
                 <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-xl border border-gray-100 transform transition-all duration-300 hover:shadow-2xl">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="text-3xl p-2 bg-white rounded-full shadow-sm">
-                      {activeInfo.slug === "korea" ||
-                      activeInfo.slug === "japan" ||
-                      activeInfo.slug === "taiwan" ? (
-                        <img
-                          src={activeInfo.flag || "/placeholder.svg"}
-                          alt={`${activeInfo.name} flag`}
-                          className="w-8 h-6 object-cover rounded"
-                          onError={(e) => {
-                            e.target.style.display = "none";
-                            if (e.target.nextSibling) {
-                              e.target.nextSibling.style.display = "inline";
+                  {selectedProduct ? (
+                    // Product Details
+                    <>
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-16 h-16 bg-white rounded-full shadow-sm overflow-hidden">
+                          <img
+                            src={
+                              selectedProduct.image_url
+                                ? `/images/${selectedProduct.image_url}`
+                                : "/images/placeholder.jpg"
                             }
-                          }}
-                        />
-                      ) : (
-                        <span>
-                          {typeof activeInfo.flag === "string" &&
-                          activeInfo.flag.includes("/")
-                            ? "🏳️"
-                            : activeInfo.flag}
-                        </span>
-                      )}
-                    </div>
-                    <h3
-                      className="text-xl font-semibold text-gray-800"
-                      style={{
-                        fontFamily: "Bahnschrift, system-ui, sans-serif",
-                      }}
-                    >
-                      From {activeInfo.name}:
-                    </h3>
-                  </div>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                    {activeInfo.description}
-                  </p>
-                  {(activeInfo.slug === "korea" ||
-                    activeInfo.slug === "japan" ||
-                    activeInfo.slug === "taiwan") && (
-                    <div className="flex justify-center">
-                      <div className="w-20 h-14 bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center shadow-sm">
-                        <img
-                          src={activeInfo.flag || "/placeholder.svg"}
-                          alt={`${activeInfo.name} Flag`}
-                          className="w-16 h-10 object-cover rounded"
-                          onError={(e) => {
-                            e.target.style.display = "none";
-                            if (e.target.nextSibling) {
-                              e.target.nextSibling.style.display = "block";
-                            }
-                          }}
-                        />
-                        <div className="text-2xl hidden">
-                          {activeInfo.slug === "korea"
-                            ? "🇰🇷"
-                            : activeInfo.slug === "japan"
-                            ? "🇯🇵"
-                            : "🇹🇼"}
+                            alt={selectedProduct.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <h3
+                            className="text-xl font-semibold text-gray-800"
+                            style={{
+                              fontFamily: "Bahnschrift, system-ui, sans-serif",
+                            }}
+                          >
+                            {selectedProduct.name}
+                          </h3>
+                          <p className="text-[#C84E00] font-medium">
+                            $
+                            {selectedProduct.price ||
+                              selectedProduct.price_packet}
+                          </p>
                         </div>
                       </div>
-                    </div>
+
+                      {selectedProduct.description && (
+                        <div className="mb-6">
+                          <h4 className="font-semibold text-gray-800 mb-2">
+                            Description
+                          </h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {selectedProduct.description}
+                          </p>
+                        </div>
+                      )}
+
+                      {selectedProduct.ingredients && (
+                        <div className="mb-6">
+                          <h4 className="font-semibold text-gray-800 mb-2">
+                            Ingredients
+                          </h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {selectedProduct.ingredients}
+                          </p>
+                        </div>
+                      )}
+
+                      {selectedProduct.spice_level && (
+                        <div className="mb-6">
+                          <h4 className="font-semibold text-gray-800 mb-2">
+                            Spice Level
+                          </h4>
+                          <div className="flex items-center gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <div
+                                key={i}
+                                className={`w-3 h-3 rounded-full ${
+                                  i < selectedProduct.spice_level
+                                    ? "bg-red-500"
+                                    : "bg-gray-200"
+                                }`}
+                              />
+                            ))}
+                            <span className="ml-2 text-sm text-gray-600">
+                              {selectedProduct.spice_level}/5
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      {selectedProduct.allergen && (
+                        <div className="mb-6">
+                          <h4 className="font-semibold text-gray-800 mb-2">
+                            Allergen Information
+                          </h4>
+                          <p className="text-gray-600 text-xs leading-relaxed bg-yellow-50 p-2 rounded">
+                            {selectedProduct.allergen}
+                          </p>
+                        </div>
+                      )}
+
+                      <button
+                        onClick={() => setSelectedProduct(null)}
+                        className="w-full mt-4 bg-[#C84E00] text-white py-2 px-4 rounded-lg hover:bg-[#B73E00] transition-colors"
+                        style={{
+                          fontFamily: "Bahnschrift, system-ui, sans-serif",
+                        }}
+                      >
+                        Back to Category Info
+                      </button>
+                    </>
+                  ) : (
+                    // Category Info
+                    <>
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="text-3xl p-2 bg-white rounded-full shadow-sm">
+                          {activeInfo.slug === "korea" ||
+                          activeInfo.slug === "japan" ||
+                          activeInfo.slug === "taiwan" ? (
+                            <img
+                              src={activeInfo.flag || "/placeholder.svg"}
+                              alt={`${activeInfo.name} flag`}
+                              className="w-8 h-6 object-cover rounded"
+                              onError={(e) => {
+                                e.target.style.display = "none";
+                                if (e.target.nextSibling) {
+                                  e.target.nextSibling.style.display = "inline";
+                                }
+                              }}
+                            />
+                          ) : (
+                            <span>
+                              {typeof activeInfo.flag === "string" &&
+                              activeInfo.flag.includes("/")
+                                ? "🏳️"
+                                : activeInfo.flag}
+                            </span>
+                          )}
+                        </div>
+                        <h3
+                          className="text-xl font-semibold text-gray-800"
+                          style={{
+                            fontFamily: "Bahnschrift, system-ui, sans-serif",
+                          }}
+                        >
+                          From {activeInfo.name}:
+                        </h3>
+                      </div>
+                      <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                        {activeInfo.description}
+                      </p>
+                      {(activeInfo.slug === "korea" ||
+                        activeInfo.slug === "japan" ||
+                        activeInfo.slug === "taiwan") && (
+                        <div className="flex justify-center">
+                          <div className="w-20 h-14 bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center shadow-sm">
+                            <img
+                              src={activeInfo.flag || "/placeholder.svg"}
+                              alt={`${activeInfo.name} Flag`}
+                              className="w-16 h-10 object-cover rounded"
+                              onError={(e) => {
+                                e.target.style.display = "none";
+                                if (e.target.nextSibling) {
+                                  e.target.nextSibling.style.display = "block";
+                                }
+                              }}
+                            />
+                            <div className="text-2xl hidden">
+                              {activeInfo.slug === "korea"
+                                ? "🇰🇷"
+                                : activeInfo.slug === "japan"
+                                ? "🇯🇵"
+                                : "🇹🇼"}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               )}
@@ -334,30 +472,6 @@ export default function MenuMain() {
     </div>
   );
 }
-
-// Intersection Observer to track active section
-const useIntersectionObserver = (setActiveCategory) => {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const categorySlug = entry.target.id.replace("section-", "");
-            setActiveCategory(categorySlug);
-          }
-        });
-      },
-      { threshold: 0.3, rootMargin: "-100px 0px -50% 0px" }
-    );
-
-    categories.forEach((cat) => {
-      const element = document.getElementById(`section-${cat.slug}`);
-      if (element) observer.observe(element);
-    });
-
-    return () => observer.disconnect();
-  }, [setActiveCategory]);
-};
 
 function slugify(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
