@@ -48,7 +48,7 @@
           "description": "Taste test - NongshimUSA (3:20)"
         }
       ],
-      "image_url": "nongshim-black.png"
+      "image_url": "nongshim-shin-black.png"
     },
     {
       "id": 3,
@@ -71,7 +71,7 @@
           "description": "Taste test - Noodle Journey (09:54)"
         }
       ],
-      "image_url": "nongshim-light.png"
+      "image_url": "nongshim-shin-light.png"
     },
     {
       "id": 4,
@@ -98,7 +98,7 @@
           "description": "Taste Test - usujason (05:49)"
         }
       ],
-      "image_url": "nongshim-veggie.png"
+      "image_url": "nongshim-soon-veggie.png"
     },
     {
       "id": 5,
@@ -144,7 +144,7 @@
           "description": "Taste Test - Hipnotic Dialogue (04:08)"
         }
       ],
-      "image_url": "nongshim-hot.png"
+      "image_url": "nongshim-hot&spicy.png"
     },
     {
       "id": 7,
@@ -309,7 +309,7 @@
           "description": "Hack - Mike's Mighty Good (00:32)"
         }
       ],
-      "image_url": "buldak-2x-spicy.png"
+      "image_url": "buldak-2X-spicy.png"
     },
     {
       "id": 14,
