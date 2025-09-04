@@ -136,7 +136,7 @@ export default function MenuMain() {
     <div className="min-h-screen bg-[#F2F2F2] pt-20">
       {/* Fixed Menu Navigation */}
       <div
-        className={`fixed top-24 left-0 right-0 z-40 transition-transform duration-300 ${
+        className={`fixed top-20 left-0 right-0 z-40 transition-transform duration-300 ${
           navHidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
