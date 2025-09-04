@@ -73,6 +73,7 @@ export default function MenuMain() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const lastY = useRef(window.scrollY);
   const [navHidden, setNavHidden] = useState(false);
+  const rafId = useRef(null);
 
   useEffect(() => {
     loadProducts(activeCategory);
@@ -91,6 +92,52 @@ export default function MenuMain() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Auto-update active category based on scroll position
+  useEffect(() => {
+    const anchorOffset = 160; // approximate offset below the fixed nav
+
+    const updateActiveFromScroll = () => {
+      let closestSlug = activeCategory;
+      let minDistance = Number.POSITIVE_INFINITY;
+
+      categories.forEach((cat) => {
+        const el = document.getElementById(`section-${cat.slug}`);
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const distance = Math.abs(rect.top - anchorOffset);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestSlug = cat.slug;
+        }
+      });
+
+      if (closestSlug !== activeCategory) {
+        setSelectedProduct(null);
+        setActiveCategory(closestSlug);
+      }
+    };
+
+    const onScroll = () => {
+      if (rafId.current != null) return;
+      rafId.current = requestAnimationFrame(() => {
+        rafId.current = null;
+        updateActiveFromScroll();
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // Run once on mount to set initial category based on current scroll
+    updateActiveFromScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId.current != null) {
+        cancelAnimationFrame(rafId.current);
+        rafId.current = null;
+      }
+    };
+  }, [activeCategory]);
 
   const loadProducts = (categorySlug) => {
     let items = [];
@@ -202,7 +249,7 @@ export default function MenuMain() {
                       <img
                         src={category.flag || "/placeholder.svg"}
                         alt={`${category.name} flag`}
-                        className="w-8 h-6 object-cover rounded"
+                        className="w-8 h-6 object-contain rounded"
                         onError={(e) => {
                           e.target.style.display = "none";
                           if (e.target.nextSibling) {
@@ -309,7 +356,7 @@ export default function MenuMain() {
                                 : "/images/placeholder.jpg"
                             }
                             alt={selectedProduct.name}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-contain"
                           />
                         </div>
                         <div>
@@ -406,7 +453,7 @@ export default function MenuMain() {
                             <img
                               src={activeInfo.flag || "/placeholder.svg"}
                               alt={`${activeInfo.name} flag`}
-                              className="w-8 h-6 object-cover rounded"
+                              className="w-8 h-6 object-contain rounded"
                               onError={(e) => {
                                 e.target.style.display = "none";
                                 if (e.target.nextSibling) {
@@ -443,7 +490,7 @@ export default function MenuMain() {
                             <img
                               src={activeInfo.flag || "/placeholder.svg"}
                               alt={`${activeInfo.name} Flag`}
-                              className="w-16 h-10 object-cover rounded"
+                              className="w-16 h-10 object-contain rounded"
                               onError={(e) => {
                                 e.target.style.display = "none";
                                 if (e.target.nextSibling) {

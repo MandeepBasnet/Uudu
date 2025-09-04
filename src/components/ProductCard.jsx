@@ -3,7 +3,7 @@ import React from "react";
 export default function ProductCard({ name, image, price }) {
   return (
     <div className="overflow-hidden rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
-      <img src={image} alt={name} className="h-40 w-full object-cover" />
+      <img src={image} alt={name} className="h-40 w-full object-contain" />
       <div className="p-4">
         <h3
           className="text-lg font-semibold"
