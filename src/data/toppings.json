@@ -68,7 +68,7 @@
       "price": 0.65,
       "manufacturer_url": "",
       "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation.",
-      "image_url": "mozzarella-cheese"
+      "image_url": "mozzarella-cheese.png"
     },
     {
       "id": 8,
@@ -211,7 +211,7 @@
       "image_url": "egg-hard-boiled.png"
     },
     {
-      "id": 21,
+      "id": 22,
       "name": "Egg - Soft-boiled, Ramen Style",
       "category": "Protein",
       "description": "",
@@ -221,7 +221,7 @@
       "image_url": "egg-soft-boiled,ramen-style .png"
     },
     {
-      "id": 22,
+      "id": 23,
       "name": "Egg - Extra Crispy",
       "category": "Protein",
       "description": "An Asian street-food favorite that takes eggs to the edge. Its blistered, golden crust adds a satisfying crunch while keeping the yolk soft inside. A bold twist that pushes ramen hacking past the usual egg game.",
@@ -231,7 +231,7 @@
       "image_url": "egg-extra-crispy.png"
     },
     {
-      "id": 23,
+      "id": 24,
       "name": "Korean Fish cake",
       "category": "Protein",
       "description": "Flat strips of tasty Korean fish cake, lightly sautéed for savory depth. A street-food staple that’s soft, slightly bouncy, and soaks up broths and sauces like a champ—an easy flavor boost for any ramyun hack.",
@@ -241,7 +241,7 @@
       "image_url": "korean-fish-cake.png"
     },
     {
-      "id": 24,
+      "id": 25,
       "name": "Korean Mini Smokies",
       "category": "Protein",
       "description": "These popular bite-sized sausages are the star of any noodle hack—think cute little kielbasas with a Korean edge. Juicy, smoky, and packed with umami, they instantly upgrade a simple bowl into street-food fun.",
@@ -251,7 +251,7 @@
       "image_url": "korean-mini-smokies.png"
     },
     {
-      "id": 25,
+      "id": 26,
       "name": "Lap Cheong Sausage",
       "category": "Protein",
       "description": "This Chinese classic brings an unforgettable sweet-savory punch. A familiar component of dim sum and fried rice dishes so you know the vibe—rich, tender, and slightly smoky. It’s gonna wake up any broth or add bold pops to dry-style hacks.",
@@ -261,7 +261,7 @@
       "image_url": "lap-cheong-sausage.png"
     },
     {
-      "id": 26,
+      "id": 27,
       "name": "Crispy Pork Egg Roll",
       "category": "Protein",
       "description": "Golden, crunchy, and packed with savory pork and veggies—this reliable snack feels right at home next to a steaming ramen bowl. Perfect for dunking in broth or hacking into dry noodles for extra crunch and flavor.",
@@ -271,7 +271,7 @@
       "image_url": "crispy-pork-egg-roll.png"
     },
     {
-      "id": 27,
+      "id": 28,
       "name": "K-Spam Crunch",
       "category": "Protein",
       "description": "K-Spam Crunch brings street-food pop and drama to your hack creations—thick, juicy Spam coated in a golden, fluffy batter loaded with crispy ramen bits. A deliciously unique side built to dunk, share, or hack right into your noodles.",
@@ -281,7 +281,7 @@
       "image_url": "k-spam-crunch.png"
     },
     {
-      "id": 28,
+      "id": 29,
       "name": "Bean Sprout",
       "category": "Veggies",
       "description": "",
