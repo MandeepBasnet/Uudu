@@ -192,9 +192,9 @@
     },
     {
       "id": 20,
-      "name": "Egg - Plain",
+      "name": "Egg - Raw",
       "category": "Protein",
-      "description": "",
+      "description": "The OG ramen hack that levels up any soup noodle. Drop it straight into the boil for a silky poached vibe, or whisk it in for a rich, velvety broth that smooths out the seasoning punch. Pure comfort, street-style.",
       "price": 0.65,
       "manufacturer_url": "",
       "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation.",
@@ -202,7 +202,7 @@
     },
     {
       "id": 21,
-      "name": "Egg - Hard-boiled",
+      "name": "Egg - Plain, Hard-boiled",
       "category": "Protein",
       "description": "",
       "price": 0.65,
@@ -279,16 +279,6 @@
       "manufacturer_url": "https://nongshimusa.com/product-detail?pid=1",
       "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation.",
       "image_url": "k-spam-crunch.png"
-    },
-    {
-      "id": 29,
-      "name": "Bean Sprout",
-      "category": "Veggies",
-      "description": "",
-      "price": 0.0,
-      "manufacturer_url": "",
-      "allergen": "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation.",
-      "image_url": "bean-sprout.png"
     }
   ]
 }
