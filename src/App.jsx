@@ -1,6 +1,7 @@
 // src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // Pages
 import Home from "./pages/Home";
@@ -50,6 +51,9 @@ export default function App() {
         {/* Footer stays across pages */}
         <Footer />
       </div>
+      
+      {/* Vercel Speed Insights */}
+      <SpeedInsights />
     </Router>
   );
 }
