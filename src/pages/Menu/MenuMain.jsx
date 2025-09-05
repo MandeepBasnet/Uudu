@@ -3,7 +3,6 @@
 /* eslint-disable no-unused-vars */
 // src/pages/Menu/MenuMain.jsx
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import ramenData from "../../data/ramen.json";
 import toppingsData from "../../data/toppings.json";
 import categories from "../../data/categories.json";
@@ -288,7 +287,75 @@ export default function MenuMain() {
                           (r) => r.country === categoryToCountry[category.slug]
                         );
                       } else if (category.slug === "toppers") {
-                        items = toppingsData.toppings || [];
+                        const allToppings = toppingsData.toppings || [];
+                        const toppingCategories = [
+                          "Veggies",
+                          "Flavoring",
+                          "Garnishes",
+                          "Protein",
+                        ];
+
+                        return (
+                          <div className="col-span-full space-y-12">
+                            {toppingCategories.map((toppingCategory) => {
+                              const categoryToppings = allToppings.filter(
+                                (topping) =>
+                                  topping.category === toppingCategory
+                              );
+
+                              if (categoryToppings.length === 0) return null;
+
+                              return (
+                                <div
+                                  key={toppingCategory}
+                                  className="space-y-6"
+                                >
+                                  {/* Subsection Header */}
+                                  <div className="flex items-center gap-3 mb-6">
+                                    <h3
+                                      className="text-xl font-semibold text-gray-800"
+                                      style={{
+                                        fontFamily:
+                                          "Bahnschrift, system-ui, sans-serif",
+                                      }}
+                                    >
+                                      {toppingCategory}
+                                    </h3>
+                                  </div>
+
+                                  {/* Subsection Products Grid */}
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                                    {categoryToppings.map((product) => (
+                                      <div
+                                        key={product.id}
+                                        onClick={() =>
+                                          handleProductClick(
+                                            product,
+                                            category.slug
+                                          )
+                                        }
+                                        className="cursor-pointer"
+                                      >
+                                        <ProductCard
+                                          name={product.name}
+                                          image={
+                                            product.image_url
+                                              ? `/images/${product.image_url}`
+                                              : "/images/placeholder.jpg"
+                                          }
+                                          price={
+                                            product.price ||
+                                            product.price_packet
+                                          }
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
                       }
 
                       return items.length > 0 ? (
