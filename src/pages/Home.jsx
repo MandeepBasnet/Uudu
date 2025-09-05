@@ -10,11 +10,16 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#F2F2F2] text-[#3E3E3E]">
       <Hero />
-      <Mothership />
-      <SoHackinEasy />
-      <ValueBeyondHype />
-      <ChilledVibe />
-      <TakeoutReimagined />
+      <div className="hidden md:block">
+        <AnimatedSections />
+      </div>
+      <div className="md:hidden">
+        <Mothership />
+        <SoHackinEasy />
+        <ValueBeyondHype />
+        <ChilledVibe />
+        <TakeoutReimagined />
+      </div>
     </div>
   );
 }
@@ -28,12 +33,12 @@ function Hero() {
             <img
               src="/images/hero-desktop.png"
               alt="Hero ramen"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover md:animate-zoom-in-soft"
             />
             <div className="absolute inset-0 bg-black/40" />
             <div className="absolute inset-0 flex items-center justify-center">
               <h1
-                className="text-3xl sm:text-6xl font-semibold text-white"
+                className="text-3xl sm:text-6xl font-semibold text-white md:animate-fade-in-up"
                 style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
               >
                 UUDU. Fearless Ramen Hack
@@ -235,5 +240,28 @@ function TakeoutReimagined() {
         </div>
       </div>
     </section>
+  );
+}
+
+// Desktop-only wrapper with entrance animations per section
+function AnimatedSections() {
+  return (
+    <>
+      <section className="py-12 sm:py-16 md:animate-fade-in-up">
+        <Mothership />
+      </section>
+      <section className="py-12 sm:py-16 md:animate-fade-in-up anim-delay-100">
+        <SoHackinEasy />
+      </section>
+      <section className="py-12 sm:py-16 md:animate-fade-in-up anim-delay-200">
+        <ValueBeyondHype />
+      </section>
+      <section className="py-12 sm:py-16 md:animate-fade-in-up anim-delay-300">
+        <ChilledVibe />
+      </section>
+      <section className="py-12 sm:py-16 md:animate-fade-in-up anim-delay-300">
+        <TakeoutReimagined />
+      </section>
+    </>
   );
 }

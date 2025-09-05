@@ -1,1 +1,43 @@
 @import "tailwindcss";
+
+@layer utilities {
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes zoom-in-soft {
+    from {
+      transform: scale(1.05);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: transform, opacity;
+  }
+
+  .animate-zoom-in-soft {
+    animation: zoom-in-soft 1.2s ease-out both;
+    will-change: transform;
+  }
+
+  .anim-delay-100 {
+    animation-delay: 0.1s;
+  }
+  .anim-delay-200 {
+    animation-delay: 0.2s;
+  }
+  .anim-delay-300 {
+    animation-delay: 0.3s;
+  }
+}
