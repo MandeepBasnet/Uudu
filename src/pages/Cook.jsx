@@ -3,14 +3,9 @@ import React from "react";
 
 export default function Cook() {
   return (
-    <div className="min-h-screen bg-[#F2F2F2] pb-20">
+    <div className="min-h-screen bg-[#F2F2F2]">
       {/* Hero */}
-      <div className="relative h-64 w-full">
-        <img
-          src="/images/cook-hero.jpg"
-          alt="Cook ramen"
-          className="h-full w-full object-cover"
-        />
+      <div className="relative h-60 w-full">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
           <h1
             className="text-3xl sm:text-4xl font-semibold text-white text-center"
@@ -38,7 +33,6 @@ export default function Cook() {
               height="100%"
               src="https://www.youtube.com/embed/efXXkKFUe5M?start=3"
               title="Uudu Cooking Video"
-              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="w-full h-full"

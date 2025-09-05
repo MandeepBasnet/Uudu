@@ -5,12 +5,7 @@ export default function WhatsUudu() {
   return (
     <div className="min-h-screen bg-[#F2F2F2] pb-20">
       {/* Hero */}
-      <div className="relative h-64 w-full">
-        <img
-          src="/images/whatsuudu-hero.jpg"
-          alt="What's Uudu?"
-          className="h-full w-full object-cover"
-        />
+      <div className="relative h-60 w-full">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
           <h1
             className="text-3xl sm:text-4xl font-semibold text-white text-center"
