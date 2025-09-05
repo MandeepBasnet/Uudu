@@ -1,0 +1,50 @@
+[
+  {
+    "name": "S. Korea",
+    "slug": "korea",
+    "flag": "/images/s-korea.jpg",
+    "description": "Known for bold, fiery flavors and satisfyingly chewy noodles, Korean instant ramyun has emerged as the worldwide packaged noodle of choice. UUDU's Seoul-ful lineup includes the iconic spicy umami of Shin Ramyun to Buldak's creamy, cheesy heat — plus other tasty options in between. It's plenty of options to indulge your Korean flavor cravings."
+  },
+  {
+    "name": "Japan",
+    "slug": "japan",
+    "flag": "/images/japan.jpg",
+    "description": "The birthplace of instant ramen brings refined, balanced flavors with premium ingredients. From rich tonkotsu to delicate shio broths, Japanese ramen offers sophisticated taste profiles that have perfected the art of noodle-making over decades."
+  },
+  {
+    "name": "Taiwan",
+    "slug": "taiwan",
+    "flag": "/images/taiwan.jpg",
+    "description": "Taiwan's innovative noodle scene features unique air-dried textures and creative flavor combinations. A-Sha's premium wheat noodles showcase the island's dedication to quality ingredients and distinctive cooking techniques."
+  },
+  {
+    "name": "Other Asia",
+    "slug": "other-asia",
+    "flag": "🌏",
+    "description": "Explore diverse flavors from across Asia, including Indonesia's beloved Mi Goreng, Thailand's aromatic Tom Yum, and Singapore's rich curry laksa. Each region brings its own special blend of spices and cooking traditions."
+  },
+  {
+    "name": "Toppers",
+    "slug": "toppers",
+    "flag": "🍳",
+    "description": "Transform your ramen with our curated selection of proteins, vegetables, and garnishes. From Korean fish cake to crispy eggs, these toppings let you customize your bowl exactly how you want it."
+  },
+  {
+    "name": "Bévs",
+    "slug": "bevs",
+    "flag": "🥤",
+    "description": "Refresh your palate with drinks that complement your ramen experience. Coming soon with authentic Asian beverages and modern refreshments."
+  },
+  {
+    "name": "Snax",
+    "slug": "snax",
+    "flag": "🍢",
+    "description": "Perfect sides and snacks to round out your meal. From crispy treats to traditional accompaniments, these items enhance your ramen adventure."
+  },
+  {
+    "name": "Specials",
+    "slug": "specials",
+    "flag": "⭐",
+    "description": "Limited-time offerings and unique creations that showcase innovative flavor combinations and seasonal ingredients. Check back regularly for new discoveries."
+  }
+]
