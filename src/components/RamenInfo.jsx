@@ -1,0 +1,108 @@
+// src/components/RamenInfo.jsx
+import React from "react";
+
+export default function RamenInfo({ product, onBack }) {
+  if (!product) return null;
+
+  return (
+    <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-xl border border-gray-100 transform transition-all duration-300 hover:shadow-2xl">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-16 h-16 bg-white rounded-full shadow-sm overflow-hidden">
+          <img
+            src={
+              product.image_url
+                ? `/images/${product.image_url}`
+                : "/images/placeholder.jpg"
+            }
+            alt={product.name}
+            className="w-full h-full object-contain"
+          />
+        </div>
+        <div>
+          <h3
+            className="text-xl font-semibold text-gray-800"
+            style={{
+              fontFamily: "Bahnschrift, system-ui, sans-serif",
+            }}
+          >
+            {product.name}
+          </h3>
+          <p className="text-[#C84E00] font-medium">
+            ${product.price || product.price_packet}
+          </p>
+        </div>
+      </div>
+
+      {product.description && (
+        <div className="mb-6">
+          <h4 className="font-semibold text-gray-800 mb-2">Description</h4>
+          <p className="text-gray-600 text-sm leading-relaxed">
+            {product.description}
+          </p>
+        </div>
+      )}
+
+      {product.spiciness && (
+        <div className="mb-6">
+          <h4 className="font-semibold text-gray-800 mb-2">Spiciness</h4>
+          <p className="text-red-500 font-medium text-sm">
+            {product.spiciness}
+          </p>
+        </div>
+      )}
+
+      {product.suggested_toppings && (
+        <div className="mb-6">
+          <h4 className="font-semibold text-gray-800 mb-2">
+            Suggested Toppings
+          </h4>
+          <div className="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
+            {product.suggested_toppings}
+          </div>
+        </div>
+      )}
+
+      {product.suggested_videos && product.suggested_videos.length > 0 && (
+        <div className="mb-6">
+          <h4 className="font-semibold text-gray-800 mb-2">
+            Video Suggestions
+          </h4>
+          <div className="space-y-2">
+            {product.suggested_videos.map((video, index) => (
+              <a
+                key={index}
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-blue-600 hover:text-blue-800 text-sm underline"
+              >
+                {video.description}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {product.allergen && (
+        <div className="mb-6">
+          <h4 className="font-semibold text-gray-800 mb-2">
+            Allergen Information
+          </h4>
+          <p className="text-gray-600 text-xs leading-relaxed bg-yellow-50 p-2 rounded">
+            {product.allergen}
+          </p>
+        </div>
+      )}
+
+      <button
+        onClick={onBack}
+        className="w-full mt-4 bg-[#C84E00] text-white py-2 px-4 rounded-lg hover:bg-[#B73E00] transition-colors"
+        style={{
+          fontFamily: "Bahnschrift, system-ui, sans-serif",
+        }}
+      >
+        Back to Category Info
+      </button>
+    </div>
+  );
+}
