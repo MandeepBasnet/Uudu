@@ -1,4 +1,3 @@
-// src/pages/Location.jsx
 import React from "react";
 
 export default function Location() {
@@ -19,11 +18,20 @@ export default function Location() {
       {/* Content */}
       <div className="mx-auto max-w-5xl px-4 mt-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Map Placeholder */}
-          <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
-            <div className="h-80 w-full bg-gray-200 flex items-center justify-center text-gray-500">
-              <p className="text-center">[ Map Embed Placeholder ]</p>
-            </div>
+          {/* Map Embed */}
+          <div
+            id="map"
+            className="bg-white rounded-3xl shadow-sm overflow-hidden"
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3316.4631394166847!2d-118.04061468478428!3d33.83221658066949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dd2c2b7f7b7b7b%3A0x7f7b7b7b7b7b7b7b!2s4931%20Lincoln%20Ave%2C%20Cypress%2C%20CA%2090630%2C%20USA!5e0!3m2!1sen!2sus!4v1634567890123!5m2!1sen!2sus"
+              width="100%"
+              height="320"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              title="Uudu Location Map"
+            ></iframe>
           </div>
 
           {/* Store Info */}

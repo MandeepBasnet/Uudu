@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -25,11 +26,14 @@ export default function Footer() {
                   <p>4931 Lincoln Avenue</p>
                   <p>Cypress, CA 90630</p>
                 </div>
-                <p className="text-[#3E3E3E] mt-3">(123) 456.7890</p>
+                <p className="text-[#3E3E3E]">(123) 456-7890</p>
               </div>
-              <button className="mt-4 bg-[#C84E00] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#B73D00] transition-colors">
+              <Link
+                to="/location#map"
+                className="mt-6 inline-block bg-[#C84E00] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#B73D00] transition-colors"
+              >
                 MAP
-              </button>
+              </Link>
             </div>
 
             {/* Store Image Section */}
@@ -49,7 +53,11 @@ export default function Footer() {
               >
                 Hours
               </h3>
-              <p className="text-lg text-[#3E3E3E]">Mon – Sat: 11am – 7pm</p>
+              <div className="text-[#3E3E3E]">
+                <p>Mon – Thu: 11:00 AM – 9:00 PM</p>
+                <p>Fri – Sat: 11:00 AM – 10:00 PM</p>
+                <p>Sun: 12:00 PM – 8:00 PM</p>
+              </div>
             </div>
           </div>
         </div>
