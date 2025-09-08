@@ -4,6 +4,25 @@ import React from "react";
 export default function ToppingsInfo({ product, onBack }) {
   if (!product) return null;
 
+  // Function to render spiciness with fire emojis
+  const renderSpiciness = (spiciness) => {
+    if (!spiciness) return null;
+
+    const match = spiciness.match(/(\d+)\s*out\s*of\s*10\s*flames?/i);
+    if (match) {
+      const count = parseInt(match[1]);
+      const fireEmojis = "🔥".repeat(count);
+      return (
+        <div className="flex items-center gap-2">
+          <span className="text-2xl">{fireEmojis}</span>
+          <span className="text-gray-500 text-xs">({count}/10)</span>
+        </div>
+      );
+    }
+
+    return <p className="text-red-500 font-medium text-sm">{spiciness}</p>;
+  };
+
   return (
     <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-xl border border-gray-100 transform transition-all duration-300 hover:shadow-2xl">
       <div className="flex items-center gap-4 mb-6">
@@ -54,9 +73,7 @@ export default function ToppingsInfo({ product, onBack }) {
       {product.spiciness && (
         <div className="mb-6">
           <h4 className="font-semibold text-gray-800 mb-2">Spiciness</h4>
-          <p className="text-red-500 font-medium text-sm">
-            {product.spiciness}
-          </p>
+          {renderSpiciness(product.spiciness)}
         </div>
       )}
 
