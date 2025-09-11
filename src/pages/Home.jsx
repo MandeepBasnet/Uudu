@@ -119,7 +119,7 @@ function SoHackinEasy() {
         </div>
         <div className="md:col-span-7">
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[#99564c]"
+            className="text-4xl sm:text-6xl font-bold text-[#99564c] mb-6"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             So hackin' easy
@@ -150,7 +150,7 @@ function ValueBeyondHype() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 md:grid-cols-20">
         <div className="md:col-span-7 md:order-1">
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[#99564c]"
+            className="text-4xl sm:text-6xl font-bold text-[#99564c] mb-6"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             Value beyond
@@ -202,7 +202,7 @@ function ChilledVibe() {
         </div>
         <div className="md:col-span-7">
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[#99564c]"
+            className="text-4xl sm:text-6xl font-bold text-[#99564c] mb-6"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             Chilled vibe for a new foodie generation
@@ -232,7 +232,7 @@ function TakeoutReimagined() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 md:grid-cols-20">
         <div className="md:col-span-7 md:order-1">
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[#99564c]"
+            className="text-4xl sm:text-6xl font-bold text-[#99564c] mb-6"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             Takeout, re‑imagined
