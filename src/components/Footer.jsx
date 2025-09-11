@@ -10,7 +10,7 @@ export default function Footer() {
             {/* Location Section */}
             <div>
               <h3
-                className="text-2xl font-semibold text-[#C84E00] mb-4"
+                className="text-2xl font-semibold text-[#99564c] mb-4"
                 style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
               >
                 Location
@@ -30,7 +30,7 @@ export default function Footer() {
               </div>
               <Link
                 to="/location#map"
-                className="mt-6 inline-block bg-[#C84E00] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#B73D00] transition-colors"
+                className="mt-6 inline-block bg-[#99564c] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#99564c]/80 transition-colors"
               >
                 MAP
               </Link>
@@ -48,7 +48,7 @@ export default function Footer() {
             {/* Hours Section */}
             <div>
               <h3
-                className="text-2xl font-semibold text-[#C84E00] mb-4"
+                className="text-2xl font-semibold text-[#99564c] mb-4"
                 style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
               >
                 Hours

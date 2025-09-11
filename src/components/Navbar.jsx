@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 
 export default function Navbar() {
@@ -35,7 +37,7 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-4">
-        <nav className="mt-4 mb-3 rounded-2xl bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
+        <nav className="mt-4 mb-3 rounded-2xl bg-white/20 backdrop-blur supports-[backdrop-filter]:bg-white/10 shadow-sm">
           <div className="flex items-center justify-between px-4 py-3">
             <a href="/" className="flex flex-col items-center">
               <img
@@ -44,14 +46,14 @@ export default function Navbar() {
                 className="size-8 rounded-full object-cover"
               />
               <span
-                className="text-xs font-semibold tracking-wide mt-1"
+                className="text-xs font-semibold tracking-wide mt-1 text-[#99564c]"
                 style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
               >
                 UUDU
               </span>
             </a>
             <button
-              className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-[#C84E00] hover:bg-[#C84E00]/10 focus:outline-none focus:ring-2 focus:ring-[#C84E00]"
+              className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-[#99564c] hover:bg-[#99564c]/10 focus:outline-none focus:ring-2 focus:ring-[#99564c]"
               aria-label="Open menu"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((o) => !o)}
@@ -79,17 +81,17 @@ export default function Navbar() {
                 )}
               </svg>
             </button>
-            <ul className="hidden gap-6 md:flex text-sm">
+            <ul className="hidden gap-6 md:flex text-base font-bold">
               {navLinks.map((link, index) => (
                 <li key={link.label} className="flex items-center">
                   <a
-                    className="inline-block px-2 py-4 text-[#C84E00] hover:text-[#B73D00] transition-colors"
+                    className="inline-block px-2 py-4 text-[#99564c] hover:text-[#99564c]/80 transition-colors"
                     href={link.path}
                   >
                     {link.label}
                   </a>
                   {index < navLinks.length - 1 && (
-                    <span className="ml-6 text-[#C84E00]">•</span>
+                    <span className="ml-6 text-[#99564c] font-bold">•</span>
                   )}
                 </li>
               ))}
@@ -98,12 +100,12 @@ export default function Navbar() {
 
           {/* Mobile dropdown */}
           {mobileOpen && (
-            <div className="md:hidden border-t border-[#C84E00]/10 px-2 py-2">
-              <ul className="flex flex-col text-sm">
+            <div className="md:hidden border-t border-[#99564c]/10 px-2 py-2">
+              <ul className="flex flex-col text-base font-bold">
                 {navLinks.map((link) => (
                   <li key={link.label}>
                     <a
-                      className="block w-full rounded-md px-3 py-3 text-[#C84E00] hover:bg-[#C84E00]/10"
+                      className="block w-full rounded-md px-3 py-3 text-[#99564c] hover:bg-[#99564c]/10"
                       href={link.path}
                       onClick={() => setMobileOpen(false)}
                     >
