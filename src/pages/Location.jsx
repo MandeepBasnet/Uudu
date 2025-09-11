@@ -40,37 +40,41 @@ export default function Location() {
               className="text-2xl font-semibold mb-4"
               style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
             >
-              Uudu — Cypress Square
+              UUDU — Cypress Square
             </h2>
-            <p className="text-gray-700 mb-2">
-              4931 Lincoln Avenue <br />
-              Cypress, CA 90630
-            </p>
-            <p className="text-gray-700 mb-4">Phone: (123) 456-7890</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+              {/* Left column: Address, Title, Button */}
+              <div>
+                <p className="text-gray-700 mb-2">
+                  4931 Lincoln Avenue <br />
+                  Cypress, CA 90630
+                </p>
+                <p className="text-gray-700 mb-4">Phone: (123) 456-7890</p>
 
-            {/* Hours */}
-            <h3
-              className="text-lg font-semibold mt-6 mb-2"
-              style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
-            >
-              Opening Hours
-            </h3>
-            <ul className="text-gray-700 text-sm space-y-1">
-              <li>Mon – Thu: 11:00 AM – 9:00 PM</li>
-              <li>Fri – Sat: 11:00 AM – 10:00 PM</li>
-              <li>Sun: 12:00 PM – 8:00 PM</li>
-            </ul>
+                <a
+                  href="https://maps.google.com?q=4931+Lincoln+Avenue+Cypress+CA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-[#99564c] text-white px-5 py-2 rounded-xl shadow-sm hover:bg-[#A63E00] transition-colors"
+                >
+                  Open Map
+                </a>
+              </div>
 
-            {/* CTA */}
-            <div className="mt-6">
-              <a
-                href="https://maps.google.com?q=4931+Lincoln+Avenue+Cypress+CA"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-[#C84E00] text-white px-5 py-2 rounded-xl shadow-sm hover:bg-[#A63E00] transition-colors"
-              >
-                Open in Google Maps
-              </a>
+              {/* Right column: Hours aligned to top */}
+              <div className="mt-6 md:mt-0">
+                <h3
+                  className="text-lg mb-2"
+                  style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+                >
+                  Opening Hours
+                </h3>
+                <ul className="text-gray-700 text-sm space-y-1">
+                  <li>Mon – Thu: 11:00 AM – 9:00 PM</li>
+                  <li>Fri – Sat: 11:00 AM – 10:00 PM</li>
+                  <li>Sun: 12:00 PM – 8:00 PM</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
