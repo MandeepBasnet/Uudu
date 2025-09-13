@@ -113,7 +113,7 @@ export default function RamenInfo({ product, onBack }) {
         </div>
       )}
 
-      {product.suggested_toppings && (
+      {/* {product.suggested_toppings && (
         <div className="mb-6">
           <h4 className="font-semibold text-gray-800 mb-2">
             Suggested Toppings
@@ -122,7 +122,7 @@ export default function RamenInfo({ product, onBack }) {
             {product.suggested_toppings}
           </div>
         </div>
-      )}
+      )} */}
 
       {product.suggested_videos && product.suggested_videos.length > 0 && (
         <div className="mb-6">
