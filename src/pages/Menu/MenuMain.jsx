@@ -174,7 +174,7 @@ export default function MenuMain() {
           className="absolute inset-0 bg-black/30"
           onClick={handleBackToCategory}
         />
-        <div className="absolute left-4 right-4 top-28 bottom-6 overflow-y-auto">
+        <div className="absolute left-4 right-4 top-28 bottom-6 overflow-y-auto overscroll-contain">
           <div className="relative">
             <button
               aria-label="Close"
@@ -500,7 +500,9 @@ export default function MenuMain() {
                 selectedProduct ? "lg:w-1/2" : "lg:w-80"
               }`}
             >
-              <div className="lg:sticky lg:top-40">{renderInfoPanel()}</div>
+              <div className="lg:sticky lg:top-40 overflow-visible max-h-[calc(100vh-10rem)] overflow-y-auto">
+                {renderInfoPanel()}
+              </div>
             </div>
           </div>
         </div>

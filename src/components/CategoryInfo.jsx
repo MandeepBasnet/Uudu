@@ -24,7 +24,7 @@ export default function CategoryInfo({ categoryInfo }) {
     <div
       className={`${getBackgroundColors(
         categoryInfo.slug
-      )} rounded-3xl p-8 shadow-xl border border-gray-100 transform transition-all duration-300 hover:shadow-2xl`}
+      )} rounded-2xl md:rounded-3xl overflow-hidden p-6 md:p-8 shadow-xl border border-gray-200/80 transform transition-all duration-300 hover:shadow-2xl`}
     >
       <div className="flex items-center gap-4 mb-6">
         <h3
