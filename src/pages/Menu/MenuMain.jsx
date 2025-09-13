@@ -37,7 +37,7 @@ export default function MenuMain() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Auto-update active category based on scroll position
+  // Auto-update active category based on scroll position with increased threshold
   useEffect(() => {
     const updateActiveFromScroll = () => {
       const headerEl = document.querySelector("header");
@@ -52,15 +52,17 @@ export default function MenuMain() {
         const el = document.getElementById(`section-${cat.slug}`);
         if (!el) return;
         const rect = el.getBoundingClientRect();
+        // Increased threshold for better sticky behavior
         const distance = Math.abs(rect.top - anchorOffset);
-        if (distance < minDistance) {
+        // Only change category if we're significantly into the next section
+        if (distance < minDistance && rect.top <= anchorOffset + 100) {
           minDistance = distance;
           closestSlug = cat.slug;
         }
       });
 
       if (closestSlug !== activeCategory) {
-        setSelectedProduct(null);
+        // Don't reset selected product when category changes
         setActiveCategory(closestSlug);
       }
     };
@@ -205,6 +207,22 @@ export default function MenuMain() {
     );
   };
 
+  // Function to get section background colors
+  const getSectionColors = (slug) => {
+    switch (slug) {
+      case "korea":
+        return "bg-red-25";
+      case "japan":
+        return "bg-blue-25";
+      case "taiwan":
+        return "bg-green-25";
+      case "other-asia":
+        return "bg-orange-25";
+      default:
+        return "bg-gray-25";
+    }
+  };
+
   return (
     <>
       <div className="min-h-screen bg-[#F2F2F2] pt-44 md:pt-44">
@@ -227,8 +245,8 @@ export default function MenuMain() {
                         onClick={() => scrollToSection(cat.slug)}
                         className={`whitespace-nowrap text-sm font-medium transition-colors ${
                           activeCategory === cat.slug
-                            ? "text-[#C84E00] border-b-2 border-[#C84E00] pb-1"
-                            : "text-gray-700 hover:text-[#C84E00]"
+                            ? "text-[#99564c] border-b-2 border-[#99564c] pb-1"
+                            : "text-gray-700 hover:text-[#99564c]"
                         }`}
                         style={{
                           fontFamily: "Bahnschrift, system-ui, sans-serif",
@@ -253,8 +271,8 @@ export default function MenuMain() {
                         onClick={() => scrollToSection(cat.slug)}
                         className={`whitespace-nowrap font-medium transition-colors ${
                           activeCategory === cat.slug
-                            ? "text-[#C84E00] border-b-2 border-[#C84E00] pb-1"
-                            : "text-gray-600 hover:text-[#C84E00]"
+                            ? "text-[#99564c] border-b-2 border-[#99564c] pb-1"
+                            : "text-gray-600 hover:text-[#99564c]"
                         }`}
                         style={{
                           fontFamily: "Bahnschrift, system-ui, sans-serif",
@@ -271,8 +289,8 @@ export default function MenuMain() {
                         onClick={() => scrollToSection(cat.slug)}
                         className={`whitespace-nowrap font-medium transition-colors ${
                           activeCategory === cat.slug
-                            ? "text-[#C84E00] border-b-2 border-[#C84E00] pb-1"
-                            : "text-gray-600 hover:text-[#C84E00]"
+                            ? "text-[#99564c] border-b-2 border-[#99564c] pb-1"
+                            : "text-gray-600 hover:text-[#99564c]"
                         }`}
                         style={{
                           fontFamily: "Bahnschrift, system-ui, sans-serif",
@@ -296,41 +314,51 @@ export default function MenuMain() {
                 <div
                   key={category.slug}
                   id={`section-${category.slug}`}
-                  className="mb-12 md:mb-16 scroll-mt-24 md:scroll-mt-28"
+                  className="mb-24 md:mb-32 scroll-mt-24 md:scroll-mt-28"
+                  style={{
+                    // Add subtle background color for country sections
+                    backgroundColor: [
+                      "korea",
+                      "japan",
+                      "taiwan",
+                      "other-asia",
+                    ].includes(category.slug)
+                      ? category.slug === "korea"
+                        ? "#fef2f2"
+                        : category.slug === "japan"
+                        ? "#eff6ff"
+                        : category.slug === "taiwan"
+                        ? "#f0fdf4"
+                        : "#fff7ed"
+                      : "transparent",
+                    padding: [
+                      "korea",
+                      "japan",
+                      "taiwan",
+                      "other-asia",
+                    ].includes(category.slug)
+                      ? "2rem"
+                      : "0",
+                    borderRadius: [
+                      "korea",
+                      "japan",
+                      "taiwan",
+                      "other-asia",
+                    ].includes(category.slug)
+                      ? "1rem"
+                      : "0",
+                    marginBottom: [
+                      "korea",
+                      "japan",
+                      "taiwan",
+                      "other-asia",
+                    ].includes(category.slug)
+                      ? "3rem"
+                      : "2rem",
+                  }}
                 >
                   <div className="mb-8">
                     <div className="flex items-center gap-3 mb-4">
-                      {category.slug === "korea" ||
-                      category.slug === "japan" ||
-                      category.slug === "taiwan" ? (
-                        <img
-                          src={category.flag || "/placeholder.svg"}
-                          alt={`${category.name} flag`}
-                          className="w-8 h-6 object-contain rounded"
-                          onError={(e) => {
-                            e.target.style.display = "none";
-                            if (e.target.nextSibling) {
-                              e.target.nextSibling.style.display = "inline";
-                            }
-                          }}
-                        />
-                      ) : null}
-                      <span
-                        className="text-3xl"
-                        style={{
-                          display:
-                            category.slug === "korea" ||
-                            category.slug === "japan" ||
-                            category.slug === "taiwan"
-                              ? "none"
-                              : "inline",
-                        }}
-                      >
-                        {typeof category.flag === "string" &&
-                        category.flag.includes("/")
-                          ? "🏳️"
-                          : category.flag}
-                      </span>
                       <h2
                         className="text-2xl font-semibold"
                         style={{

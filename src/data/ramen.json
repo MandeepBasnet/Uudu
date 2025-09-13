@@ -194,6 +194,29 @@
     },
     {
       "id": 9,
+      "name": "Ottogi Jin Spicy",
+      "country": "S. Korea",
+      "description": "A bountiful amount of smooth, springy noodles served in a flavorful beef-based broth that delivers a lively chili warmth rather than othe verwhelming heat of its Nongshim counterpart. Accented with aromatic garlic, sweet onion, and earthy mushroom, this price-friendly ramyun is a dependable choice for a more cozy yet still satisfying kick.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "7 out of 10 flames",
+      "manufacturer_url": "https://www.otoki.com/en/product/product_detail?categorySeqFirst=1&productIdx=10",
+      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/EXf0sg0Mud8",
+          "description": "Hack - logaagm (00:59)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=lVpeFL4mVX0&ab_channel=Anna%26Hong",
+          "description": "Taste Test - Anna & Hong (13:25)"
+        }
+      ],
+      "image_url": "ottogi-jin-spicy.png"
+    },
+    {
+      "id": 10,
       "name": "Ottogi Jin Spicy Seafood",
       "country": "S. Korea",
       "description": "A hearty serving of springy noodles that hold up beautifully in a robust, spicy seafood broth. The soup is rich and deeply savory, brimming with oceanic flavors from mussel and clam extracts, accented by smoky chili heat and sweet vegetable notes. ",
@@ -216,7 +239,7 @@
       "image_url": "ottogi-jin-spicy-seafood.png"
     },
     {
-      "id": 10,
+      "id": 11,
       "name": "Paldo Green Tea Noodle",
       "country": "S. Korea",
       "description": "Bright green noodles infused with real green tea, offering a smooth, springy bite. The broth delivers a light, floral matcha aroma and gently earthy flavor - refreshing, unique, and surprisingly soothing.",
@@ -239,7 +262,7 @@
       "image_url": "paldo-green-tea-noodle.png"
     },
     {
-      "id": 11,
+      "id": 12,
       "name": "Paldo Black Bean Sauce",
       "country": "S. Korea",
       "description": "A hearty option featuring thick, chewy noodles coated in a wonderfully gooey black bean sauce. Its earthy umami-packed flavor includes tender chunks of soybean and veggies that bring in the right sweet & savory balance.",
@@ -262,7 +285,7 @@
       "image_url": "paldo-black-bean-sauce.png"
     },
     {
-      "id": 12,
+      "id": 13,
       "name": "Buldak Original",
       "country": "S. Korea",
       "description": "A fiery stir-fry ramen with chewy noodles drenched in a bold, intensely spicy sauce. The addictive sweet-heat flavor is layered with hints of savory chicken and aromatic garlic, delivering a powerful, lingering kick that thrill-seekers and spice lovers crave.",
@@ -289,7 +312,7 @@
       "image_url": "buldak-original.png"
     },
     {
-      "id": 13,
+      "id": 14,
       "name": "Buldak 2X Spicy",
       "country": "S. Korea",
       "description": "A supercharged stir-fry ramen featuring extra-springy noodles coated in an intense, fiery red sauce that packs double the heat of the original. Its explosive profile is layered with savory chicken, deep soy notes, and a touch of sweet garlic, delivering a bold, sweat-inducing thrill for true spice enthusiasts.",
@@ -312,7 +335,7 @@
       "image_url": "buldak-2X-spicy.png"
     },
     {
-      "id": 14,
+      "id": 15,
       "name": "Buldak Carbonara",
       "country": "S. Korea",
       "description": "A creamy twist on Buldak's original fire noodles, this stir-fry ramen combines chewy noodles with a velvety sauce that blends bold Korean heat with smooth, cheesy creaminess.  Accented by savory chicken and a dash of garlic, it offers a spicy yet comforting experience that has become a global favorite among adventurous noodle fans.",
@@ -339,7 +362,7 @@
       "image_url": "buldak-carbonara.png"
     },
     {
-      "id": 15,
+      "id": 16,
       "name": "Buldak Cream Carbonara",
       "country": "S. Korea",
       "description": "A creamier, milder take on Buldak's original Carbonara, this stir-fry ramen features chewy noodles in a luscious white sauce that balances gentle heat with extra dairy richness enhanced by notes of savory chicken and garlic.  It delivers a comforting, indulgent twist that appeals to spice fans and creamy pasta lovers alike.",
@@ -362,7 +385,7 @@
       "image_url": "buldak-cream-carbonara.png"
     },
     {
-      "id": 16,
+      "id": 17,
       "name": "Buldak Carbonara Topokki",
       "country": "S. Korea",
       "description": "Enjoy the same bold, creamy heat of Buldak Carbonara in a fun new form — featuring ultra-chewy Korean wheat rice cakes (topokki) that soak up the rich, cheesy, and spicy sauce for an extra satisfying, playful bite.",
@@ -385,7 +408,7 @@
       "image_url": "buldak-carbonara-topokki.png"
     },
     {
-      "id": 17,
+      "id": 18,
       "name": "Nissin Raoh Tonkotsu",
       "country": "Japan",
       "description": "Nissin Raoh Tonkotsu brings this beloved ramen flavor one notch up by delivering a deeply rich, creamy pork bone broth that’s smooth and full-bodied without being heavy.  Its firm, straight noodles resemble fresh ramen, creating a sophisticated restaurant-style bowl that feels luxurious yet approachable.  Perfect for those with a more refined palate seeking extra depth and truer tonkotsu richness.",
@@ -408,7 +431,7 @@
       "image_url": "nissin-raoh-tonkotsu.png"
     },
     {
-      "id": 18,
+      "id": 19,
       "name": "Sapporo Ichiban Tonkotsu",
       "country": "Japan",
       "description": "A more approachable take on classic tonkotsu, Sapporo Ichiban’s version features a balanced, mildly creamy pork broth that’s lighter and subtly sweet, making it easy to enjoy for all palates. The familiar curly noodles soak up the savory broth beautifully, offering an affordable choice that still feels satisfying and special.",
@@ -431,7 +454,7 @@
       "image_url": "sapporo-ichiban-tonkotsu.png"
     },
     {
-      "id": 19,
+      "id": 20,
       "name": "Sapporo Ichiban Miso",
       "country": "Japan",
       "description": "An inviting bowl of springy noodles served in a delicate miso broth made from a blend of six different miso varieties and mixed vegetables. This classic Japanese ramen offers a smooth, mellow umami depth that clearly distincts itself from the bold, fiery taste of Korean ramyun.  Yet the seven-spice chili seasoning does deliver a gentle kick that ties all the flavors beautifully together.",
@@ -454,7 +477,7 @@
       "image_url": "sapporo-ichiban-miso.png"
     },
     {
-      "id": 20,
+      "id": 21,
       "name": "Sapporo Ichiban Chicken",
       "country": "Japan",
       "description": "A light, comforting noodle soup with a clean, savory chicken broth that impresses especially at the entry level. Less spicy and more delicate than Korean ramyun, it offers a smooth, mellow taste that feels both cozy and satisfying — a standout among Japanese instant ramen that's also great as a versatile hack base.",
@@ -477,7 +500,7 @@
       "image_url": "sapporo-ichiban-chicken.png"
     },
     {
-      "id": 21,
+      "id": 22,
       "name": "Sapporo Chow Mein",
       "country": "Japan",
       "description": "A delectable instant version of the enduring Chinese stir-fried noodles, reimagined in Japanese style. It offers a medley of sweet and savory flavors with its rich, Worcestershire-inspired sauce and bouncy noodles — a comforting, nostalgic taste ready for a hack boost.",
@@ -500,7 +523,7 @@
       "image_url": "sapporo-chow-mein.png"
     },
     {
-      "id": 22,
+      "id": 23,
       "name": "Sapporo Sriracha Yakisoba",
       "country": "Japan",
       "description": "A playful twist on classic yakisoba, this version blends springy noodles with a sriracha-inspired sauce that’s surprisingly mild and slightly sweet, offering just a gentle kick rather than overwhelming heat.  Perfect for anyone craving a flavorful stir-fry noodle with a modern, tangy edge. ",
@@ -523,7 +546,7 @@
       "image_url": "sapporo-sriracha-yakisoba.png"
     },
     {
-      "id": 23,
+      "id": 24,
       "name": "A-Sha Mandarin Style with Original Soy Sauce",
       "country": "Taiwan",
       "description": "Hugely popular in the soy sauce noodles category, this option features A-Sha's famous air-dried wheat flour noodles with a superior chewy texture that stands out even more in this wide cut format.  It's drenched in a refined soy sauce seasoning that highlights subtle umami rather than overpowering the palate, letting the noodz shine as the true star.",
@@ -546,7 +569,7 @@
       "image_url": "a-sha-mandarin-original-soy.png"
     },
     {
-      "id": 24,
+      "id": 25,
       "name": "A-Sha Tainan Style with Sesame Paste Sauce",
       "country": "Taiwan",
       "description": "These Tainan-style wheat noodles — with their distinct thinner, wavier shape — still deliver A-Sha’s signature air-dried chew and bouncy bite. Paired with a creamy, nutty sesame paste sauce that’s smooth and rich (but not overly heavy), this bowl strikes the perfect balance between comfort and boldness.",
@@ -569,7 +592,7 @@
       "image_url": "a-sha-tainan-sesame.png"
     },
     {
-      "id": 25,
+      "id": 26,
       "name": "A-Sha Hakka Tyle Noodles with Chili Sauce",
       "country": "Taiwan",
       "description": "These Hakka-style wide noodles showcase A-Sha’s iconic air-dried chewy texture, with extra surface area that enhances their satisfying bounce. They’re paired with a fragrant chili sauce that delivers a gentle, well-rounded heat and savory depth, allowing the noodles to shine while adding just the right kick to keep each bite exciting.",
@@ -596,7 +619,7 @@
       "image_url": "a-sha-hakka-chili-sauce.png"
     },
     {
-      "id": 26,
+      "id": 27,
       "name": "A-Sha Hello Kitty Mandarin Noodles with Supercute Soy Sauce",
       "country": "Taiwan",
       "description": "Add a dash of playful charm to every bite with these adorable Hello Kitty Mandarin-style noodles!  Featuring A-Sha’s famous air-dried chew in a fun, wide shape, they’re paired with a sweet-savory soy sauce that’s gentle, comforting, and never spicy — perfect for little taste buds (and big kids at heart).  A cute and tasty way to make every slurp extra special!",
@@ -619,7 +642,7 @@
       "image_url": "a-sha-hello-kitty.png"
     },
     {
-      "id": 27,
+      "id": 28,
       "name": "Indomie Original",
       "country": "Other Asia",
       "description": "A beloved Indonesian street food that has earned its place as the world's best selling instant noodle, Indomie delights global tastebuds with its lightly chewy noodles coated in an addictive sweet-savory sauce made from five flavorful seasoning sachets.  Enjoy its compact size as a quick snack, or double up for a satisfying meal. ",
@@ -642,7 +665,7 @@
       "image_url": "indomie-original.png"
     },
     {
-      "id": 28,
+      "id": 29,
       "name": "Indomie Hot & Spicy",
       "country": "Other Asia",
       "description": "A twist on Indomie’s popular original Mi Goreng, this Hot & Spicy version turns up the heat slightly while keeping that signature sweet-savory balance created with five distinctive seasoning sachets. The bouncy noodz come in a compact packet, though many Indomie fans love doubling up for an even more satisfying, fiery feast.",
@@ -665,7 +688,7 @@
       "image_url": "indomie-hot&spicy.png"
     },
     {
-      "id": 29,
+      "id": 30,
       "name": "Indomie BBQ Chicken",
       "country": "Other Asia",
       "description": "A savory variation on Indomie’s iconic original Mi Goreng, this noodle packet still delivers that iconic sweet-savory medley from five flavorful seasoning sachets, as well as an extra BBQ chicken umami and no added heat. Perfect for anyone craving a deeper, smoky twist without the fiery spice.",
@@ -688,7 +711,7 @@
       "image_url": "indomie-bbq-chicken.png"
     },
     {
-      "id": 30,
+      "id": 31,
       "name": "Mana Shrimp Tom Yum",
       "country": "Other Asia",
       "description": "A go-to choice from Thailand, Mama Shrimp Creamy Tom Yum noodle offers that unmistakable spicy-sour kick, balanced with a rich, creamy finish that makes every slurp irresistible.  The springy noodles soak up a fragrant broth layered with lemongrass, lime, and chili, while a subtle shrimp note ties it all together.  Perfect for anyone craving bold, Thai flavors in a comforting bowl.",
@@ -711,7 +734,7 @@
       "image_url": "mana-shrimp-tom-yum.png"
     },
     {
-      "id": 31,
+      "id": 32,
       "name": "Mama Green Curry",
       "country": "Other Asia",
       "description": "Inspired by the comforting warmth of Thai green curry, this selection highlights the real taste of creamy coconut milk, balanced with aromatic lemongrass, herbs, and gentle chili heat. The springy noodles soak up a rich, velvety broth layered with earthy spices and a subtle sweetness that keeps each bite exciting.  Ideal for anyone in the mood for a quick yet authentic Thai curry experience.",
@@ -734,7 +757,7 @@
       "image_url": "mama-green-curry.png"
     },
     {
-      "id": 32,
+      "id": 33,
       "name": "Prima Taste Singapore Curry",
       "country": "Other Asia",
       "description": "Considered a gold standard of instant noodles, Prima Taste Laksa LaMian transforms an everyday meal into a luxurious treat.  Thick, springy air-dried noodles deliver a gourmet bite that rivals fresh ramen shops, while the rich, creamy curry broth explodes with real coconut milk, aromatic spices, and deep seafood umami.  Yes, this Singaporean laksa is a premium choice — but social media fans agree: once you taste it, you’ll understand why it’s worth every slurp.",
@@ -761,7 +784,7 @@
       "image_url": "prima-taste-singapore-curry.png"
     },
     {
-      "id": 33,
+      "id": 34,
       "name": "Nongshim Tonkotsu",
       "country": "Other Asia",
       "description": "A creamy, pork-based broth inspired by traditional Japanese tonkotsu but with a distinctly Korean twist — lighter and slightly sweeter, with added garlic and onion notes for a cleaner, more balanced finish.",
@@ -782,29 +805,6 @@
         }
       ],
       "image_url": "nongshim-tonkotsu.png"
-    },
-    {
-      "id": 34,
-      "name": "Ottogi Jin Spicy",
-      "country": "S. Korea",
-      "description": "A bountiful amount of smooth, springy noodles served in a flavorful beef-based broth that delivers a lively chili warmth rather than othe verwhelming heat of its Nongshim counterpart. Accented with aromatic garlic, sweet onion, and earthy mushroom, this price-friendly ramyun is a dependable choice for a more cozy yet still satisfying kick.",
-      "price_packet": 2.25,
-      "price_bowl": 3.0,
-      "spiciness": "7 out of 10 flames",
-      "manufacturer_url": "https://www.otoki.com/en/product/product_detail?categorySeqFirst=1&productIdx=10",
-      "allergen": "Please refer to each product’s packaging for detailed allergen information.",
-      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
-      "suggested_videos": [
-        {
-          "url": "https://www.youtube.com/shorts/EXf0sg0Mud8",
-          "description": "Hack - logaagm (00:59)"
-        },
-        {
-          "url": "https://www.youtube.com/watch?v=lVpeFL4mVX0&ab_channel=Anna%26Hong",
-          "description": "Taste Test - Anna & Hong (13:25)"
-        }
-      ],
-      "image_url": "ottogi-jin-spicy.png"
     },
     {
       "id": 35,

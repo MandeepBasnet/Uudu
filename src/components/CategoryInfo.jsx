@@ -4,33 +4,29 @@ import React from "react";
 export default function CategoryInfo({ categoryInfo }) {
   if (!categoryInfo) return null;
 
+  // Define colors for different countries/regions
+  const getBackgroundColors = (slug) => {
+    switch (slug) {
+      case "korea":
+        return "bg-gradient-to-br from-red-50 to-red-100";
+      case "japan":
+        return "bg-gradient-to-br from-blue-50 to-blue-100";
+      case "taiwan":
+        return "bg-gradient-to-br from-green-50 to-green-100";
+      case "other-asia":
+        return "bg-gradient-to-br from-orange-50 to-orange-100";
+      default:
+        return "bg-gradient-to-br from-white to-gray-50";
+    }
+  };
+
   return (
-    <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-xl border border-gray-100 transform transition-all duration-300 hover:shadow-2xl">
+    <div
+      className={`${getBackgroundColors(
+        categoryInfo.slug
+      )} rounded-3xl p-8 shadow-xl border border-gray-100 transform transition-all duration-300 hover:shadow-2xl`}
+    >
       <div className="flex items-center gap-4 mb-6">
-        <div className="text-3xl p-2 bg-white rounded-full shadow-sm">
-          {categoryInfo.slug === "korea" ||
-          categoryInfo.slug === "japan" ||
-          categoryInfo.slug === "taiwan" ? (
-            <img
-              src={categoryInfo.flag || "/placeholder.svg"}
-              alt={`${categoryInfo.name} flag`}
-              className="w-8 h-6 object-contain rounded"
-              onError={(e) => {
-                e.target.style.display = "none";
-                if (e.target.nextSibling) {
-                  e.target.nextSibling.style.display = "inline";
-                }
-              }}
-            />
-          ) : (
-            <span>
-              {typeof categoryInfo.flag === "string" &&
-              categoryInfo.flag.includes("/")
-                ? "🏳️"
-                : categoryInfo.flag}
-            </span>
-          )}
-        </div>
         <h3
           className="text-xl font-semibold text-gray-800"
           style={{
@@ -47,7 +43,13 @@ export default function CategoryInfo({ categoryInfo }) {
         categoryInfo.slug === "japan" ||
         categoryInfo.slug === "taiwan") && (
         <div className="flex justify-center">
-          <div className="w-20 h-14 bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center shadow-sm">
+          <div
+            className={`w-20 h-14 bg-white ${
+              categoryInfo.slug === "japan"
+                ? "border-2 border-black"
+                : "border-2 border-gray-200"
+            } rounded-lg flex items-center justify-center shadow-sm`}
+          >
             <img
               src={categoryInfo.flag || "/placeholder.svg"}
               alt={`${categoryInfo.name} Flag`}
@@ -66,6 +68,13 @@ export default function CategoryInfo({ categoryInfo }) {
                 ? "🇯🇵"
                 : "🇹🇼"}
             </div>
+          </div>
+        </div>
+      )}
+      {categoryInfo.slug === "other-asia" && (
+        <div className="flex justify-center">
+          <div className="w-20 h-14 bg-white border-2 border-black rounded-lg flex items-center justify-center shadow-sm">
+            <div className="text-2xl">{categoryInfo.flag}</div>
           </div>
         </div>
       )}
