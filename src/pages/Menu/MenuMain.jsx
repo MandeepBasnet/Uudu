@@ -233,8 +233,8 @@ export default function MenuMain() {
             navHidden ? "-translate-y-full" : "translate-y-0"
           }`}
         >
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm border rounded-2xl mx-4 mt-4 mb-3">
+          <div className="w-full px-4">
+            <div className="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm border rounded-2xl mx-2 mt-4 mb-3">
               <div className="py-3 px-4">
                 {/* Mobile: horizontal scroller */}
                 <div className="md:hidden overflow-x-auto">
@@ -306,10 +306,10 @@ export default function MenuMain() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-4 py-8 pt-0">
+        <div className="w-full px-2 py-8 pt-0">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Main Content Area */}
-            <div className="flex-1">
+            <div className={selectedProduct ? "flex-1 lg:w-1/2" : "flex-1"}>
               {categories.map((category) => (
                 <div
                   key={category.slug}
@@ -337,15 +337,7 @@ export default function MenuMain() {
                       "taiwan",
                       "other-asia",
                     ].includes(category.slug)
-                      ? "2rem"
-                      : "0",
-                    borderRadius: [
-                      "korea",
-                      "japan",
-                      "taiwan",
-                      "other-asia",
-                    ].includes(category.slug)
-                      ? "1rem"
+                      ? "2rem 1rem"
                       : "0",
                     marginBottom: [
                       "korea",
@@ -371,7 +363,11 @@ export default function MenuMain() {
                   </div>
 
                   {/* Products Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                  <div
+                    className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 ${
+                      selectedProduct ? "lg:grid-cols-2" : "lg:grid-cols-3"
+                    }`}
+                  >
                     {(() => {
                       let items = [];
                       if (
@@ -427,7 +423,13 @@ export default function MenuMain() {
                                   </div>
 
                                   {/* Subsection Products Grid */}
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                                  <div
+                                    className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 ${
+                                      selectedProduct
+                                        ? "lg:grid-cols-2"
+                                        : "lg:grid-cols-3"
+                                    }`}
+                                  >
                                     {categoryToppings.map((product) => (
                                       <div
                                         key={product.id}
@@ -493,7 +495,11 @@ export default function MenuMain() {
             </div>
 
             {/* Right Sidebar - Product/Category Info */}
-            <div className="hidden lg:block lg:w-80 lg:order-none">
+            <div
+              className={`hidden lg:block lg:order-none ${
+                selectedProduct ? "lg:w-1/2" : "lg:w-80"
+              }`}
+            >
               <div className="lg:sticky lg:top-40">{renderInfoPanel()}</div>
             </div>
           </div>
