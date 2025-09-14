@@ -36,8 +36,8 @@ export default function Navbar() {
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-4">
-        <nav className="mt-4 mb-3 rounded-2xl bg-white/20 backdrop-blur supports-[backdrop-filter]:bg-white/10 shadow-sm">
+      <div className="w-full px-4">
+        <nav className="mt-4 mb-3 rounded-2xl bg-white/60 supports-[backdrop-filter]:bg-white/40 backdrop-blur-md backdrop-saturate-150 ring-1 ring-white/50 shadow-md">
           <div className="flex items-center justify-between px-4 py-3">
             <a href="/" className="flex flex-col items-center">
               <img
@@ -53,7 +53,7 @@ export default function Navbar() {
               </span>
             </a>
             <button
-              className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-[#99564c] hover:bg-[#99564c]/10 focus:outline-none focus:ring-2 focus:ring-[#99564c]"
+              className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-[#6b3b34] hover:bg-white/40 focus:outline-none focus:ring-2 focus:ring-[#99564c]"
               aria-label="Open menu"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((o) => !o)}
@@ -85,13 +85,13 @@ export default function Navbar() {
               {navLinks.map((link, index) => (
                 <li key={link.label} className="flex items-center">
                   <a
-                    className="inline-block px-2 py-4 text-[#99564c] hover:text-[#99564c]/80 transition-colors"
+                    className="inline-block px-2 py-4 text-[#6b3b34] hover:text-[#99564c] transition-colors"
                     href={link.path}
                   >
                     {link.label}
                   </a>
                   {index < navLinks.length - 1 && (
-                    <span className="ml-6 text-[#99564c] font-bold">•</span>
+                    <span className="ml-6 text-[#6b3b34] font-bold">•</span>
                   )}
                 </li>
               ))}
@@ -105,7 +105,7 @@ export default function Navbar() {
                 {navLinks.map((link) => (
                   <li key={link.label}>
                     <a
-                      className="block w-full rounded-md px-3 py-3 text-[#99564c] hover:bg-[#99564c]/10"
+                      className="block w-full rounded-md px-3 py-3 text-[#6b3b34] hover:bg-white/40"
                       href={link.path}
                       onClick={() => setMobileOpen(false)}
                     >

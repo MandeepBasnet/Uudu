@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Cook() {
   return (
-    <div className="min-h-screen bg-[#F2F2F2]">
+    <div className="min-h-screen bg-[#F2F2F2] pt-24 md:pt-24">
       {/* Hero */}
       <div className="relative h-60 w-full">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -17,7 +17,7 @@ export default function Cook() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-6xl px-4 mt-12">
+      <div className="mx-auto max-w-6xl px-4 mt-8">
         {/* Intro */}
         <p className="text-center text-gray-700 text-lg mb-10 leading-relaxed">
           Follow these simple steps to prepare your perfect bowl of ramen. Fast,

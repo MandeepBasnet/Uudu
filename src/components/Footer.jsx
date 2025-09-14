@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className="pb-10 pt-6">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="w-full px-4">
         <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/5">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
             {/* Location Section */}

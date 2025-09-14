@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Location() {
   return (
-    <div className="min-h-screen bg-[#F2F2F2] pb-20">
+    <div className="min-h-screen bg-[#F2F2F2] pt-24 md:pt-24 pb-20">
       {/* Hero */}
       <div className="relative h-60 w-full">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -16,7 +16,7 @@ export default function Location() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-5xl px-4 mt-12">
+      <div className="mx-auto max-w-5xl px-4 mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Map Embed */}
           <div

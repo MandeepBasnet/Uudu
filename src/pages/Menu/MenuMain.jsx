@@ -262,7 +262,7 @@ export default function MenuMain() {
                 <div className="hidden md:flex items-center justify-between px-2">
                   <div className="flex items-center space-x-6">
                     <span className="text-gray-500 font-medium whitespace-nowrap">
-                      NUUDU
+                      UUDU
                     </span>
                     <span className="text-gray-300">—</span>
                     {categories.slice(0, 4).map((cat) => (
@@ -316,26 +316,34 @@ export default function MenuMain() {
                   id={`section-${category.slug}`}
                   className="mb-24 md:mb-32 scroll-mt-24 md:scroll-mt-28"
                   style={{
-                    // Add subtle background color for country sections
-                    backgroundColor: [
-                      "korea",
-                      "japan",
-                      "taiwan",
-                      "other-asia",
-                    ].includes(category.slug)
-                      ? category.slug === "korea"
+                    // Add subtle background color for all sections
+                    backgroundColor:
+                      category.slug === "korea"
                         ? "#fef2f2"
                         : category.slug === "japan"
                         ? "#eff6ff"
                         : category.slug === "taiwan"
                         ? "#f0fdf4"
-                        : "#fff7ed"
-                      : "transparent",
+                        : category.slug === "other-asia"
+                        ? "#fff7ed"
+                        : category.slug === "toppers"
+                        ? "#f8fafc"
+                        : category.slug === "bevs"
+                        ? "#f0f9ff"
+                        : category.slug === "snax"
+                        ? "#fefce8"
+                        : category.slug === "specials"
+                        ? "#fdf2f8"
+                        : "transparent",
                     padding: [
                       "korea",
                       "japan",
                       "taiwan",
                       "other-asia",
+                      "toppers",
+                      "bevs",
+                      "snax",
+                      "specials",
                     ].includes(category.slug)
                       ? "2rem 1rem"
                       : "0",
@@ -344,6 +352,10 @@ export default function MenuMain() {
                       "japan",
                       "taiwan",
                       "other-asia",
+                      "toppers",
+                      "bevs",
+                      "snax",
+                      "specials",
                     ].includes(category.slug)
                       ? "3rem"
                       : "2rem",
@@ -404,10 +416,35 @@ export default function MenuMain() {
 
                               if (categoryToppings.length === 0) return null;
 
+                              // Get background color for each topping subsection
+                              const getToppingSubsectionColor = (category) => {
+                                switch (category) {
+                                  case "Veggies":
+                                    return "#f0fdf4"; // green-50
+                                  case "Protein":
+                                    return "#fef2f2"; // red-50
+                                  case "Flavoring":
+                                    return "#fefce8"; // yellow-50
+                                  case "Garnishes":
+                                    return "#f0f9ff"; // blue-50
+                                  default:
+                                    return "#f8fafc"; // slate-50
+                                }
+                              };
+
                               return (
                                 <div
                                   key={toppingCategory}
                                   className="space-y-6"
+                                  style={{
+                                    backgroundColor:
+                                      getToppingSubsectionColor(
+                                        toppingCategory
+                                      ),
+                                    padding: "1.5rem 1rem",
+                                    borderRadius: "0.75rem",
+                                    marginBottom: "1rem",
+                                  }}
                                 >
                                   {/* Subsection Header */}
                                   <div className="flex items-center gap-3 mb-6">

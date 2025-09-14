@@ -3,7 +3,7 @@ import React from "react";
 
 export default function WhatsUudu() {
   return (
-    <div className="min-h-screen bg-[#F2F2F2] pb-20">
+    <div className="min-h-screen bg-[#F2F2F2] pt-24 md:pt-24 pb-20">
       {/* Hero */}
       <div className="relative h-60 w-full">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -17,7 +17,7 @@ export default function WhatsUudu() {
       </div>
 
       {/* Intro */}
-      <div className="mx-auto max-w-4xl px-4 mt-12 text-center">
+      <div className="mx-auto max-w-4xl px-4 mt-8 text-center">
         <p className="text-gray-700 text-lg leading-relaxed">
           UUDU is the fearless ramen hack experience. Born from the self-serve
           craze across Asia, we bring bold flavors, endless toppings, and
@@ -27,7 +27,7 @@ export default function WhatsUudu() {
       </div>
 
       {/* Story Sections */}
-      <div className="mx-auto max-w-5xl px-4 mt-16 grid gap-10">
+      <div className="mx-auto max-w-5xl px-4 mt-10 grid gap-10">
         {/* The Idea */}
         <div className="bg-white rounded-3xl shadow-sm p-8">
           <h2

@@ -31,7 +31,7 @@ export default function Events() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F2F2F2] pb-20">
+    <div className="min-h-screen bg-[#F2F2F2] pt-24 md:pt-24 pb-20">
       {/* Hero */}
       <div className="relative h-60 w-full">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -45,7 +45,7 @@ export default function Events() {
       </div>
 
       {/* Intro */}
-      <div className="mx-auto max-w-4xl px-4 mt-12 text-center">
+      <div className="mx-auto max-w-4xl px-4 mt-8 text-center">
         <p className="text-gray-700 text-lg leading-relaxed">
           UUDU isn’t just about ramen – it’s about community. From workshops and
           launch parties to late-night karaoke, our events bring fearless
@@ -54,7 +54,7 @@ export default function Events() {
       </div>
 
       {/* Event Grid */}
-      <div className="mx-auto max-w-6xl px-4 mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto max-w-6xl px-4 mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {events.map((event) => (
           <div
             key={event.id}
