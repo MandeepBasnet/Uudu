@@ -46,7 +46,7 @@ export default function ToppingsInfo({ product, onBack }) {
           >
             {product.name}
           </h3>
-          <p className="text-[#C84E00] font-medium">
+          <p className="text-[#99564c] font-medium">
             {product.price === 0 ? "FREE" : `$${product.price}`}
           </p>
         </div>
@@ -90,7 +90,7 @@ export default function ToppingsInfo({ product, onBack }) {
 
       <button
         onClick={onBack}
-        className="w-full mt-4 bg-[#C84E00] text-white py-2 px-4 rounded-lg hover:bg-[#B73E00] transition-colors"
+        className="w-full mt-4 bg-[#99564c] text-white py-2 px-4 rounded-lg hover:bg-[#99564c] transition-colors"
         style={{
           fontFamily: "Bahnschrift, system-ui, sans-serif",
         }}
