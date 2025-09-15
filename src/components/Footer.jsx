@@ -28,12 +28,14 @@ export default function Footer() {
                 </div>
                 <p className="text-[#3E3E3E]">(123) 456-7890</p>
               </div>
-              <Link
-                to="/location#map"
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=4931+Lincoln+Avenue%2C+Cypress%2C+CA+90630"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 inline-block bg-[#99564c] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#99564c]/80 transition-colors"
               >
                 MAP
-              </Link>
+              </a>
             </div>
 
             {/* Map Embed */}

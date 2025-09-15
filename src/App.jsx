@@ -12,7 +12,6 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import Home from "./pages/Home";
 import Menu from "./pages/Menu/MenuMain";
 import Cook from "./pages/Cook";
-import Location from "./pages/Location";
 import WhatsUudu from "./pages/WhatsUudu";
 import Events from "./pages/Events";
 
@@ -49,7 +48,6 @@ function AppShell() {
 
           {/* Other Pages */}
           <Route path="/cook" element={<Cook />} />
-          <Route path="/location" element={<Location />} />
           <Route path="/whats-uudu" element={<WhatsUudu />} />
           <Route path="/events" element={<Events />} />
 
