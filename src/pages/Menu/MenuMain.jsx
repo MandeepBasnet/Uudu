@@ -139,23 +139,16 @@ export default function MenuMain() {
   const activeInfo = categories.find((cat) => cat.slug === activeCategory);
 
   const renderInfoPanel = () => {
-    if (selectedProduct) {
-      // Determine which component to use based on category
-      if (selectedProduct.categorySlug === "toppers") {
-        return (
-          <ToppingsInfo
-            product={selectedProduct}
-            onBack={handleBackToCategory}
-          />
-        );
-      } else {
-        return (
-          <RamenInfo product={selectedProduct} onBack={handleBackToCategory} />
-        );
-      }
-    } else {
-      return <CategoryInfo categoryInfo={activeInfo} />;
+    if (!selectedProduct) return null;
+    // Determine which component to use based on category
+    if (selectedProduct.categorySlug === "toppers") {
+      return (
+        <ToppingsInfo product={selectedProduct} onBack={handleBackToCategory} />
+      );
     }
+    return (
+      <RamenInfo product={selectedProduct} onBack={handleBackToCategory} />
+    );
   };
 
   const renderMobileModal = () => {
@@ -316,16 +309,16 @@ export default function MenuMain() {
                   id={`section-${category.slug}`}
                   className="mb-24 md:mb-32 scroll-mt-24 md:scroll-mt-28"
                   style={{
-                    // Add subtle background color for all sections
+                    // Alternating light beige and light gray for country sections
                     backgroundColor:
                       category.slug === "korea"
-                        ? "#fef2f2"
+                        ? "#fff7ed" // light beige
                         : category.slug === "japan"
-                        ? "#eff6ff"
+                        ? "#f5f5f5" // light gray
                         : category.slug === "taiwan"
-                        ? "#f0fdf4"
+                        ? "#fff7ed" // light beige
                         : category.slug === "other-asia"
-                        ? "#fff7ed"
+                        ? "#f5f5f5" // light gray
                         : category.slug === "toppers"
                         ? "#f8fafc"
                         : category.slug === "bevs"
@@ -361,23 +354,50 @@ export default function MenuMain() {
                       : "2rem",
                   }}
                 >
-                  <div className="mb-8">
-                    <div className="flex items-center gap-3 mb-4">
-                      <h2
-                        className="text-2xl font-semibold"
-                        style={{
-                          fontFamily: "Bahnschrift, system-ui, sans-serif",
-                        }}
-                      >
-                        {category.name}
-                      </h2>
+                  {/* Country Top Banner */}
+                  {["korea", "japan", "taiwan", "other-asia"].includes(
+                    category.slug
+                  ) && (
+                    <div className="mb-12 md:mb-14">
+                      <div className="w-full rounded-2xl bg-white/95 border border-gray-200 shadow-md px-4 py-6 text-center">
+                        <div className="flex items-center justify-center gap-3 mb-3">
+                          <div className="w-14 h-10 overflow-hidden rounded border border-gray-200 bg-white flex items-center justify-center">
+                            {typeof category.flag === "string" &&
+                            category.flag.startsWith("/images/") ? (
+                              <img
+                                src={category.flag}
+                                alt={`${category.name} flag`}
+                                className="w-14 h-10 object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <span className="text-3xl leading-none">
+                                {category.flag || ""}
+                              </span>
+                            )}
+                          </div>
+                          <h2
+                            className="text-4xl font-bold"
+                            style={{
+                              fontFamily: "Bahnschrift, system-ui, sans-serif",
+                            }}
+                          >
+                            {category.name}
+                          </h2>
+                        </div>
+                        {category.description && (
+                          <p className="text-2xl text-gray-700 max-w-5xl mx-auto leading-snug">
+                            {category.description}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Products Grid */}
                   <div
-                    className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 ${
-                      selectedProduct ? "lg:grid-cols-2" : "lg:grid-cols-3"
+                    className={`grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 ${
+                      selectedProduct ? "lg:grid-cols-2" : "lg:grid-cols-4"
                     }`}
                   >
                     {(() => {
@@ -461,10 +481,10 @@ export default function MenuMain() {
 
                                   {/* Subsection Products Grid */}
                                   <div
-                                    className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 ${
+                                    className={`grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 ${
                                       selectedProduct
                                         ? "lg:grid-cols-2"
-                                        : "lg:grid-cols-3"
+                                        : "lg:grid-cols-4"
                                     }`}
                                   >
                                     {categoryToppings.map((product) => (
@@ -531,16 +551,18 @@ export default function MenuMain() {
               ))}
             </div>
 
-            {/* Right Sidebar - Product/Category Info */}
-            <div
-              className={`hidden lg:block lg:order-none ${
-                selectedProduct ? "lg:w-1/2" : "lg:w-80"
-              }`}
-            >
-              <div className="lg:sticky lg:top-40 overflow-visible max-h-[calc(100vh-10rem)] overflow-y-auto">
-                {renderInfoPanel()}
+            {/* Right Sidebar - Product Info (only when a product is selected) */}
+            {selectedProduct && (
+              <div
+                className={`hidden lg:block lg:order-none ${
+                  selectedProduct ? "lg:w-1/2" : "lg:w-80"
+                }`}
+              >
+                <div className="lg:sticky lg:top-40 overflow-visible max-h-[calc(100vh-10rem)] overflow-y-auto">
+                  {renderInfoPanel()}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

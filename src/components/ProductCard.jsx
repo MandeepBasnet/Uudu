@@ -1,17 +1,62 @@
 // src/components/ProductCard.jsx
-import React from "react";
+import React, { useState, useCallback } from "react";
+
 export default function ProductCard({ name, image, price }) {
+  const [orientation, setOrientation] = useState("square");
+
+  const handleLoad = useCallback((e) => {
+    const img = e.target;
+    const { naturalWidth, naturalHeight } = img;
+    if (!naturalWidth || !naturalHeight) {
+      setOrientation("square");
+      return;
+    }
+    if (naturalHeight > naturalWidth * 1.1) {
+      setOrientation("portrait");
+    } else if (naturalWidth > naturalHeight * 1.1) {
+      setOrientation("landscape");
+    } else {
+      setOrientation("square");
+    }
+  }, []);
+
+  const priceText =
+    typeof price === "number" && !Number.isNaN(price)
+      ? `$${price.toFixed(2)}`
+      : undefined;
+
   return (
-    <div className="overflow-hidden rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
-      <img src={image} alt={name} className="h-40 w-full object-contain" />
-      <div className="p-4">
+    <div className="group">
+      {/* Invisible frame that reserves consistent space */}
+      <div className="relative w-full h-56 md:h-60 lg:h-64 flex items-center justify-center border border-transparent">
+        <img
+          src={image}
+          alt={name}
+          onLoad={handleLoad}
+          className={
+            orientation === "portrait"
+              ? "max-h-full max-w-[70%] object-contain"
+              : orientation === "landscape"
+              ? "max-h-full max-w-[95%] object-contain"
+              : "max-h-full max-w-[85%] object-contain"
+          }
+          loading="lazy"
+        />
+      </div>
+
+      {/* Text block */}
+      <div className="mt-3 text-center">
         <h3
-          className="text-lg font-semibold"
+          className="text-xl font-bold leading-snug"
           style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
         >
           {name}
         </h3>
-        {price && <p className="mt-1 text-sm text-gray-600">${price}</p>}
+        {priceText && (
+          <p className="mt-1 text-lg text-gray-700" aria-label="price">
+            {priceText}
+          </p>
+        )}
       </div>
     </div>
   );
