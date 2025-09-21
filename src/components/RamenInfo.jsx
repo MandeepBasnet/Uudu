@@ -1,12 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useId } from "react";
-import { Play, ChevronDown } from "lucide-react";
+import React, { useState, useId, useEffect } from "react";
+import { Play, ChevronDown, X } from "lucide-react";
 import ramenData from "../data/ramen.json";
+import NoodleInstructions from "./NoodleInstructions";
 
 const RamenInfo = ({ product, onBack }) => {
   // Use the product prop if provided, otherwise default to first ramen
   const selectedRamen = product || ramenData.ramen[0];
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(0);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isCookModalOpen, setIsCookModalOpen] = useState(false);
+
+  // Hide category nav bar while cook instructions modal is open
+  useEffect(() => {
+    const navEl = document.getElementById("menu-categories-nav");
+    if (!navEl) return;
+    if (isCookModalOpen) {
+      navEl.classList.add("hidden");
+    } else {
+      navEl.classList.remove("hidden");
+    }
+    return () => {
+      navEl.classList.remove("hidden");
+    };
+  }, [isCookModalOpen]);
 
   // Extract spiciness level from text (e.g., "8 out of 10 flames" -> 8)
   const getSpicyLevel = (spicinessText) => {
@@ -22,7 +39,7 @@ const RamenInfo = ({ product, onBack }) => {
       mild: { outer: "#22c55e", start: "#86efac", end: "#16a34a" },
       medium: { outer: "#f97316", start: "#fb923c", end: "#f59e0b" },
       hot: { outer: "#ef4444", start: "#f87171", end: "#ef4444" },
-      fiery: { outer: "#111827", start: "#6b7280", end: "#111827" },
+      fiery: { outer: "#111827", start: "#ef4444", end: "#111827" },
     };
     const { outer, start, end } = palette[variant] || palette.mild;
 
@@ -82,13 +99,6 @@ const RamenInfo = ({ product, onBack }) => {
   // Generate flame icons and guideline based on spiciness level
   const generateFlames = (level) => {
     const flames = [];
-    const getColorForIndex = (i) => {
-      if (i <= 2) return "#22c55e"; // green-500
-      if (i <= 4) return "#f97316"; // orange-500
-      if (i <= 7) return "#ef4444"; // red-500
-      return "#111827"; // gray-900 (almost black)
-    };
-
     const getVariantForIndex = (i) => {
       if (i <= 2) return "mild"; // 2
       if (i <= 5) return "medium"; // +3 => 5
@@ -102,33 +112,34 @@ const RamenInfo = ({ product, onBack }) => {
           key={i}
           className="w-7 h-7 flex items-center justify-center relative"
         >
-          {i === level && (
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <span className="mb-0.5 text-[10px] leading-none font-semibold text-blue-700 bg-white/95 px-1.5 py-0.5 rounded border border-blue-200 shadow-sm">
-                {`${level}/10`}
-              </span>
-              <div className="w-0.5 h-4 bg-blue-600"></div>
-              <ChevronDown className="w-4 h-4 text-blue-600 -mt-1" />
-            </div>
-          )}
           <FlameSvg variant={getVariantForIndex(i)} />
         </div>
       );
     }
 
     return (
-      <div className="relative w-full flex flex-col items-center pt-9">
-        {/* Blue guideline (stays inside this section) */}
-        <div className="absolute top-0 left-2 right-2 h-[6px] bg-blue-600 rounded-full"></div>
-        {/* Arrow marker is rendered per flame cell when i === level */}
-
-        {/* Flames - 10 equal columns to align with labels */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[480px] pt-2 place-items-center">
+      <div className="relative w-full flex flex-col items-center pt-6">
+        {/* Flames - 10 equal columns */}
+        <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] place-items-center">
           {flames}
         </div>
 
+        {/* Arrow between flames (e.g., between 8 and 9 for level 8) */}
+        {(() => {
+          const capped = Math.min(level, 9);
+          const leftPercent = ((capped + 0.5) / 10) * 100;
+          return (
+            <div
+              className="absolute -top-3"
+              style={{ left: `calc(${leftPercent}% - 10px)` }}
+            >
+              <ChevronDown className="w-5 h-5 text-blue-600" />
+            </div>
+          );
+        })()}
+
         {/* Labels as pills */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[480px] mt-3">
+        <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] mt-4">
           <div className="col-span-2 flex justify-center">
             <LabelPill text="Mild" variant="mild" />
           </div>
@@ -163,204 +174,306 @@ const RamenInfo = ({ product, onBack }) => {
   const cookerVideoId = extractVideoId(cookerSettingsVideo.url);
 
   return (
-    <div className="max-w-4xl mx-auto bg-white border-2 border-gray-800 font-sans overflow-visible">
+    <div className="max-w-4xl mx-auto font-sans px-6 md:px-10 py-10">
       {/* Back Button - only show if onBack is provided */}
       {onBack && (
-        <div className="bg-gray-100 border-b-2 border-gray-800 p-3">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium"
-          >
-            <ChevronDown className="w-4 h-4 rotate-90" />
-            Back to Menu
-          </button>
-        </div>
+        <button
+          onClick={onBack}
+          className="mb-10 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium"
+        >
+          <ChevronDown className="w-4 h-4 rotate-90" />
+          Back to Menu
+        </button>
       )}
-      {/* Header Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 bg-yellow-100">
-        <div className="col-span-1 bg-yellow-200 border-r-2 border-gray-800 p-3 font-bold text-center">
-          NAME
-        </div>
-        <div className="md:col-span-2 p-3 font-bold">
-          {selectedRamen.name}{" "}
-          <span className="text-sm">
-            [ {selectedRamen.country.toUpperCase()} ]
-          </span>
-        </div>
-        <div className="md:col-span-1 md:border-l-2 border-gray-800 p-2 mt-2 md:mt-0">
-          <img
-            src={
-              selectedRamen.image_url
-                ? `/images/${selectedRamen.image_url}`
-                : "/images/placeholder.jpg"
-            }
-            alt={selectedRamen.name}
-            className="w-full h-24 object-contain md:object-cover rounded border bg-white"
-            loading="lazy"
-          />
-        </div>
-      </div>
 
-      {/* Description Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-yellow-200 border-r-2 border-gray-800 p-3 font-bold">
-          THE RUNDOWN...
-        </div>
-        <div className="md:col-span-3 p-3 text-sm">
-          {selectedRamen.description}
-        </div>
-      </div>
-
-      {/* Price Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-yellow-200 border-r-2 border-gray-800 p-3 font-bold">
-          PRICE
-        </div>
-        <div className="md:col-span-3 p-3">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <div
-                className={`w-3 h-3 rounded-full ${
-                  selectedRamen.price_packet === 2.25
-                    ? "bg-blue-500"
-                    : "bg-red-500"
-                }`}
-              ></div>
-              <span className="font-medium">Noodle packet</span>
-              <span className="ml-auto">
-                ${selectedRamen.price_packet.toFixed(2)}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="ml-5 font-medium">Cooker bowl</span>
-              <span className="ml-auto">
-                ${selectedRamen.price_bowl.toFixed(2)}
-              </span>
+      {/* 1. Name */}
+      <section className="mt-0">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Name
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Spiciness Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-yellow-200 border-r-2 border-gray-800 p-3 font-bold">
-          SPICINESS
-        </div>
-        <div className="md:col-span-3 p-3">
-          {generateFlames(getSpicyLevel(selectedRamen.spiciness))}
-        </div>
-      </div>
-
-      {/* Cooker Setting Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-yellow-200 border-r-2 border-gray-800 p-3 font-bold">
-          COOKER SETTING
-        </div>
-        <div className="md:col-span-3 p-3">
-          <div className="space-y-3">
-            <div className="bg-gray-900 p-2 rounded-lg">
-              <div className="bg-black rounded aspect-video flex items-center justify-center relative">
-                {cookerVideoId ? (
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src={`https://www.youtube.com/embed/${cookerVideoId}`}
-                    title={cookerSettingsVideo.description}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="rounded"
-                  ></iframe>
-                ) : (
-                  <div className="text-white text-center">
-                    <Play className="w-16 h-16 mx-auto mb-2 opacity-50" />
-                    <p className="text-sm opacity-75">Cooker Settings Video</p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="text-sm space-y-1">
-                <div>1. Add noodle & seasoning to cooker bowl</div>
-                <div>
-                  2. Select:{" "}
-                  <span className="text-red-600 font-bold">Menu 1</span> (460 ml
-                  water; 280 seconds)
+          <div className="md:col-span-9">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+                  {selectedRamen.name}
+                </h1>
+                <div className="mt-2 text-xl md:text-2xl text-gray-600">
+                  [ {selectedRamen.country.toUpperCase()} ]
                 </div>
-                <div>3. Stir noodle during cooking process</div>
-                <div>4. If desired, add toppings at final 60 seconds</div>
+              </div>
+              <div className="w-full md:w-48">
+                <img
+                  src={
+                    selectedRamen.image_url
+                      ? `/images/${selectedRamen.image_url}`
+                      : "/images/placeholder.jpg"
+                  }
+                  alt={selectedRamen.name}
+                  className="w-full h-24 md:h-28 object-contain"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Suggested Videos Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-yellow-200 border-r-2 border-gray-800 p-3 font-bold">
-          SUGGESTED VIDEOS
-        </div>
-        <div className="md:col-span-3 p-3">
-          <div className="space-y-3">
-            {/* Video Buttons */}
-            <div className="flex gap-2">
-              {selectedRamen.suggested_videos.map((video, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedVideoIndex(index)}
-                  className={`px-3 py-1 rounded text-sm font-medium ${
-                    selectedVideoIndex === index
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200 hover:bg-gray-300"
-                  }`}
-                >
-                  {index + 1}
-                </button>
-              ))}
+      {/* 2. Description */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Description
             </div>
+          </div>
+          <div className="md:col-span-9">
+            <p className="text-xl md:text-2xl leading-relaxed text-gray-800">
+              {selectedRamen.description}
+            </p>
+          </div>
+        </div>
+      </section>
 
-            {/* Video Monitor */}
-            <div className="bg-gray-900 p-2 rounded-lg">
-              <div className="bg-black rounded aspect-video flex items-center justify-center relative">
-                {videoId ? (
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src={`https://www.youtube.com/embed/${videoId}`}
-                    title={currentVideo.description}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="rounded"
-                  ></iframe>
-                ) : (
-                  <div className="text-white text-center">
-                    <Play className="w-16 h-16 mx-auto mb-2 opacity-50" />
-                    <p className="text-sm opacity-75">Video Preview</p>
-                  </div>
-                )}
+      {/* 3. Price */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Price
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 text-2xl text-gray-900">
+                <div
+                  className={`w-3 h-3 rounded-full ${
+                    selectedRamen.price_packet === 2.25
+                      ? "bg-blue-500"
+                      : "bg-red-500"
+                  }`}
+                ></div>
+                <span className="font-semibold">Combined price</span>
+                <span className="ml-auto font-extrabold tracking-tight">
+                  {`$ ${(
+                    selectedRamen.price_packet + selectedRamen.price_bowl
+                  ).toFixed(2)}`}
+                </span>
               </div>
-              <div className="text-white text-sm mt-2 px-2">
+              <div className="text-sm text-gray-500 italic">
+                {`* Price breakdown: $ ${selectedRamen.price_packet.toFixed(
+                  2
+                )} packet + $ ${selectedRamen.price_bowl.toFixed(2)} bowl`}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Spiciness */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Spiciness
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            {generateFlames(getSpicyLevel(selectedRamen.spiciness))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Cooker Setting */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Cooker Setting
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            <div className="space-y-4 border border-gray-400 rounded-lg p-5 bg-white">
+              <div className="text-blue-700 font-extrabold uppercase tracking-wide text-2xl md:text-3xl">
+                {selectedRamen.menu
+                  ? String(selectedRamen.menu).toUpperCase()
+                  : "MENU 1"}
+              </div>
+
+              <div className="text-gray-800 text-base md:text-lg">
+                For this specific noodle :{" "}
+                {selectedRamen.menu
+                  ? `Menu ${selectedRamen.menu
+                      .toString()
+                      .replace(/[^0-9]/g, "")}`
+                  : "Menu 1"}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4 md:gap-6">
+                <img
+                  src="/RamenCooker.png"
+                  alt="Ramen Cooker"
+                  className="h-24 md:h-28 w-auto object-contain"
+                  loading="lazy"
+                />
+                <span className="text-gray-500 text-3xl md:text-4xl">→</span>
+                <div className="flex items-center gap-3 md:gap-4">
+                  <img
+                    src="/menu.png"
+                    alt="Menu button"
+                    className="h-12 md:h-14 w-auto object-contain"
+                    loading="lazy"
+                  />
+                  <img
+                    src="/startstop.png"
+                    alt="Start/Stop button"
+                    className="h-12 md:h-14 w-auto object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setIsCookModalOpen(true)}
+                  className="inline-flex items-center justify-center rounded-md bg-gray-200 px-4 py-2 text-gray-800 font-semibold border border-gray-400 hover:bg-gray-300"
+                >
+                  How to cook
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Hack Videos */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Hack Videos
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            <div className="space-y-6">
+              <div className="flex flex-wrap gap-2">
+                {selectedRamen.suggested_videos.map((video, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSelectedVideoIndex(index);
+                      setIsVideoModalOpen(true);
+                    }}
+                    className={`px-3 py-1.5 rounded-full text-sm font-medium border ${
+                      selectedVideoIndex === index
+                        ? "bg-blue-600 border-blue-600 text-white"
+                        : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                    }`}
+                    aria-label={`Open video ${index + 1}`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+
+              {/* Static preview only */}
+              <div className="rounded-lg overflow-hidden border border-gray-200">
+                <div className="bg-black aspect-video flex items-center justify-center">
+                  <Play className="w-16 h-16 text-white opacity-60" />
+                </div>
+              </div>
+
+              <div className="text-gray-700 text-sm">
                 <p className="font-medium">{currentVideo.description}</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Allergen Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-yellow-200 border-r-2 border-gray-800 p-3 font-bold">
-          ALLERGEN
+      {/* 7. Allergen */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Allergen
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            <p className="text-xs md:text-sm leading-6 text-black">
+              All ramen packets are sold in original packaging. Please check the
+              label for ingredients and allergen details. Some imported items
+              may not have full U.S.-style allergen info—ask a staff if you have
+              questions.
+            </p>
+          </div>
         </div>
-        <div className="md:col-span-3 p-3 text-sm">
-          All ramen packets are sold in original packaging. Please check the
-          label for ingredients and allergen details. Some imported items may
-          not have full U.S.-style allergen info—ask a staff if you have
-          questions.
+      </section>
+
+      {/* Video Modal */}
+      {isVideoModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          onClick={() => setIsVideoModalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-3xl mx-4 bg-gray-900 rounded-lg p-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              aria-label="Close video"
+              className="absolute -top-10 right-0 text-white"
+              onClick={() => setIsVideoModalOpen(false)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <div className="bg-black rounded aspect-video flex items-center justify-center">
+              {videoId ? (
+                <iframe
+                  width="100%"
+                  height="400"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title={currentVideo.description}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="rounded"
+                ></iframe>
+              ) : (
+                <div className="text-white text-center">
+                  <Play className="w-16 h-16 mx-auto mb-2 opacity-50" />
+                  <p className="text-base opacity-75">Video Preview</p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Cook Instructions Modal (Picture2.png style) */}
+      {isCookModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          onClick={() => setIsCookModalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-3xl mx-4 bg-white rounded-xl p-5 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              aria-label="Close"
+              className="absolute -top-10 right-0 text-white"
+              onClick={() => setIsCookModalOpen(false)}
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <NoodleInstructions />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
