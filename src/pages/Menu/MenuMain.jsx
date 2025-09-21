@@ -359,7 +359,7 @@ export default function MenuMain() {
                     category.slug
                   ) && (
                     <div className="mb-12 md:mb-14">
-                      <div className="w-full rounded-2xl bg-white/95 border border-gray-200 shadow-md px-4 py-6 text-center">
+                      <div className="w-full rounded-2xl bg-transparent border border-gray-300 shadow-sm px-4 py-4 text-center">
                         <div className="flex items-center justify-center gap-3 mb-3">
                           <div className="w-14 h-10 overflow-hidden rounded border border-gray-200 bg-white flex items-center justify-center">
                             {typeof category.flag === "string" &&
@@ -377,7 +377,7 @@ export default function MenuMain() {
                             )}
                           </div>
                           <h2
-                            className="text-4xl font-bold"
+                            className="px-2 text-2xl font-bold"
                             style={{
                               fontFamily: "Bahnschrift, system-ui, sans-serif",
                             }}

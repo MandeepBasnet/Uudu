@@ -11,18 +11,12 @@ const RamenInfo = ({ product, onBack }) => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isCookModalOpen, setIsCookModalOpen] = useState(false);
 
-  // Hide category nav bar while cook instructions modal is open
+  // Keep category nav bar visible while cook instructions modal is open
   useEffect(() => {
     const navEl = document.getElementById("menu-categories-nav");
     if (!navEl) return;
-    if (isCookModalOpen) {
-      navEl.classList.add("hidden");
-    } else {
-      navEl.classList.remove("hidden");
-    }
-    return () => {
-      navEl.classList.remove("hidden");
-    };
+    // Always ensure nav is visible
+    navEl.classList.remove("hidden");
   }, [isCookModalOpen]);
 
   // Extract spiciness level from text (e.g., "8 out of 10 flames" -> 8)
@@ -112,31 +106,26 @@ const RamenInfo = ({ product, onBack }) => {
           key={i}
           className="w-7 h-7 flex items-center justify-center relative"
         >
+          {i === level && (
+            <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div className="w-1 h-5 bg-blue-600 rounded-full"></div>
+              <ChevronDown className="w-3 h-3 text-blue-600 -mt-0.5 drop-shadow-sm" />
+            </div>
+          )}
           <FlameSvg variant={getVariantForIndex(i)} />
         </div>
       );
     }
 
     return (
-      <div className="relative w-full flex flex-col items-center pt-6">
+      <div className="relative w-full flex flex-col items-center pt-9">
+        {/* Blue guideline */}
+        <div className="absolute top-0 left-2 right-2 h-[6px] bg-blue-600 rounded-full"></div>
+
         {/* Flames - 10 equal columns */}
         <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] place-items-center">
           {flames}
         </div>
-
-        {/* Arrow between flames (e.g., between 8 and 9 for level 8) */}
-        {(() => {
-          const capped = Math.min(level, 9);
-          const leftPercent = ((capped + 0.5) / 10) * 100;
-          return (
-            <div
-              className="absolute -top-3"
-              style={{ left: `calc(${leftPercent}% - 10px)` }}
-            >
-              <ChevronDown className="w-5 h-5 text-blue-600" />
-            </div>
-          );
-        })()}
 
         {/* Labels as pills */}
         <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] mt-4">
@@ -174,7 +163,7 @@ const RamenInfo = ({ product, onBack }) => {
   const cookerVideoId = extractVideoId(cookerSettingsVideo.url);
 
   return (
-    <div className="max-w-4xl mx-auto font-sans px-6 md:px-10 py-10">
+    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg px-6 md:px-10 py-10">
       {/* Back Button - only show if onBack is provided */}
       {onBack && (
         <button
@@ -449,21 +438,21 @@ const RamenInfo = ({ product, onBack }) => {
       {/* Cook Instructions Modal (Picture2.png style) */}
       {isCookModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          className="fixed inset-0 z-[9999] flex items-start justify-center bg-black/70 p-4 pt-20"
           onClick={() => setIsCookModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-3xl mx-4 bg-white rounded-xl p-5 shadow-2xl"
+            className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               aria-label="Close"
-              className="absolute -top-10 right-0 text-white"
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
               onClick={() => setIsCookModalOpen(false)}
             >
               <X className="w-6 h-6" />
             </button>
-            <NoodleInstructions />
+            <NoodleInstructions onClose={() => setIsCookModalOpen(false)} />
           </div>
         </div>
       )}
