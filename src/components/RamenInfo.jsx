@@ -296,19 +296,11 @@ const RamenInfo = ({ product, onBack }) => {
           </div>
           <div className="md:col-span-9">
             <div className="space-y-4 border border-gray-400 rounded-lg p-5 bg-white">
-              <div className="text-blue-700 font-extrabold uppercase tracking-wide text-2xl md:text-3xl">
-                {selectedRamen.menu
-                  ? String(selectedRamen.menu).toUpperCase()
-                  : "MENU 1"}
-              </div>
-
-              <div className="text-gray-800 text-base md:text-lg">
-                For this specific noodle :{" "}
-                {selectedRamen.menu
-                  ? `Menu ${selectedRamen.menu
-                      .toString()
-                      .replace(/[^0-9]/g, "")}`
-                  : "Menu 1"}
+              <div className="text-gray-800 text-base md:text-lg flex items-baseline gap-2">
+                <span>For this specific noodle :</span>
+                <span className="text-blue-700 font-extrabold uppercase tracking-wide text-2xl md:text-3xl">
+                  {`MENU ${selectedRamen.cooker_setting ?? 1}`}
+                </span>
               </div>
 
               <div className="flex flex-wrap items-center gap-4 md:gap-6">
@@ -326,6 +318,7 @@ const RamenInfo = ({ product, onBack }) => {
                     className="h-12 md:h-14 w-auto object-contain"
                     loading="lazy"
                   />
+                  <span className="text-gray-700 text-2xl md:text-3xl">+</span>
                   <img
                     src="/startstop.png"
                     alt="Start/Stop button"
