@@ -10,12 +10,11 @@ const ToppingsInfo = ({ product, onBack }) => {
 
   // Extract spiciness level from text (e.g., "8 out of 10 flames" -> 8)
   const getSpicyLevel = (spicinessText) => {
-    if (!spicinessText) return 1;
-    const match = spicinessText.match(/(\d+)\s*out\s*of\s*10/);
-    return match ? Number.parseInt(match[1]) : 1;
+    const match = spicinessText?.match(/(\d+)\s*out\s*of\s*10/);
+    return match ? Number.parseInt(match[1]) : 5;
   };
 
-  // Flame SVG (from RamenInfo) with dynamic colors via palette per variant
+  // Flame SVG (align with RamenInfo palette)
   const FlameSvg = ({ variant }) => {
     const id = useId();
     const gradientId = `flame-grad-${variant}-${id}`;
@@ -23,7 +22,7 @@ const ToppingsInfo = ({ product, onBack }) => {
       mild: { outer: "#22c55e", start: "#86efac", end: "#16a34a" },
       medium: { outer: "#f97316", start: "#fb923c", end: "#f59e0b" },
       hot: { outer: "#ef4444", start: "#f87171", end: "#ef4444" },
-      fiery: { outer: "#111827", start: "#6b7280", end: "#111827" },
+      fiery: { outer: "#111827", start: "#ef4444", end: "#111827" },
     };
     const { outer, start, end } = palette[variant] || palette.mild;
 
@@ -84,10 +83,10 @@ const ToppingsInfo = ({ product, onBack }) => {
   const generateFlames = (level) => {
     const flames = [];
     const getVariantForIndex = (i) => {
-      if (i <= 2) return "mild";
-      if (i <= 5) return "medium";
-      if (i <= 8) return "hot";
-      return "fiery";
+      if (i <= 2) return "mild"; // 2
+      if (i <= 5) return "medium"; // +3 => 5
+      if (i <= 8) return "hot"; // +3 => 8
+      return "fiery"; // +2 => 10
     };
 
     for (let i = 1; i <= 10; i++) {
@@ -97,12 +96,9 @@ const ToppingsInfo = ({ product, onBack }) => {
           className="w-7 h-7 flex items-center justify-center relative"
         >
           {i === level && (
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <span className="mb-0.5 text-[10px] leading-none font-semibold text-blue-700 bg-white/95 px-1.5 py-0.5 rounded border border-blue-200 shadow-sm">
-                {`${level}/10`}
-              </span>
-              <div className="w-0.5 h-4 bg-blue-600"></div>
-              <ChevronDown className="w-4 h-4 text-blue-600 -mt-1" />
+            <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div className="w-1 h-5 bg-blue-600 rounded-full"></div>
+              <ChevronDown className="w-3 h-3 text-blue-600 -mt-0.5 drop-shadow-sm" />
             </div>
           )}
           <FlameSvg variant={getVariantForIndex(i)} />
@@ -116,12 +112,12 @@ const ToppingsInfo = ({ product, onBack }) => {
         <div className="absolute top-0 left-2 right-2 h-[6px] bg-blue-600 rounded-full"></div>
 
         {/* Flames - 10 equal columns */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[480px] pt-2 place-items-center">
+        <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] place-items-center">
           {flames}
         </div>
 
         {/* Labels as pills */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[480px] mt-3">
+        <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] mt-4">
           <div className="col-span-2 flex justify-center">
             <LabelPill text="Mild" variant="mild" />
           </div>
@@ -129,7 +125,7 @@ const ToppingsInfo = ({ product, onBack }) => {
             <LabelPill text="Medium" variant="medium" />
           </div>
           <div className="col-span-3 flex justify-center">
-            <LabelPill text="Hot" variant="hot" />
+            <LabelPill text="Very Hot" variant="hot" />
           </div>
           <div className="col-span-2 flex justify-center">
             <LabelPill text="Fiery" variant="fiery" />
@@ -140,107 +136,135 @@ const ToppingsInfo = ({ product, onBack }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white border-2 border-gray-800 font-sans overflow-visible">
+    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg px-6 md:px-10 py-10">
       {/* Back Button - only show if onBack is provided */}
       {onBack && (
-        <div className="bg-gray-100 border-b-2 border-gray-800 p-3">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium"
-          >
-            <ChevronDown className="w-4 h-4 rotate-90" />
-            Back to Menu
-          </button>
-        </div>
+        <button
+          onClick={onBack}
+          className="mb-10 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium"
+        >
+          <ChevronDown className="w-4 h-4 rotate-90" />
+          Back to Menu
+        </button>
       )}
 
-      {/* Header Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 bg-white">
-        <div className="col-span-1 bg-blue-50 border-r-2 border-gray-800 p-3 font-bold text-center">
-          NAME
-        </div>
-        <div className="md:col-span-2 p-3 font-bold">
-          {selectedTopping.name}{" "}
-          {selectedTopping.category && (
-            <span className="text-sm">
-              [ {selectedTopping.category.toUpperCase()} ]
-            </span>
-          )}
-        </div>
-        <div className="md:col-span-1 md:border-l-2 border-gray-800 p-2 mt-2 md:mt-0">
-          <img
-            src={
-              selectedTopping.image_url
-                ? `/images/${selectedTopping.image_url}`
-                : "/images/placeholder.jpg"
-            }
-            alt={selectedTopping.name}
-            className="w-full h-24 object-contain md:object-cover rounded border bg-white"
-            loading="lazy"
-          />
-        </div>
-      </div>
-
-      {/* Description Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-blue-50 border-r-2 border-gray-800 p-3 font-bold">
-          THE RUNDOWN...
-        </div>
-        <div className="md:col-span-3 p-3 text-sm">
-          {selectedTopping.description || "No description available."}
-        </div>
-      </div>
-
-      {/* Price Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-blue-50 border-r-2 border-gray-800 p-3 font-bold">
-          PRICE
-        </div>
-        <div className="md:col-span-3 p-3">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-b-[10px] border-l-transparent border-r-transparent border-b-orange-500"></div>
-              <span className="font-medium">
-                ${selectedTopping.price.toFixed(2)}{" "}
-                {selectedTopping.price === 0 && "(House Mayo)"}
-              </span>
+      {/* 1. Name */}
+      <section className="mt-0">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Name
             </div>
-            {/* Show premium option for mayo */}
-            {selectedTopping.name.toLowerCase().includes("mayonnaise") &&
-              selectedTopping.price < 0.65 && (
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-pink-500"></div>
-                  <span className="font-medium">
-                    $0.90 (Premium Kewpie Mayo)
-                  </span>
-                </div>
-              )}
+          </div>
+          <div className="md:col-span-9">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+                  {selectedTopping.name}
+                </h1>
+                {selectedTopping.category && (
+                  <div className="mt-2 text-xl md:text-2xl text-gray-600">
+                    [ {selectedTopping.category.toUpperCase()} ]
+                  </div>
+                )}
+              </div>
+              <div className="w-full md:w-48">
+                <img
+                  src={
+                    selectedTopping.image_url
+                      ? `/images/${selectedTopping.image_url}`
+                      : "/images/placeholder.jpg"
+                  }
+                  alt={selectedTopping.name}
+                  className="w-full h-24 md:h-28 object-contain"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Spiciness Row */}
-      {selectedTopping.spiciness && (
-        <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-          <div className="bg-blue-50 border-r-2 border-gray-800 p-3 font-bold">
-            SPICINESS
+      {/* 2. Description */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Description
+            </div>
           </div>
-          <div className="md:col-span-3 p-3">
-            {generateFlames(getSpicyLevel(selectedTopping.spiciness))}
+          <div className="md:col-span-9">
+            <p className="text-xl md:text-2xl leading-relaxed text-gray-800">
+              {selectedTopping.description || "No description available."}
+            </p>
           </div>
         </div>
+      </section>
+
+      {/* 3. Price */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Price
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 text-2xl text-gray-900">
+                <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                <span className="font-semibold">Add-on price</span>
+                <span className="ml-auto font-extrabold tracking-tight">
+                  {`$ ${selectedTopping.price.toFixed(2)}`}
+                </span>
+              </div>
+              {/* Optional premium mayo price (kept from previous UI) */}
+              {selectedTopping.name?.toLowerCase().includes("mayonnaise") &&
+                selectedTopping.price < 0.65 && (
+                  <div className="flex items-center gap-3 text-lg text-gray-800">
+                    <div className="w-3 h-3 rounded-full bg-pink-500"></div>
+                    <span className="font-medium">
+                      $0.90 (Premium Kewpie Mayo)
+                    </span>
+                  </div>
+                )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Spiciness (only if present) */}
+      {selectedTopping.spiciness && (
+        <section className="mt-12 md:mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+            <div className="md:col-span-3">
+              <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+                Spiciness
+              </div>
+            </div>
+            <div className="md:col-span-9">
+              {generateFlames(getSpicyLevel(selectedTopping.spiciness))}
+            </div>
+          </div>
+        </section>
       )}
 
-      {/* Allergen Row */}
-      <div className="grid grid-cols-1 md:grid-cols-4 border-t-2 border-gray-800">
-        <div className="bg-blue-50 border-r-2 border-gray-800 p-3 font-bold">
-          ALLERGEN
+      {/* 5. Allergen */}
+      <section className="mt-12 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
+              Allergen
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            <p className="text-xs md:text-sm leading-6 text-black">
+              {selectedTopping.allergen ||
+                "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."}
+            </p>
+          </div>
         </div>
-        <div className="md:col-span-3 p-3 text-sm">
-          {selectedTopping.allergen ||
-            "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."}
-        </div>
-      </div>
+      </section>
     </div>
   );
 };
