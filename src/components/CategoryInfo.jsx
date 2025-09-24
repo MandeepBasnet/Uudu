@@ -26,7 +26,7 @@ export default function CategoryInfo({ categoryInfo }) {
         categoryInfo.slug
       )} rounded-2xl md:rounded-3xl overflow-hidden p-6 md:p-8 shadow-xl border border-gray-200/80 transform transition-all duration-300 hover:shadow-2xl`}
     >
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex flex-wrap items-center gap-4 mb-6">
         <h3
           className="text-xl font-semibold text-gray-800"
           style={{
@@ -36,7 +36,7 @@ export default function CategoryInfo({ categoryInfo }) {
           From {categoryInfo.name}:
         </h3>
       </div>
-      <p className="text-gray-600 text-sm leading-relaxed mb-6">
+      <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
         {categoryInfo.description}
       </p>
       {(categoryInfo.slug === "korea" ||

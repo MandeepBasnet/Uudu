@@ -36,7 +36,7 @@ export default function Navbar() {
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="w-full px-4">
+      <div className="w-full px-4 sm:px-6">
         <nav className="mt-4 mb-3 rounded-2xl bg-white/60 supports-[backdrop-filter]:bg-white/40 backdrop-blur-md backdrop-saturate-150 ring-1 ring-white/50 shadow-md">
           <div className="flex items-center justify-between px-4 py-3">
             <a href="/" className="flex flex-col items-center">
@@ -81,7 +81,7 @@ export default function Navbar() {
                 )}
               </svg>
             </button>
-            <ul className="hidden gap-6 md:flex text-base font-bold">
+            <ul className="hidden gap-6 lg:gap-8 md:flex text-base font-bold">
               {navLinks.map((link, index) => (
                 <li key={link.label} className="flex items-center">
                   <a

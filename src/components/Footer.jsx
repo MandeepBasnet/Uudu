@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className="pb-10 pt-6">
-      <div className="w-full px-4">
+      <div className="w-full px-4 sm:px-6">
         <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/5">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 items-start">
             {/* Location Section */}
             <div>
               <h3
@@ -59,7 +59,7 @@ export default function Footer() {
               <img
                 src="/images/store-front.png"
                 alt="UUDU Store Front - Ramen O Hack"
-                className="w-full max-w-sm rounded-lg object-cover shadow-sm"
+                className="w-full max-w-[18rem] sm:max-w-sm rounded-lg object-cover shadow-sm"
               />
             </div>
 

@@ -34,7 +34,7 @@ export default function ProductCard({
   return (
     <div className="group">
       {/* Invisible frame that reserves consistent space */}
-      <div className="relative w-full h-56 md:h-60 lg:h-64 flex items-center justify-center border border-transparent">
+      <div className="relative w-full h-56 sm:h-60 md:h-64 lg:h-72 flex items-center justify-center border border-transparent">
         <img
           src={image}
           alt={name}
@@ -53,15 +53,15 @@ export default function ProductCard({
       </div>
 
       {/* Text block */}
-      <div className="mt-3 text-center">
+      <div className="mt-3 text-center px-2">
         <h3
-          className="text-2xl md:text-3xl font-bold leading-snug"
+          className="text-2xl sm:text-[28px] md:text-3xl font-bold leading-snug"
           style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
         >
           {name}
         </h3>
         {priceText && (
-          <p className="mt-1 text-lg text-gray-700" aria-label="price">
+          <p className="mt-1 text-base sm:text-lg text-gray-700" aria-label="price">
             {priceText}
           </p>
         )}
