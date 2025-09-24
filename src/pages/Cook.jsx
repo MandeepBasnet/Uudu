@@ -18,7 +18,7 @@ export default function Cook() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-6xl px-4 mt-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 mt-8">
         {/* Intro */}
         <p className="text-center text-gray-700 text-lg mb-10 leading-relaxed">
           Follow these simple steps to prepare your perfect bowl of ramen. Fast,

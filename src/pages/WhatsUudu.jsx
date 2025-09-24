@@ -17,7 +17,7 @@ export default function WhatsUudu() {
       </div>
 
       {/* Intro */}
-      <div className="mx-auto max-w-4xl px-4 mt-8 text-center">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 mt-8 text-center">
         <p className="text-gray-700 text-lg leading-relaxed text-justify">
           UUDU is the fearless ramen hack experience. Born from the self-serve
           craze across Asia, we bring bold flavors, endless toppings, and
@@ -27,7 +27,7 @@ export default function WhatsUudu() {
       </div>
 
       {/* Story Sections */}
-      <div className="mx-auto max-w-5xl px-4 mt-10 grid gap-10">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 mt-10 grid gap-10">
         {/* The Idea */}
         <div className="bg-white rounded-3xl shadow-sm p-8">
           <h2

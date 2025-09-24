@@ -16,7 +16,7 @@ export default function Location() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-5xl px-4 mt-8">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Map Embed */}
           <div
