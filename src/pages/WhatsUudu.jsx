@@ -18,7 +18,7 @@ export default function WhatsUudu() {
 
       {/* Intro */}
       <div className="mx-auto max-w-4xl px-4 mt-8 text-center">
-        <p className="text-gray-700 text-lg leading-relaxed">
+        <p className="text-gray-700 text-lg leading-relaxed text-justify">
           UUDU is the fearless ramen hack experience. Born from the self-serve
           craze across Asia, we bring bold flavors, endless toppings, and
           intuitive cooking to the U.S. It’s fast, fun, and fearless – always
@@ -31,12 +31,12 @@ export default function WhatsUudu() {
         {/* The Idea */}
         <div className="bg-white rounded-3xl shadow-sm p-8">
           <h2
-            className="text-2xl font-semibold mb-4 text-[#C84E00]"
+            className="text-2xl font-semibold mb-4 text-[#C84E00] text-justify"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             The Idea
           </h2>
-          <p className="text-gray-700 leading-relaxed">
+          <p className="text-gray-700 leading-relaxed text-justify">
             From edgy food joints in South Korea to bustling night markets
             across Asia, the ramen hack culture was born. At UUDU, we capture
             that spirit, giving everyone the tools to craft their perfect bowl.
@@ -46,12 +46,12 @@ export default function WhatsUudu() {
         {/* The Experience */}
         <div className="bg-white rounded-3xl shadow-sm p-8">
           <h2
-            className="text-2xl font-semibold mb-4 text-[#C84E00]"
+            className="text-2xl font-semibold mb-4 text-[#C84E00] text-justify"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             The Experience
           </h2>
-          <p className="text-gray-700 leading-relaxed">
+          <p className="text-gray-700 leading-relaxed text-justify">
             Walk in, grab your instant nuudu, pick your toppings, and head to
             the mothership cooker. With step-by-step visuals, bold hack sauces,
             and chill vibes, UUDU is a launchpad for creativity.
@@ -61,12 +61,12 @@ export default function WhatsUudu() {
         {/* The Future */}
         <div className="bg-white rounded-3xl shadow-sm p-8">
           <h2
-            className="text-2xl font-semibold mb-4 text-[#C84E00]"
+            className="text-2xl font-semibold mb-4 text-[#C84E00] text-justify"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             The Future
           </h2>
-          <p className="text-gray-700 leading-relaxed">
+          <p className="text-gray-700 leading-relaxed text-justify">
             We’re more than ramen. UUDU is a fearless food movement – from
             takeout kits and local events to a growing community of hackers
             reinventing flavor. The journey has just begun.

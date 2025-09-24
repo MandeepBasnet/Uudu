@@ -75,7 +75,7 @@ function Hero() {
 function Mothership() {
   return (
     <section className="py-12 sm:py-16 bg-[#F0E6DE]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 md:grid-cols-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-y-10 gap-x-[44px] px-4 md:grid-cols-20">
         <div className="md:col-span-7">
           <h2
             className="text-4xl sm:text-6xl font-bold text-[#99564c] mb-6"
@@ -83,22 +83,22 @@ function Mothership() {
           >
             The ramen hack mothership has landed . . .
           </h2>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             From edgy food joints across South Korea and all over Asia, the
             self-serve ramen craze has officially landed in the U.S. At UUDU,
             we're the intuitive launchpad for creative "hackers" to craft their
             unique bowl with ease. Grab your instant nuudu, pick your toppings
             of choice, reinvent that killer broth.
           </p>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             It's all about fast, fun, and flavor... fearlessly your way!
           </p>
         </div>
-        <div className="md:col-span-13">
+        <div className="md:col-span-13 mt-6 md:mt-0">
           <img
             src="/images/mothership-desktop.png"
             alt="The ramen hack mothership has landed"
-            className="w-full rounded-3xl object-cover shadow-sm"
+            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
           />
         </div>
       </div>
@@ -109,12 +109,12 @@ function Mothership() {
 function SoHackinEasy() {
   return (
     <section className="py-12 sm:py-16 bg-[#E6D7FF]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 md:grid-cols-20">
-        <div className="md:col-span-13">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-y-10 gap-x-[44px] px-4 md:grid-cols-20">
+        <div className="md:col-span-13 mb-6 md:mb-0">
           <img
             src="/images/easy-desktop.png"
             alt="So hackin' easy"
-            className="w-full rounded-3xl object-cover shadow-sm"
+            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
           />
         </div>
         <div className="md:col-span-7">
@@ -124,7 +124,7 @@ function SoHackinEasy() {
           >
             So hackin' easy
           </h2>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             Scroll through social and you'll see it—instant ramen fans taking
             their bowls to the next level, far beyond the basic packet. That
             kind of flavor magic and hack‑level fun takes more than noodles
@@ -132,7 +132,7 @@ function SoHackinEasy() {
             sauces to make any instant ramen—Korean, Japanese, or
             otherwise—taste incredible… even out of this world.
           </p>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             And no sweat on your next amazing nuudu creation. At UUDU, we break
             it all down with step‑by‑step visuals, smart pairings, and fail‑safe
             techniques so hacking feels straightforward, not overwhelming.{" "}
@@ -147,7 +147,7 @@ function SoHackinEasy() {
 function ValueBeyondHype() {
   return (
     <section className="py-12 sm:py-16 bg-[#D4F4DD]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 md:grid-cols-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-y-10 gap-x-[44px] px-4 md:grid-cols-20">
         <div className="md:col-span-7 md:order-1">
           <h2
             className="text-4xl sm:text-6xl font-bold text-[#99564c] mb-6"
@@ -157,13 +157,13 @@ function ValueBeyondHype() {
             <br />
             The hype
           </h2>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             Self-serve ramen can be euphoric, but it shouldn't feel overpriced.
             UUDU keeps the experience <em>real</em> with a commitment to pricing
             below market while delivering a more satisfying, value-driven hack
             adventure.
           </p>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             It's about building a long-term connection with our customers
             through a sensible '<strong>right portion, right price</strong>'
             approach. No hype. No waste. No upsell. Just the total freedom to
@@ -177,11 +177,11 @@ function ValueBeyondHype() {
             MENU
           </a>
         </div>
-        <div className="md:col-span-13 md:order-2">
+        <div className="md:col-span-13 md:order-2 mt-6 md:mt-0">
           <img
             src="/images/value-desktop.png"
             alt="Value beyond the hype"
-            className="w-full rounded-3xl object-cover shadow-sm"
+            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
           />
         </div>
       </div>
@@ -192,12 +192,12 @@ function ValueBeyondHype() {
 function ChilledVibe() {
   return (
     <section className="py-12 sm:py-16 bg-[#D1E7FF]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 md:grid-cols-20">
-        <div className="md:col-span-13">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-y-10 gap-x-[44px] px-4 md:grid-cols-20">
+        <div className="md:col-span-13 mb-6 md:mb-0">
           <img
             src="/images/vibe-desktop.png"
             alt="Chilled vibe for a new foodie generation"
-            className="w-full rounded-3xl object-cover shadow-sm"
+            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
           />
         </div>
         <div className="md:col-span-7">
@@ -207,13 +207,13 @@ function ChilledVibe() {
           >
             Chilled vibe for a new foodie generation
           </h2>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             UUDU isn't just a resourceful nuudu hack lab—it's where you vibe.
             With an inviting, subtle ambiance, spacious seating, and curated
             socialtainment playing on the big screen, we've built a space where
             casual creatives can chill and try new foods.
           </p>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             There's an uncommon rhythm and spirit that you'll feel right away,
             echoing the range of our global flavors. UUDU brings people together
             over bold tastes, fresh ideas, and a love for doing things
@@ -229,7 +229,7 @@ function ChilledVibe() {
 function TakeoutReimagined() {
   return (
     <section className="py-12 sm:py-16 bg-[#FFE1F0]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 md:grid-cols-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-y-10 gap-x-[44px] px-4 md:grid-cols-20">
         <div className="md:col-span-7 md:order-1">
           <h2
             className="text-4xl sm:text-6xl font-bold text-[#99564c] mb-6"
@@ -237,14 +237,14 @@ function TakeoutReimagined() {
           >
             Takeout, re‑imagined
           </h2>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             Boring burgers and flimsy salads again at the cubicle? Break the
             cycle with one of UUDU's popular ramen kits, conveniently pre-packed
             for easy grab-and-go—or have it delivered straight to your office.
             It's a quick, craveable upgrade to your usual lunch routine—easy to
             prep, hard to beat.
           </p>
-          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c] text-justify">
             And when the workday's finally over, our ramen kits can also bring
             that convenience home. For busy moms and professionals alike, UUDU
             offers a hearty, satisfying meal that's ready in minutes and costs
@@ -252,11 +252,11 @@ function TakeoutReimagined() {
             bowls—turning dinnertime into a festive, self-serve treat.
           </p>
         </div>
-        <div className="md:col-span-13 md:order-2">
+        <div className="md:col-span-13 md:order-2 mt-6 md:mt-0">
           <img
             src="/images/takeout-desktop.png"
             alt="Takeout, re‑imagined"
-            className="w-full rounded-3xl object-cover shadow-sm"
+            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
           />
         </div>
       </div>

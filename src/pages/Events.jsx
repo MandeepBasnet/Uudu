@@ -46,7 +46,7 @@ export default function Events() {
 
       {/* Intro */}
       <div className="mx-auto max-w-4xl px-4 mt-8 text-center">
-        <p className="text-gray-700 text-lg leading-relaxed">
+        <p className="text-gray-700 text-lg leading-relaxed text-justify">
           UUDU isn’t just about ramen – it’s about community. From workshops and
           launch parties to late-night karaoke, our events bring fearless
           foodies together. Check out what’s happening at our mothership.
@@ -73,7 +73,7 @@ export default function Events() {
                 {event.title}
               </h2>
               <p className="text-sm text-gray-500 mb-3">{event.date}</p>
-              <p className="text-gray-700 text-sm mb-4 leading-relaxed">
+              <p className="text-gray-700 text-sm mb-4 leading-relaxed text-justify">
                 {event.description}
               </p>
             </div>
