@@ -98,7 +98,7 @@ function Mothership() {
           <img
             src="/images/mothership-desktop.png"
             alt="The ramen hack mothership has landed"
-            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
+            className="w-full h-[500px] sm:h-[580px] md:h-[720px] rounded-3xl object-cover shadow-sm"
           />
         </div>
       </div>
@@ -114,7 +114,7 @@ function SoHackinEasy() {
           <img
             src="/images/easy-desktop.png"
             alt="So hackin' easy"
-            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
+            className="w-full h-[580px] sm:h-[660px] md:h-[800px] rounded-3xl object-cover shadow-sm"
           />
         </div>
         <div className="md:col-span-7">
@@ -181,7 +181,7 @@ function ValueBeyondHype() {
           <img
             src="/images/value-desktop.png"
             alt="Value beyond the hype"
-            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
+            className="w-full h-[520px] sm:h-[600px] md:h-[740px] rounded-3xl object-cover shadow-sm"
           />
         </div>
       </div>
@@ -197,7 +197,7 @@ function ChilledVibe() {
           <img
             src="/images/vibe-desktop.png"
             alt="Chilled vibe for a new foodie generation"
-            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
+            className="w-full h-[520px] sm:h-[600px] md:h-[740px] rounded-3xl object-cover shadow-sm"
           />
         </div>
         <div className="md:col-span-7">
@@ -256,7 +256,7 @@ function TakeoutReimagined() {
           <img
             src="/images/takeout-desktop.png"
             alt="Takeout, re‑imagined"
-            className="w-full h-[432px] sm:h-[504px] md:h-[624px] rounded-3xl object-cover shadow-sm"
+            className="w-full h-[500px] sm:h-[580px] md:h-[720px] rounded-3xl object-cover shadow-sm"
           />
         </div>
       </div>

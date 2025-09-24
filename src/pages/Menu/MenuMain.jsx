@@ -218,7 +218,7 @@ export default function MenuMain() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F2F2F2] pt-44 md:pt-44">
+      <div className="min-h-screen bg-[#F2F2F2] pt-44 md:pt-48">
         {/* Fixed Menu Navigation */}
         <div
           id="menu-categories-nav"
@@ -590,7 +590,7 @@ export default function MenuMain() {
                   selectedProduct ? "lg:w-1/2" : "lg:w-80"
                 }`}
               >
-                <div className="lg:sticky lg:top-40 overflow-visible max-h-[calc(100vh-10rem)] overflow-y-auto">
+                <div className="lg:sticky md:top-36 lg:top-44 xl:top-48 overflow-visible max-h-[calc(100vh-12rem)] overflow-y-auto">
                   {renderInfoPanel()}
                 </div>
               </div>

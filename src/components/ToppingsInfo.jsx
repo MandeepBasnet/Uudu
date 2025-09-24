@@ -161,7 +161,7 @@ const ToppingsInfo = ({ product, onBack }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg px-6 md:px-10 py-10">
+    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg px-4 sm:px-6 md:px-10 py-8 md:py-10">
       {/* Back Button - only show if onBack is provided */}
       {onBack && (
         <button
