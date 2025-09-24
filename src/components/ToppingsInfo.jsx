@@ -8,6 +8,18 @@ const ToppingsInfo = ({ product, onBack }) => {
   // Use the product prop if provided, otherwise default to first topping
   const selectedTopping = product || toppingsData.toppings[0];
 
+  // Determine triangle color: prefer explicit color_code, else map by price
+  const getTriangleColor = () => {
+    const hex = selectedTopping.color_code;
+    if (hex) return hex;
+    const price = Number(selectedTopping.price || 0);
+    if (Math.abs(price - 0.65) < 0.001) return "#f2960c"; // orange
+    if (Math.abs(price - 0.35) < 0.001) return "#26e320"; // green
+    if (Math.abs(price - 0.9) < 0.001) return "#e320dc"; // purple
+    if (Math.abs(price - 2.0) < 0.001) return "#0d0c0d"; // black
+    return "#9ca3af"; // gray-400 fallback
+  };
+
   // Extract spiciness level from text (e.g., "8 out of 10 flames" -> 8)
   const getSpicyLevel = (spicinessText) => {
     const match = spicinessText?.match(/(\d+)\s*out\s*of\s*10/);
@@ -141,7 +153,7 @@ const ToppingsInfo = ({ product, onBack }) => {
       {onBack && (
         <button
           onClick={onBack}
-          className="mb-10 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium"
+          className="mb-8 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-2xl"
         >
           <ChevronDown className="w-4 h-4 rotate-90" />
           Back to Menu
@@ -152,23 +164,35 @@ const ToppingsInfo = ({ product, onBack }) => {
       <section className="mt-0">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Name
-            </div>
+            <div className="text-2xl font-semibold text-black">Name:</div>
+            <div className="mt-4 text-2xl font-semibold text-black">Price:</div>
           </div>
           <div className="md:col-span-9">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+            <div className="flex flex-col md:flex-row md:items-stretch md:justify-between gap-4">
+              <div className="flex-1">
+                <h1
+                  className="text-lg md:text-xl font-normal tracking-tight text-gray-900 truncate"
+                  title={selectedTopping.name}
+                >
                   {selectedTopping.name}
                 </h1>
-                {selectedTopping.category && (
-                  <div className="mt-2 text-xl md:text-2xl text-gray-600">
-                    [ {selectedTopping.category.toUpperCase()} ]
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center gap-3 text-2xl text-gray-900">
+                    <div
+                      aria-hidden
+                      style={{
+                        width: 0,
+                        height: 0,
+                        borderLeft: "20px solid transparent",
+                        borderRight: "20px solid transparent",
+                        borderBottom: `36px solid ${getTriangleColor()}`,
+                      }}
+                    />
+                    <span className="tracking-tight font-normal">{`$ ${selectedTopping.price.toFixed(2)}`}</span>
                   </div>
-                )}
+                </div>
               </div>
-              <div className="w-full md:w-48">
+              <div className="w-full md:w-48 self-stretch flex items-center">
                 <img
                   src={
                     selectedTopping.image_url
@@ -176,7 +200,7 @@ const ToppingsInfo = ({ product, onBack }) => {
                       : "/images/placeholder.jpg"
                   }
                   alt={selectedTopping.name}
-                  className="w-full h-24 md:h-28 object-contain"
+                  className="w-full h-full object-contain"
                   loading="lazy"
                 />
               </div>
@@ -186,61 +210,25 @@ const ToppingsInfo = ({ product, onBack }) => {
       </section>
 
       {/* 2. Description */}
-      <section className="mt-12 md:mt-16">
+      <section className="mt-8 md:mt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Description
-            </div>
+            <div className="text-2xl font-semibold text-black">Description:</div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-xl md:text-2xl leading-relaxed text-gray-800">
+            <p className="text-lg md:text-xl leading-relaxed text-gray-800">
               {selectedTopping.description || "No description available."}
             </p>
           </div>
         </div>
       </section>
 
-      {/* 3. Price */}
-      <section className="mt-12 md:mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-          <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Price
-            </div>
-          </div>
-          <div className="md:col-span-9">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3 text-2xl text-gray-900">
-                <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-                <span className="font-semibold">Add-on price</span>
-                <span className="ml-auto font-extrabold tracking-tight">
-                  {`$ ${selectedTopping.price.toFixed(2)}`}
-                </span>
-              </div>
-              {/* Optional premium mayo price (kept from previous UI) */}
-              {selectedTopping.name?.toLowerCase().includes("mayonnaise") &&
-                selectedTopping.price < 0.65 && (
-                  <div className="flex items-center gap-3 text-lg text-gray-800">
-                    <div className="w-3 h-3 rounded-full bg-pink-500"></div>
-                    <span className="font-medium">
-                      $0.90 (Premium Kewpie Mayo)
-                    </span>
-                  </div>
-                )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Spiciness (only if present) */}
+      {/* 3. Spiciness (only if present) */}
       {selectedTopping.spiciness && (
-        <section className="mt-12 md:mt-16">
+        <section className="mt-8 md:mt-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
             <div className="md:col-span-3">
-              <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-                Spiciness
-              </div>
+              <div className="text-2xl font-semibold text-black">Spiciness:</div>
             </div>
             <div className="md:col-span-9">
               {generateFlames(getSpicyLevel(selectedTopping.spiciness))}
@@ -249,13 +237,11 @@ const ToppingsInfo = ({ product, onBack }) => {
         </section>
       )}
 
-      {/* 5. Allergen */}
-      <section className="mt-12 md:mt-16">
+      {/* 4. Allergen */}
+      <section className="mt-8 md:mt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Allergen
-            </div>
+            <div className="text-2xl font-semibold text-black">Allergen:</div>
           </div>
           <div className="md:col-span-9">
             <p className="text-xs md:text-sm leading-6 text-black">

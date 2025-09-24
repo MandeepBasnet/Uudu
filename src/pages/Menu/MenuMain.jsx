@@ -359,8 +359,16 @@ export default function MenuMain() {
                     category.slug
                   ) && (
                     <div className="mb-12 md:mb-14">
-                      <div className="w-full rounded-2xl bg-transparent border border-gray-300 shadow-sm px-4 py-4 text-center">
-                        <div className="flex items-center justify-center gap-3 mb-3">
+                      <div className="w-full rounded-2xl bg-transparent border border-gray-300 shadow-sm px-4 py-4">
+                        <div className="flex items-center justify-center gap-4 mb-3">
+                          <h2
+                            className="px-2 text-4xl font-extrabold uppercase tracking-wide"
+                            style={{
+                              fontFamily: "Bahnschrift, system-ui, sans-serif",
+                            }}
+                          >
+                            {category.name}
+                          </h2>
                           <div className="w-14 h-10 overflow-hidden rounded border border-gray-200 bg-white flex items-center justify-center">
                             {typeof category.flag === "string" &&
                             category.flag.startsWith("/images/") ? (
@@ -376,17 +384,49 @@ export default function MenuMain() {
                               </span>
                             )}
                           </div>
+                        </div>
+                        {category.description && (
+                          <p className="text-2xl font-normal text-gray-700 max-w-5xl mx-auto leading-snug">
+                            {category.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Non-country Top Banner (Toppers, Bévs, Snax, Specials) */}
+                  {!["korea", "japan", "taiwan", "other-asia"].includes(
+                    category.slug
+                  ) && (
+                    <div className="mb-12 md:mb-14">
+                      <div className="w-full rounded-2xl bg-transparent border border-gray-300 shadow-sm px-4 py-4">
+                        <div className="flex items-center justify-center gap-4 mb-3">
                           <h2
-                            className="px-2 text-2xl font-bold"
+                            className="px-2 text-4xl font-extrabold uppercase tracking-wide"
                             style={{
                               fontFamily: "Bahnschrift, system-ui, sans-serif",
                             }}
                           >
                             {category.name}
                           </h2>
+                          <div className="w-14 h-10 overflow-hidden rounded border border-gray-200 bg-white flex items-center justify-center">
+                            {typeof category.flag === "string" &&
+                            category.flag.startsWith("/images/") ? (
+                              <img
+                                src={category.flag}
+                                alt={`${category.name} flag`}
+                                className="w-14 h-10 object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <span className="text-3xl leading-none">
+                                {category.flag || ""}
+                              </span>
+                            )}
+                          </div>
                         </div>
                         {category.description && (
-                          <p className="text-2xl text-gray-700 max-w-5xl mx-auto leading-snug">
+                          <p className="text-2xl font-normal text-gray-700 max-w-5xl mx-auto leading-snug">
                             {category.description}
                           </p>
                         )}
@@ -397,7 +437,7 @@ export default function MenuMain() {
                   {/* Products Grid */}
                   <div
                     className={`grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 ${
-                      selectedProduct ? "lg:grid-cols-2" : "lg:grid-cols-4"
+                      selectedProduct ? "lg:grid-cols-2" : "lg:grid-cols-5"
                     }`}
                   >
                     {(() => {
@@ -484,7 +524,7 @@ export default function MenuMain() {
                                     className={`grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 ${
                                       selectedProduct
                                         ? "lg:grid-cols-2"
-                                        : "lg:grid-cols-4"
+                                        : "lg:grid-cols-5"
                                     }`}
                                   >
                                     {categoryToppings.map((product) => (
@@ -509,6 +549,8 @@ export default function MenuMain() {
                                             product.price ||
                                             product.price_packet
                                           }
+                                          hidePrice
+                                          uniformScale
                                         />
                                       </div>
                                     ))}
@@ -537,6 +579,7 @@ export default function MenuMain() {
                                   : "/images/placeholder.jpg"
                               }
                               price={product.price || product.price_packet}
+                              hidePrice
                             />
                           </div>
                         ))

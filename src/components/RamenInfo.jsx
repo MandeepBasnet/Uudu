@@ -25,6 +25,17 @@ const RamenInfo = ({ product, onBack }) => {
     return match ? Number.parseInt(match[1]) : 5;
   };
 
+  // Circle color by price breakdown
+  const getPriceCircleColor = (packetPrice, bowlPrice) => {
+    const p = Number(packetPrice);
+    const b = Number(bowlPrice);
+    const is = (x, y) => Math.abs(x - y) < 0.001;
+    if (is(p, 2.25) && is(b, 3.0)) return "bg-blue-600";
+    if (is(p, 1.5) && is(b, 3.0)) return "bg-red-600";
+    if (is(p, 5.5) && is(b, 3.0)) return "bg-yellow-400";
+    return "bg-gray-400";
+  };
+
   // Flame SVG (provided) with dynamic colors via palette per variant
   const FlameSvg = ({ variant }) => {
     const id = useId();
@@ -168,7 +179,7 @@ const RamenInfo = ({ product, onBack }) => {
       {onBack && (
         <button
           onClick={onBack}
-          className="mb-10 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium"
+          className="mb-8 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-2xl"
         >
           <ChevronDown className="w-4 h-4 rotate-90" />
           Back to Menu
@@ -179,21 +190,38 @@ const RamenInfo = ({ product, onBack }) => {
       <section className="mt-0">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Name
-            </div>
+            <div className="text-2xl font-semibold text-black">Name:</div>
+            <div className="mt-4 text-2xl font-semibold text-black">Price:</div>
           </div>
           <div className="md:col-span-9">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+            <div className="flex flex-col md:flex-row md:items-stretch md:justify-between gap-4">
+              <div className="flex-1">
+                <h1
+                  className="text-lg md:text-xl font-normal tracking-tight text-gray-900 truncate"
+                  title={selectedRamen.name}
+                >
                   {selectedRamen.name}
                 </h1>
-                <div className="mt-2 text-xl md:text-2xl text-gray-600">
-                  [ {selectedRamen.country.toUpperCase()} ]
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center gap-3 text-2xl text-gray-900">
+                    <div
+                      className={`w-8 h-8 rounded-full ${getPriceCircleColor(
+                        selectedRamen.price_packet,
+                        selectedRamen.price_bowl
+                      )}`}
+                    ></div>
+                    <span className="tracking-tight font-normal">{`$ ${(
+                      selectedRamen.price_packet + selectedRamen.price_bowl
+                    ).toFixed(2)}`}</span>
+                  </div>
+                  <div className="text-sm md:text-base text-gray-500 italic whitespace-pre pl-12 md:pl-14">
+                    {`* ( Noodle  $ ${selectedRamen.price_packet.toFixed(
+                      2
+                    )}   +   Bowl  $ ${selectedRamen.price_bowl.toFixed(2)} )`}
+                  </div>
                 </div>
               </div>
-              <div className="w-full md:w-48">
+              <div className="w-full md:w-48 self-stretch flex items-center">
                 <img
                   src={
                     selectedRamen.image_url
@@ -201,7 +229,7 @@ const RamenInfo = ({ product, onBack }) => {
                       : "/images/placeholder.jpg"
                   }
                   alt={selectedRamen.name}
-                  className="w-full h-24 md:h-28 object-contain"
+                  className="w-full h-full object-contain"
                   loading="lazy"
                 />
               </div>
@@ -211,63 +239,26 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 2. Description */}
-      <section className="mt-12 md:mt-16">
+      <section className="mt-8 md:mt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Description
+            <div className="text-2xl font-semibold text-black">
+              Description:
             </div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-xl md:text-2xl leading-relaxed text-gray-800">
+            <p className="text-lg md:text-xl leading-relaxed text-gray-800">
               {selectedRamen.description}
             </p>
           </div>
         </div>
       </section>
 
-      {/* 3. Price */}
-      <section className="mt-12 md:mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-          <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Price
-            </div>
-          </div>
-          <div className="md:col-span-9">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3 text-2xl text-gray-900">
-                <div
-                  className={`w-3 h-3 rounded-full ${
-                    selectedRamen.price_packet === 2.25
-                      ? "bg-blue-500"
-                      : "bg-red-500"
-                  }`}
-                ></div>
-                <span className="font-semibold">Combined price</span>
-                <span className="ml-auto font-extrabold tracking-tight">
-                  {`$ ${(
-                    selectedRamen.price_packet + selectedRamen.price_bowl
-                  ).toFixed(2)}`}
-                </span>
-              </div>
-              <div className="text-sm text-gray-500 italic">
-                {`* Price breakdown: $ ${selectedRamen.price_packet.toFixed(
-                  2
-                )} packet + $ ${selectedRamen.price_bowl.toFixed(2)} bowl`}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 4. Spiciness */}
-      <section className="mt-12 md:mt-16">
+      <section className="mt-8 md:mt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Spiciness
-            </div>
+            <div className="text-2xl font-semibold text-black">Spiciness:</div>
           </div>
           <div className="md:col-span-9">
             {generateFlames(getSpicyLevel(selectedRamen.spiciness))}
@@ -276,15 +267,15 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 5. Cooker Setting */}
-      <section className="mt-12 md:mt-16">
+      <section className="mt-8 md:mt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Cooker Setting
+            <div className="text-2xl font-semibold text-black">
+              Cooker Setting:
             </div>
           </div>
           <div className="md:col-span-9">
-            <div className="space-y-4 border border-gray-400 rounded-lg p-5 bg-white">
+            <div className="space-y-4 border border-gray-400 rounded-lg p-5 bg-white relative">
               <div className="text-gray-800 text-base md:text-lg flex items-baseline gap-2">
                 <span>For this specific noodle :</span>
                 <span className="text-blue-700 font-extrabold uppercase tracking-wide text-2xl md:text-3xl">
@@ -293,31 +284,37 @@ const RamenInfo = ({ product, onBack }) => {
               </div>
 
               <div className="flex flex-wrap items-center gap-4 md:gap-6">
-                <img
-                  src="/RamenCooker.png"
-                  alt="Ramen Cooker"
-                  className="h-24 md:h-28 w-auto object-contain"
-                  loading="lazy"
-                />
-                <span className="text-gray-500 text-3xl md:text-4xl">→</span>
-                <div className="flex items-center gap-3 md:gap-4">
+                <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
                   <img
-                    src="/menu.png"
-                    alt="Menu button"
-                    className="h-12 md:h-14 w-auto object-contain"
-                    loading="lazy"
-                  />
-                  <span className="text-gray-700 text-2xl md:text-3xl">+</span>
-                  <img
-                    src="/startstop.png"
-                    alt="Start/Stop button"
-                    className="h-12 md:h-14 w-auto object-contain"
+                    src="/RamenCooker.png"
+                    alt="Ramen Cooker"
+                    className="w-full h-full object-contain"
                     loading="lazy"
                   />
                 </div>
+                <span className="text-gray-500 text-3xl md:text-4xl">→</span>
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
+                    <img
+                      src="/menu.png"
+                      alt="Menu button"
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-gray-700 text-2xl md:text-3xl">+</span>
+                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
+                    <img
+                      src="/startstop.png"
+                      alt="Start/Stop button"
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div>
+              <div className="flex justify-end pr-[6rem] mt-6">
                 <button
                   type="button"
                   onClick={() => setIsCookModalOpen(true)}
@@ -332,11 +329,11 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 6. Hack Videos */}
-      <section className="mt-12 md:mt-16">
+      <section className="mt-8 md:mt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Hack Videos
+            <div className="text-2xl font-semibold text-black">
+              Hack Videos:
             </div>
           </div>
           <div className="md:col-span-9">
@@ -377,12 +374,10 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 7. Allergen */}
-      <section className="mt-12 md:mt-16">
+      <section className="mt-8 md:mt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-sm font-semibold tracking-widest text-gray-500 uppercase">
-              Allergen
-            </div>
+            <div className="text-2xl font-semibold text-black">Allergen:</div>
           </div>
           <div className="md:col-span-9">
             <p className="text-xs md:text-sm leading-6 text-black">

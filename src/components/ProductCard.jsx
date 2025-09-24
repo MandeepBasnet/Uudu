@@ -1,7 +1,13 @@
 // src/components/ProductCard.jsx
 import React, { useState, useCallback } from "react";
 
-export default function ProductCard({ name, image, price }) {
+export default function ProductCard({
+  name,
+  image,
+  price,
+  hidePrice,
+  uniformScale,
+}) {
   const [orientation, setOrientation] = useState("square");
 
   const handleLoad = useCallback((e) => {
@@ -21,7 +27,7 @@ export default function ProductCard({ name, image, price }) {
   }, []);
 
   const priceText =
-    typeof price === "number" && !Number.isNaN(price)
+    typeof price === "number" && !Number.isNaN(price) && !hidePrice
       ? `$${price.toFixed(2)}`
       : undefined;
 
@@ -34,7 +40,9 @@ export default function ProductCard({ name, image, price }) {
           alt={name}
           onLoad={handleLoad}
           className={
-            orientation === "portrait"
+            uniformScale
+              ? "max-h-full max-w-[85%] object-contain"
+              : orientation === "portrait"
               ? "max-h-full max-w-[70%] object-contain"
               : orientation === "landscape"
               ? "max-h-full max-w-[95%] object-contain"
@@ -47,7 +55,7 @@ export default function ProductCard({ name, image, price }) {
       {/* Text block */}
       <div className="mt-3 text-center">
         <h3
-          className="text-xl font-bold leading-snug"
+          className="text-2xl md:text-3xl font-bold leading-snug"
           style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
         >
           {name}
