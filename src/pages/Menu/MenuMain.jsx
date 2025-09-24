@@ -320,7 +320,7 @@ export default function MenuMain() {
                         : category.slug === "other-asia"
                         ? "#f5f5f5" // light gray
                         : category.slug === "toppers"
-                        ? "#f8fafc"
+                        ? "#fff7ed"
                         : category.slug === "bevs"
                         ? "#f0f9ff"
                         : category.slug === "snax"
@@ -387,7 +387,9 @@ export default function MenuMain() {
                         </div>
                         {category.description && (
                           <p className="text-2xl font-normal text-gray-700 max-w-5xl mx-auto leading-snug">
-                            {category.description}
+                            {category.slug === "toppers"
+                              ? "Instant noodles are just the beginning - our 32 toppings unlock the real hack. From fresh veggies and bold sauces to melty cheeses and savoury proteins, each add-on transforms a simple bowl into your signature creation. Layer, mix, and match  - this is where the flavour adventure takes flight."
+                              : category.description}
                           </p>
                         )}
                       </div>
@@ -476,21 +478,8 @@ export default function MenuMain() {
 
                               if (categoryToppings.length === 0) return null;
 
-                              // Get background color for each topping subsection
-                              const getToppingSubsectionColor = (category) => {
-                                switch (category) {
-                                  case "Veggies":
-                                    return "#f0fdf4"; // green-50
-                                  case "Protein":
-                                    return "#fef2f2"; // red-50
-                                  case "Flavoring":
-                                    return "#fefce8"; // yellow-50
-                                  case "Garnishes":
-                                    return "#f0f9ff"; // blue-50
-                                  default:
-                                    return "#f8fafc"; // slate-50
-                                }
-                              };
+                              // Unified background color for all topping subsections (match South Korea)
+                              const getToppingSubsectionColor = () => "#fff7ed";
 
                               return (
                                 <div

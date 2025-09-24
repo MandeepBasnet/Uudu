@@ -61,7 +61,7 @@ function Hero() {
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <h1
-            className="text-3xl sm:text-6xl font-semibold text-[#99564c] mb-4"
+            className="text-3xl sm:text-6xl font-semibold text-[#C84E00] mb-4"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             Uudu. Fearless Ramen Hack
@@ -83,14 +83,14 @@ function Mothership() {
           >
             The ramen hack mothership has landed . . .
           </h2>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             From edgy food joints across South Korea and all over Asia, the
             self-serve ramen craze has officially landed in the U.S. At UUDU,
             we're the intuitive launchpad for creative "hackers" to craft their
             unique bowl with ease. Grab your instant nuudu, pick your toppings
             of choice, reinvent that killer broth.
           </p>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             It's all about fast, fun, and flavor... fearlessly your way!
           </p>
         </div>
@@ -124,7 +124,7 @@ function SoHackinEasy() {
           >
             So hackin' easy
           </h2>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             Scroll through social and you'll see it—instant ramen fans taking
             their bowls to the next level, far beyond the basic packet. That
             kind of flavor magic and hack‑level fun takes more than noodles
@@ -132,7 +132,7 @@ function SoHackinEasy() {
             sauces to make any instant ramen—Korean, Japanese, or
             otherwise—taste incredible… even out of this world.
           </p>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             And no sweat on your next amazing nuudu creation. At UUDU, we break
             it all down with step‑by‑step visuals, smart pairings, and fail‑safe
             techniques so hacking feels straightforward, not overwhelming.{" "}
@@ -157,13 +157,13 @@ function ValueBeyondHype() {
             <br />
             The hype
           </h2>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             Self-serve ramen can be euphoric, but it shouldn't feel overpriced.
             UUDU keeps the experience <em>real</em> with a commitment to pricing
             below market while delivering a more satisfying, value-driven hack
             adventure.
           </p>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             It's about building a long-term connection with our customers
             through a sensible '<strong>right portion, right price</strong>'
             approach. No hype. No waste. No upsell. Just the total freedom to
@@ -207,13 +207,13 @@ function ChilledVibe() {
           >
             Chilled vibe for a new foodie generation
           </h2>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             UUDU isn't just a resourceful nuudu hack lab—it's where you vibe.
             With an inviting, subtle ambiance, spacious seating, and curated
             socialtainment playing on the big screen, we've built a space where
             casual creatives can chill and try new foods.
           </p>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             There's an uncommon rhythm and spirit that you'll feel right away,
             echoing the range of our global flavors. UUDU brings people together
             over bold tastes, fresh ideas, and a love for doing things
@@ -237,14 +237,14 @@ function TakeoutReimagined() {
           >
             Takeout, re‑imagined
           </h2>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             Boring burgers and flimsy salads again at the cubicle? Break the
             cycle with one of UUDU's popular ramen kits, conveniently pre-packed
             for easy grab-and-go—or have it delivered straight to your office.
             It's a quick, craveable upgrade to your usual lunch routine—easy to
             prep, hard to beat.
           </p>
-          <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-[#99564c]">
+          <p className="mt-3 max-w-prose text-[25px] leading-relaxed text-[#99564c]">
             And when the workday's finally over, our ramen kits can also bring
             that convenience home. For busy moms and professionals alike, UUDU
             offers a hearty, satisfying meal that's ready in minutes and costs

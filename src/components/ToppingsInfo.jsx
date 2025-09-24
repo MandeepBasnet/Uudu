@@ -31,17 +31,18 @@ const ToppingsInfo = ({ product, onBack }) => {
     const id = useId();
     const gradientId = `flame-grad-${variant}-${id}`;
     const palette = {
-      mild: { outer: "#22c55e", start: "#86efac", end: "#16a34a" },
-      medium: { outer: "#f97316", start: "#fb923c", end: "#f59e0b" },
-      hot: { outer: "#ef4444", start: "#f87171", end: "#ef4444" },
-      fiery: { outer: "#111827", start: "#ef4444", end: "#111827" },
+      // Updated colors per RamenInfo
+      mild: { outer: "#355f25", start: "#629329", end: "#629329" },
+      medium: { outer: "#dca27b", start: "#ecccb7", end: "#ecccb7" },
+      hot: { outer: "#ef5a29", start: "#fbae41", end: "#fbae41" },
+      fiery: { outer: "#010101", start: "#ffffff", end: "#ffffff" },
     };
     const { outer, start, end } = palette[variant] || palette.mild;
 
     return (
       <svg
-        width="26"
-        height="26"
+        width="36"
+        height="36"
         viewBox="0 0 384 511.4"
         role="img"
         aria-label={`${variant} level flame`}
@@ -84,7 +85,7 @@ const ToppingsInfo = ({ product, onBack }) => {
     };
     return (
       <span
-        className={`inline-flex items-center justify-center h-7 min-w-[72px] px-3 rounded-full border bg-white/95 text-sm font-medium tracking-wide shadow-sm ${classByVariant[variant]}`}
+        className={`inline-flex items-center justify-center h-9 min-w-[84px] px-4 rounded-full border bg-white/95 text-base font-medium tracking-wide shadow-sm ${classByVariant[variant]}`}
       >
         {text}
       </span>
@@ -105,12 +106,19 @@ const ToppingsInfo = ({ product, onBack }) => {
       flames.push(
         <div
           key={i}
-          className="w-7 h-7 flex items-center justify-center relative"
+          className="w-10 h-10 flex items-center justify-center relative"
         >
           {i === level && (
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <div className="w-1 h-5 bg-blue-600 rounded-full"></div>
-              <ChevronDown className="w-3 h-3 text-blue-600 -mt-0.5 drop-shadow-sm" />
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div className="w-1 h-8 bg-blue-600 rounded-full"></div>
+              <div
+                className="w-0 h-0 -mt-1 drop-shadow-sm"
+                style={{
+                  borderLeft: "10px solid transparent",
+                  borderRight: "10px solid transparent",
+                  borderTop: "12px solid #2563eb", // tailwind blue-600
+                }}
+              />
             </div>
           )}
           <FlameSvg variant={getVariantForIndex(i)} />
@@ -121,15 +129,20 @@ const ToppingsInfo = ({ product, onBack }) => {
     return (
       <div className="relative w-full flex flex-col items-center pt-9">
         {/* Blue guideline */}
-        <div className="absolute top-0 left-2 right-2 h-[6px] bg-blue-600 rounded-full"></div>
+        <div className="absolute top-0 left-2 right-2 h-[8px] bg-blue-600 rounded-full"></div>
 
-        {/* Flames - 10 equal columns */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] place-items-center">
-          {flames}
+        {/* Flames grouped with tighter intra-group spacing and small gaps between groups */}
+        <div className="w-full max-w-[620px] flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">{flames.slice(0, 2)}</div>
+            <div className="flex items-center gap-1">{flames.slice(2, 5)}</div>
+            <div className="flex items-center gap-1">{flames.slice(5, 8)}</div>
+            <div className="flex items-center gap-1">{flames.slice(8, 10)}</div>
+          </div>
         </div>
 
         {/* Labels as pills */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] mt-4">
+        <div className="grid grid-cols-10 gap-2 w-full max-w-[620px] mt-4">
           <div className="col-span-2 flex justify-center">
             <LabelPill text="Mild" variant="mild" />
           </div>
@@ -137,7 +150,7 @@ const ToppingsInfo = ({ product, onBack }) => {
             <LabelPill text="Medium" variant="medium" />
           </div>
           <div className="col-span-3 flex justify-center">
-            <LabelPill text="Very Hot" variant="hot" />
+            <LabelPill text="Hot" variant="hot" />
           </div>
           <div className="col-span-2 flex justify-center">
             <LabelPill text="Fiery" variant="fiery" />
@@ -244,7 +257,7 @@ const ToppingsInfo = ({ product, onBack }) => {
             <div className="text-2xl font-semibold text-black">Allergen:</div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-xs md:text-sm leading-6 text-black">
+            <p className="text-base md:text-lg leading-7 text-black">
               {selectedTopping.allergen ||
                 "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."}
             </p>

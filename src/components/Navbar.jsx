@@ -25,6 +25,7 @@ export default function Navbar() {
   const navLinks = [
     { label: "Menu", path: "/menu" },
     { label: "Cook", path: "/cook" },
+    { label: "Location", path: "/location" },
     { label: "What's Uudu?", path: "/whats-uudu" },
     { label: "Events", path: "/events" },
   ];

@@ -14,6 +14,7 @@ import Menu from "./pages/Menu/MenuMain";
 import Cook from "./pages/Cook";
 import WhatsUudu from "./pages/WhatsUudu";
 import Events from "./pages/Events";
+import Location from "./pages/Location";
 
 // Global Components
 import Navbar from "./components/Navbar";
@@ -31,7 +32,7 @@ export default function App() {
 
 function AppShell() {
   const location = useLocation();
-  const hideFooter = location.pathname === "/menu";
+  const showFooter = location.pathname === "/";
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F2F2F2]">
@@ -50,6 +51,7 @@ function AppShell() {
           <Route path="/cook" element={<Cook />} />
           <Route path="/whats-uudu" element={<WhatsUudu />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/location" element={<Location />} />
 
           {/* Fallback */}
           <Route
@@ -63,8 +65,8 @@ function AppShell() {
         </Routes>
       </main>
 
-      {/* Footer stays across pages except /menu */}
-      {!hideFooter && <Footer />}
+      {/* Footer visible on Home page only */}
+      {showFooter && <Footer />}
     </div>
   );
 }

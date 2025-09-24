@@ -41,17 +41,18 @@ const RamenInfo = ({ product, onBack }) => {
     const id = useId();
     const gradientId = `flame-grad-${variant}-${id}`;
     const palette = {
-      mild: { outer: "#22c55e", start: "#86efac", end: "#16a34a" },
-      medium: { outer: "#f97316", start: "#fb923c", end: "#f59e0b" },
-      hot: { outer: "#ef4444", start: "#f87171", end: "#ef4444" },
-      fiery: { outer: "#111827", start: "#ef4444", end: "#111827" },
+      // Updated colors per request
+      mild: { outer: "#355f25", start: "#629329", end: "#629329" },
+      medium: { outer: "#dca27b", start: "#ecccb7", end: "#ecccb7" },
+      hot: { outer: "#ef5a29", start: "#fbae41", end: "#fbae41" },
+      fiery: { outer: "#010101", start: "#ffffff", end: "#ffffff" },
     };
     const { outer, start, end } = palette[variant] || palette.mild;
 
     return (
       <svg
-        width="26"
-        height="26"
+        width="36"
+        height="36"
         viewBox="0 0 384 511.4"
         role="img"
         aria-label={`${variant} level flame`}
@@ -94,7 +95,7 @@ const RamenInfo = ({ product, onBack }) => {
     };
     return (
       <span
-        className={`inline-flex items-center justify-center h-7 min-w-[72px] px-3 rounded-full border bg-white/95 text-sm font-medium tracking-wide shadow-sm ${classByVariant[variant]}`}
+        className={`inline-flex items-center justify-center h-9 min-w-[84px] px-4 rounded-full border bg-white/95 text-base font-medium tracking-wide shadow-sm ${classByVariant[variant]}`}
       >
         {text}
       </span>
@@ -115,12 +116,19 @@ const RamenInfo = ({ product, onBack }) => {
       flames.push(
         <div
           key={i}
-          className="w-7 h-7 flex items-center justify-center relative"
+          className="w-10 h-10 flex items-center justify-center relative"
         >
           {i === level && (
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <div className="w-1 h-5 bg-blue-600 rounded-full"></div>
-              <ChevronDown className="w-3 h-3 text-blue-600 -mt-0.5 drop-shadow-sm" />
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div className="w-1 h-8 bg-blue-600 rounded-full"></div>
+              <div
+                className="w-0 h-0 -mt-1 drop-shadow-sm"
+                style={{
+                  borderLeft: "10px solid transparent",
+                  borderRight: "10px solid transparent",
+                  borderTop: "12px solid #2563eb", // tailwind blue-600
+                }}
+              />
             </div>
           )}
           <FlameSvg variant={getVariantForIndex(i)} />
@@ -131,15 +139,20 @@ const RamenInfo = ({ product, onBack }) => {
     return (
       <div className="relative w-full flex flex-col items-center pt-9">
         {/* Blue guideline */}
-        <div className="absolute top-0 left-2 right-2 h-[6px] bg-blue-600 rounded-full"></div>
+        <div className="absolute top-0 left-2 right-2 h-[8px] bg-blue-600 rounded-full"></div>
 
-        {/* Flames - 10 equal columns */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] place-items-center">
-          {flames}
+        {/* Flames grouped with tighter intra-group spacing and small gaps between groups */}
+        <div className="w-full max-w-[620px] flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">{flames.slice(0, 2)}</div>
+            <div className="flex items-center gap-1">{flames.slice(2, 5)}</div>
+            <div className="flex items-center gap-1">{flames.slice(5, 8)}</div>
+            <div className="flex items-center gap-1">{flames.slice(8, 10)}</div>
+          </div>
         </div>
 
         {/* Labels as pills */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[520px] mt-4">
+        <div className="grid grid-cols-10 gap-2 w-full max-w-[620px] mt-4">
           <div className="col-span-2 flex justify-center">
             <LabelPill text="Mild" variant="mild" />
           </div>
@@ -147,7 +160,7 @@ const RamenInfo = ({ product, onBack }) => {
             <LabelPill text="Medium" variant="medium" />
           </div>
           <div className="col-span-3 flex justify-center">
-            <LabelPill text="Very Hot" variant="hot" />
+            <LabelPill text="Hot" variant="hot" />
           </div>
           <div className="col-span-2 flex justify-center">
             <LabelPill text="Fiery" variant="fiery" />
@@ -337,8 +350,9 @@ const RamenInfo = ({ product, onBack }) => {
             </div>
           </div>
           <div className="md:col-span-9">
-            <div className="space-y-6">
-              <div className="flex flex-wrap gap-2">
+            <div className="flex items-start gap-6">
+              {/* Large oval buttons on the left */}
+              <div className="flex flex-col gap-3 w-48 md:w-56">
                 {selectedRamen.suggested_videos.map((video, index) => (
                   <button
                     key={index}
@@ -346,27 +360,28 @@ const RamenInfo = ({ product, onBack }) => {
                       setSelectedVideoIndex(index);
                       setIsVideoModalOpen(true);
                     }}
-                    className={`px-3 py-1.5 rounded-full text-sm font-medium border ${
+                    className={`px-5 py-3 rounded-full text-base md:text-lg font-semibold border transition-colors ${
                       selectedVideoIndex === index
                         ? "bg-blue-600 border-blue-600 text-white"
                         : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
                     }`}
                     aria-label={`Open video ${index + 1}`}
                   >
-                    {index + 1}
+                    {`Video ${index + 1}`}
                   </button>
                 ))}
               </div>
 
-              {/* Static preview only */}
-              <div className="rounded-lg overflow-hidden border border-gray-200">
-                <div className="bg-black aspect-video flex items-center justify-center">
-                  <Play className="w-16 h-16 text-white opacity-60" />
+              {/* Smaller TV preview on the right */}
+              <div className="flex-1">
+                <div className="rounded-lg overflow-hidden border border-gray-200 w-full md:w-[340px]">
+                  <div className="bg-black aspect-video flex items-center justify-center">
+                    <Play className="w-12 h-12 text-white opacity-60" />
+                  </div>
                 </div>
-              </div>
-
-              <div className="text-gray-700 text-sm">
-                <p className="font-medium">{currentVideo.description}</p>
+                <div className="mt-3 text-gray-700 text-sm">
+                  <p className="font-medium">{currentVideo.description}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -380,7 +395,7 @@ const RamenInfo = ({ product, onBack }) => {
             <div className="text-2xl font-semibold text-black">Allergen:</div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-xs md:text-sm leading-6 text-black">
+            <p className="text-base md:text-lg leading-7 text-black">
               All ramen packets are sold in original packaging. Please check the
               label for ingredients and allergen details. Some imported items
               may not have full U.S.-style allergen info—ask a staff if you have
