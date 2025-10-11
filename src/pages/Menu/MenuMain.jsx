@@ -104,7 +104,7 @@ export default function MenuMain() {
     } else if (categorySlug === "toppers") {
       items = toppingsData.toppings || [];
     } else {
-      items = []; // placeholder for bevs/snax/specials
+      items = []; // placeholder for bev/snax/specials
     }
     setProducts(items);
   };
@@ -323,7 +323,7 @@ export default function MenuMain() {
                           ? "#f5f5f5" // light gray
                           : category.slug === "toppers"
                           ? "#fff7ed"
-                          : category.slug === "bevs"
+                          : category.slug === "bev"
                           ? "#f0f9ff"
                           : category.slug === "snax"
                           ? "#fefce8"
@@ -336,7 +336,7 @@ export default function MenuMain() {
                         "taiwan",
                         "other-asia",
                         "toppers",
-                        "bevs",
+                        "bev",
                         "snax",
                         "specials",
                       ].includes(category.slug)
@@ -348,7 +348,7 @@ export default function MenuMain() {
                         "taiwan",
                         "other-asia",
                         "toppers",
-                        "bevs",
+                        "bev",
                         "snax",
                         "specials",
                       ].includes(category.slug)
