@@ -28,7 +28,7 @@ export default function CategoryInfo({ categoryInfo }) {
     >
       <div className="flex flex-wrap items-center gap-4 mb-6">
         <h3
-          className="text-xl font-semibold text-gray-800"
+          className="text-xl md:text-2xl font-semibold text-gray-800"
           style={{
             fontFamily: "Bahnschrift, system-ui, sans-serif",
           }}
@@ -36,7 +36,7 @@ export default function CategoryInfo({ categoryInfo }) {
           From {categoryInfo.name}:
         </h3>
       </div>
-      <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+      <p className="text-gray-600 text-sm md:text-base lg:text-lg leading-relaxed mb-6">
         {categoryInfo.description}
       </p>
       {(categoryInfo.slug === "korea" ||
