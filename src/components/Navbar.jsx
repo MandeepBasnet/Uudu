@@ -81,7 +81,7 @@ export default function Navbar() {
                 )}
               </svg>
             </button>
-            <ul className="hidden gap-6 lg:gap-8 md:flex text-base font-bold">
+            <ul className="hidden gap-6 lg:gap-8 md:flex text-lg font-bold">
               {navLinks.map((link, index) => (
                 <li key={link.label} className="flex items-center">
                   <a
@@ -101,7 +101,7 @@ export default function Navbar() {
           {/* Mobile dropdown */}
           {mobileOpen && (
             <div className="md:hidden border-t border-[#99564c]/10 px-2 py-2">
-              <ul className="flex flex-col text-base font-bold">
+              <ul className="flex flex-col text-lg font-bold">
                 {navLinks.map((link) => (
                   <li key={link.label}>
                     <a
