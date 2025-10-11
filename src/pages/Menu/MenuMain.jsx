@@ -299,311 +299,302 @@ export default function MenuMain() {
           </div>
         </div>
 
-        {/* Main Container with max-width for large screens */}
         <div className="w-full px-2 py-8 pt-0">
-          <div className="max-w-[2000px] mx-auto">
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-              {/* Main Content Area */}
-              <div className={selectedProduct ? "flex-1 lg:w-1/2" : "flex-1"}>
-                {categories.map((category) => (
-                  <div
-                    key={category.slug}
-                    id={`section-${category.slug}`}
-                    className="mb-24 md:mb-32 scroll-mt-24 md:scroll-mt-28"
-                    style={{
-                      // Alternating light beige and light gray for country sections
-                      backgroundColor:
-                        category.slug === "korea"
-                          ? "#fff7ed" // light beige
-                          : category.slug === "japan"
-                          ? "#f5f5f5" // light gray
-                          : category.slug === "taiwan"
-                          ? "#fff7ed" // light beige
-                          : category.slug === "other-asia"
-                          ? "#f5f5f5" // light gray
-                          : category.slug === "toppers"
-                          ? "#fff7ed"
-                          : category.slug === "bev"
-                          ? "#f0f9ff"
-                          : category.slug === "snax"
-                          ? "#fefce8"
-                          : category.slug === "specials"
-                          ? "#fdf2f8"
-                          : "transparent",
-                      padding: [
-                        "korea",
-                        "japan",
-                        "taiwan",
-                        "other-asia",
-                        "toppers",
-                        "bev",
-                        "snax",
-                        "specials",
-                      ].includes(category.slug)
-                        ? "2rem 1rem"
-                        : "0",
-                      marginBottom: [
-                        "korea",
-                        "japan",
-                        "taiwan",
-                        "other-asia",
-                        "toppers",
-                        "bev",
-                        "snax",
-                        "specials",
-                      ].includes(category.slug)
-                        ? "3rem"
-                        : "2rem",
-                    }}
-                  >
-                    {/* Country Top Banner */}
-                    {["korea", "japan", "taiwan", "other-asia"].includes(
-                      category.slug
-                    ) && (
-                      <div className="mb-12 md:mb-14">
-                        <div className="w-full rounded-2xl bg-transparent border border-gray-300 shadow-sm px-4 py-4">
-                          <div className="flex items-center justify-center gap-4 mb-3">
-                            <h2
-                              className="px-2 text-[32px] font-extrabold uppercase tracking-wide"
-                              style={{
-                                fontFamily:
-                                  "Bahnschrift, system-ui, sans-serif",
-                              }}
-                            >
-                              {category.name}
-                            </h2>
-                            <div className="w-14 h-10 overflow-hidden rounded border border-gray-200 bg-white flex items-center justify-center">
-                              {typeof category.flag === "string" &&
-                              category.flag.startsWith("/images/") ? (
-                                <img
-                                  src={category.flag}
-                                  alt={`${category.name} flag`}
-                                  className="w-14 h-10 object-cover"
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <span className="text-3xl leading-none">
-                                  {category.flag || ""}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          {category.description && (
-                            <p className="text-[24px] font-normal text-gray-700 max-w-5xl mx-auto leading-relaxed text-justify">
-                              {category.slug === "toppers"
-                                ? "Instant noodles are just the beginning - our 32 toppings unlock the real hack. From fresh veggies and bold sauces to melty cheeses and savoury proteins, each add-on transforms a simple bowl into your signature creation. Layer, mix, and match  - this is where the flavour adventure takes flight."
-                                : category.description}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Non-country Top Banner (Toppers, Bévs, Snax, Specials) */}
-                    {!["korea", "japan", "taiwan", "other-asia"].includes(
-                      category.slug
-                    ) && (
-                      <div className="mb-12 md:mb-14">
-                        <div className="w-full rounded-2xl bg-transparent border border-gray-300 shadow-sm px-4 py-4">
-                          <div className="flex items-center justify-center gap-4 mb-3">
-                            <h2
-                              className="px-2 text-[32px] font-extrabold uppercase tracking-wide"
-                              style={{
-                                fontFamily:
-                                  "Bahnschrift, system-ui, sans-serif",
-                              }}
-                            >
-                              {category.name}
-                            </h2>
-                            <div className="w-14 h-10 overflow-hidden rounded border border-gray-200 bg-white flex items-center justify-center">
-                              {typeof category.flag === "string" &&
-                              category.flag.startsWith("/images/") ? (
-                                <img
-                                  src={category.flag}
-                                  alt={`${category.name} flag`}
-                                  className="w-14 h-10 object-cover"
-                                  loading="lazy"
-                                />
-                              ) : (
-                                <span className="text-3xl leading-none">
-                                  {category.flag || ""}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          {category.description && (
-                            <p className="text-[24px] font-normal text-gray-700 max-w-5xl mx-auto leading-relaxed text-justify">
-                              {category.description}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Products Grid */}
-                    <div
-                      className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 ${
-                        selectedProduct
-                          ? "lg:grid-cols-3 xl:grid-cols-3"
-                          : "lg:grid-cols-4 xl:grid-cols-5"
-                      }`}
-                    >
-                      {(() => {
-                        let items = [];
-                        if (
-                          ["korea", "japan", "taiwan", "other-asia"].includes(
-                            category.slug
-                          )
-                        ) {
-                          const ramenItems = ramenData.ramen || [];
-                          const categoryToCountry = {
-                            korea: "S. Korea",
-                            japan: "Japan",
-                            taiwan: "Taiwan",
-                            "other-asia": "Other Asia",
-                          };
-                          items = ramenItems.filter(
-                            (r) =>
-                              r.country === categoryToCountry[category.slug]
-                          );
-                        } else if (category.slug === "toppers") {
-                          const allToppings = toppingsData.toppings || [];
-                          const toppingCategories = [
-                            "Veggies",
-                            "Flavoring",
-                            "Garnishes",
-                            "Protein",
-                          ];
-
-                          return (
-                            <div className="col-span-full space-y-12">
-                              {toppingCategories.map((toppingCategory) => {
-                                const categoryToppings = allToppings.filter(
-                                  (topping) =>
-                                    topping.category === toppingCategory
-                                );
-
-                                if (categoryToppings.length === 0) return null;
-
-                                // Unified background color for all topping subsections (match South Korea)
-                                const getToppingSubsectionColor = () =>
-                                  "#fff7ed";
-
-                                return (
-                                  <div
-                                    key={toppingCategory}
-                                    className="space-y-6"
-                                    style={{
-                                      backgroundColor:
-                                        getToppingSubsectionColor(
-                                          toppingCategory
-                                        ),
-                                      padding: "1.5rem 1rem",
-                                      borderRadius: "0.75rem",
-                                      marginBottom: "1rem",
-                                    }}
-                                  >
-                                    {/* Subsection Header */}
-                                    <div className="flex items-center gap-3 mb-6">
-                                      <h3
-                                        className="text-xl md:text-2xl font-semibold text-gray-800"
-                                        style={{
-                                          fontFamily:
-                                            "Bahnschrift, system-ui, sans-serif",
-                                        }}
-                                      >
-                                        {toppingCategory}
-                                      </h3>
-                                    </div>
-
-                                    {/* Subsection Products Grid */}
-                                    <div
-                                      className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 ${
-                                        selectedProduct
-                                          ? "lg:grid-cols-3 xl:grid-cols-3"
-                                          : "lg:grid-cols-4 xl:grid-cols-5"
-                                      }`}
-                                    >
-                                      {categoryToppings.map((product) => (
-                                        <div
-                                          key={product.id}
-                                          onClick={() =>
-                                            handleProductClick(
-                                              product,
-                                              category.slug
-                                            )
-                                          }
-                                          className="cursor-pointer"
-                                        >
-                                          <ProductCard
-                                            name={product.name}
-                                            image={
-                                              product.image_url
-                                                ? `/images/${product.image_url}`
-                                                : "/images/placeholder.jpg"
-                                            }
-                                            price={
-                                              product.price ||
-                                              product.price_packet
-                                            }
-                                            hidePrice
-                                            uniformScale
-                                          />
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          );
-                        }
-
-                        return items.length > 0 ? (
-                          items.map((product) => (
-                            <div
-                              key={product.id}
-                              onClick={() =>
-                                handleProductClick(product, category.slug)
-                              }
-                              className="cursor-pointer"
-                            >
-                              <ProductCard
-                                name={product.name}
-                                image={
-                                  product.image_url
-                                    ? `/images/${product.image_url}`
-                                    : "/images/placeholder.jpg"
-                                }
-                                price={product.price || product.price_packet}
-                                hidePrice
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+            {/* Main Content Area */}
+            <div className={selectedProduct ? "flex-1 lg:w-1/2" : "flex-1"}>
+              {categories.map((category) => (
+                <div
+                  key={category.slug}
+                  id={`section-${category.slug}`}
+                  className="mb-24 md:mb-32 scroll-mt-24 md:scroll-mt-28"
+                  style={{
+                    // Alternating light beige and light gray for country sections
+                    backgroundColor:
+                      category.slug === "korea"
+                        ? "#fff7ed" // light beige
+                        : category.slug === "japan"
+                        ? "#f5f5f5" // light gray
+                        : category.slug === "taiwan"
+                        ? "#fff7ed" // light beige
+                        : category.slug === "other-asia"
+                        ? "#f5f5f5" // light gray
+                        : category.slug === "toppers"
+                        ? "#fff7ed"
+                        : category.slug === "bev"
+                        ? "#f0f9ff"
+                        : category.slug === "snax"
+                        ? "#fefce8"
+                        : category.slug === "specials"
+                        ? "#fdf2f8"
+                        : "transparent",
+                    padding: [
+                      "korea",
+                      "japan",
+                      "taiwan",
+                      "other-asia",
+                      "toppers",
+                      "bev",
+                      "snax",
+                      "specials",
+                    ].includes(category.slug)
+                      ? "2rem 1rem"
+                      : "0",
+                    marginBottom: [
+                      "korea",
+                      "japan",
+                      "taiwan",
+                      "other-asia",
+                      "toppers",
+                      "bev",
+                      "snax",
+                      "specials",
+                    ].includes(category.slug)
+                      ? "3rem"
+                      : "2rem",
+                  }}
+                >
+                  {/* Country Top Banner */}
+                  {["korea", "japan", "taiwan", "other-asia"].includes(
+                    category.slug
+                  ) && (
+                    <div className="mb-12 md:mb-14">
+                      <div className="w-full rounded-2xl bg-transparent border border-gray-300 shadow-sm px-4 py-4">
+                        <div className="flex items-center justify-center gap-4 mb-3">
+                          <h2
+                            className="px-2 text-[32px] font-extrabold uppercase tracking-wide"
+                            style={{
+                              fontFamily: "Bahnschrift, system-ui, sans-serif",
+                            }}
+                          >
+                            {category.name}
+                          </h2>
+                          <div className="w-14 h-10 overflow-hidden rounded border border-gray-200 bg-white flex items-center justify-center">
+                            {typeof category.flag === "string" &&
+                            category.flag.startsWith("/images/") ? (
+                              <img
+                                src={category.flag}
+                                alt={`${category.name} flag`}
+                                className="w-14 h-10 object-cover"
+                                loading="lazy"
                               />
-                            </div>
-                          ))
-                        ) : (
-                          <div className="col-span-full text-center py-12">
-                            <p className="text-gray-500">Coming soon...</p>
+                            ) : (
+                              <span className="text-3xl leading-none">
+                                {category.flag || ""}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        {category.description && (
+                          <p className="text-[24px] font-normal text-gray-700 max-w-5xl mx-auto leading-relaxed text-justify">
+                            {category.slug === "toppers"
+                              ? "Instant noodles are just the beginning - our 32 toppings unlock the real hack. From fresh veggies and bold sauces to melty cheeses and savoury proteins, each add-on transforms a simple bowl into your signature creation. Layer, mix, and match  - this is where the flavour adventure takes flight."
+                              : category.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Non-country Top Banner (Toppers, Bêv, Snax, Specials) */}
+                  {!["korea", "japan", "taiwan", "other-asia"].includes(
+                    category.slug
+                  ) && (
+                    <div className="mb-12 md:mb-14">
+                      <div className="w-full rounded-2xl bg-transparent border border-gray-300 shadow-sm px-4 py-4">
+                        <div className="flex items-center justify-center gap-4 mb-3">
+                          <h2
+                            className="px-2 text-[32px] font-extrabold uppercase tracking-wide"
+                            style={{
+                              fontFamily: "Bahnschrift, system-ui, sans-serif",
+                            }}
+                          >
+                            {category.name}
+                          </h2>
+                          <div className="w-14 h-10 overflow-hidden rounded border border-gray-200 bg-white flex items-center justify-center">
+                            {typeof category.flag === "string" &&
+                            category.flag.startsWith("/images/") ? (
+                              <img
+                                src={category.flag}
+                                alt={`${category.name} flag`}
+                                className="w-14 h-10 object-cover"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <span className="text-3xl leading-none">
+                                {category.flag || ""}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        {category.description && (
+                          <p className="text-[24px] font-normal text-gray-700 max-w-5xl mx-auto leading-relaxed text-justify">
+                            {category.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Products Grid */}
+                  <div
+                    className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 ${
+                      selectedProduct ? "lg:grid-cols-3" : "lg:grid-cols-5"
+                    }`}
+                  >
+                    {(() => {
+                      let items = [];
+                      if (
+                        ["korea", "japan", "taiwan", "other-asia"].includes(
+                          category.slug
+                        )
+                      ) {
+                        const ramenItems = ramenData.ramen || [];
+                        const categoryToCountry = {
+                          korea: "S. Korea",
+                          japan: "Japan",
+                          taiwan: "Taiwan",
+                          "other-asia": "Other Asia",
+                        };
+                        items = ramenItems.filter(
+                          (r) => r.country === categoryToCountry[category.slug]
+                        );
+                      } else if (category.slug === "toppers") {
+                        const allToppings = toppingsData.toppings || [];
+                        const toppingCategories = [
+                          "Veggies",
+                          "Flavoring",
+                          "Garnishes",
+                          "Protein",
+                        ];
+
+                        return (
+                          <div className="col-span-full space-y-12">
+                            {toppingCategories.map((toppingCategory) => {
+                              const categoryToppings = allToppings.filter(
+                                (topping) =>
+                                  topping.category === toppingCategory
+                              );
+
+                              if (categoryToppings.length === 0) return null;
+
+                              // Unified background color for all topping subsections (match South Korea)
+                              const getToppingSubsectionColor = () => "#fff7ed";
+
+                              return (
+                                <div
+                                  key={toppingCategory}
+                                  className="space-y-6"
+                                  style={{
+                                    backgroundColor:
+                                      getToppingSubsectionColor(
+                                        toppingCategory
+                                      ),
+                                    padding: "1.5rem 1rem",
+                                    borderRadius: "0.75rem",
+                                    marginBottom: "1rem",
+                                  }}
+                                >
+                                  {/* Subsection Header */}
+                                  <div className="flex items-center gap-3 mb-6">
+                                    <h3
+                                      className="text-xl md:text-2xl font-semibold text-gray-800"
+                                      style={{
+                                        fontFamily:
+                                          "Bahnschrift, system-ui, sans-serif",
+                                      }}
+                                    >
+                                      {toppingCategory}
+                                    </h3>
+                                  </div>
+
+                                  {/* Subsection Products Grid */}
+                                  <div
+                                    className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 ${
+                                      selectedProduct
+                                        ? "lg:grid-cols-3"
+                                        : "lg:grid-cols-5"
+                                    }`}
+                                  >
+                                    {categoryToppings.map((product) => (
+                                      <div
+                                        key={product.id}
+                                        onClick={() =>
+                                          handleProductClick(
+                                            product,
+                                            category.slug
+                                          )
+                                        }
+                                        className="cursor-pointer"
+                                      >
+                                        <ProductCard
+                                          name={product.name}
+                                          image={
+                                            product.image_url
+                                              ? `/images/${product.image_url}`
+                                              : "/images/placeholder.jpg"
+                                          }
+                                          price={
+                                            product.price ||
+                                            product.price_packet
+                                          }
+                                          hidePrice
+                                          uniformScale
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              );
+                            })}
                           </div>
                         );
-                      })()}
-                    </div>
-                  </div>
-                ))}
-              </div>
+                      }
 
-              {/* Right Sidebar - Product Info (only when a product is selected) */}
-              {selectedProduct && (
-                <div
-                  className={`hidden lg:block lg:order-none ${
-                    selectedProduct ? "lg:w-1/2 xl:w-2/5 2xl:w-1/3" : "lg:w-80"
-                  }`}
-                >
-                  <div className="lg:sticky md:top-36 lg:top-44 xl:top-48 overflow-visible max-h-[calc(100vh-12rem)] overflow-y-auto">
-                    {renderInfoPanel()}
+                      return items.length > 0 ? (
+                        items.map((product) => (
+                          <div
+                            key={product.id}
+                            onClick={() =>
+                              handleProductClick(product, category.slug)
+                            }
+                            className="cursor-pointer"
+                          >
+                            <ProductCard
+                              name={product.name}
+                              image={
+                                product.image_url
+                                  ? `/images/${product.image_url}`
+                                  : "/images/placeholder.jpg"
+                              }
+                              price={product.price || product.price_packet}
+                              hidePrice
+                            />
+                          </div>
+                        ))
+                      ) : (
+                        <div className="col-span-full text-center py-12">
+                          <p className="text-gray-500">Coming soon...</p>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
-              )}
+              ))}
             </div>
+
+            {/* Right Sidebar - Product Info (only when a product is selected) */}
+            {selectedProduct && (
+              <div
+                className={`hidden lg:block lg:order-none ${
+                  selectedProduct ? "lg:w-1/2" : "lg:w-80"
+                }`}
+              >
+                <div className="lg:sticky md:top-36 lg:top-44 xl:top-48 overflow-visible max-h-[calc(100vh-12rem)] overflow-y-auto">
+                  {renderInfoPanel()}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
