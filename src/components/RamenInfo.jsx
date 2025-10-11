@@ -79,7 +79,7 @@ const RamenInfo = ({ product, onBack }) => {
         />
         <path
           fill={`url(#${gradientId})`}
-          d="M139.16 372.49c-21.83-57.66-18.81-150.75 42.33-183.41.43 107.03 103.57 120.64 84.44 234.9 17.64-20.39 26.51-53.02 28.1-78.75 27.96 65.38 6.04 117.72-33.81 144.37-121.15 81-225.48-83.23-156.11-173.26 2.08 20.07 26.14 51.12 35.05 56.15z"
+          d="M139.16 372.49c-21.83-57.66-18.81-150.75 42.33-183.41.43 107.03 103.57 120.64 84.44 234.9 17.64-20.39 26.51-53.02 28.10-78.75 27.96 65.38 6.04 117.72-33.81 144.37-121.15 81-225.48-83.23-156.11-173.26 2.08 20.07 26.14 51.12 35.05 56.15z"
         />
       </svg>
     );
@@ -116,13 +116,13 @@ const RamenInfo = ({ product, onBack }) => {
       flames.push(
         <div
           key={i}
-          className="w-10 h-10 flex items-center justify-center relative"
+          className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center relative flex-shrink-0"
         >
           {i === level && (
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <div className="w-1 h-8 bg-blue-600 rounded-full"></div>
+            <div className="absolute -top-8 sm:-top-9 md:-top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div className="w-1 h-6 sm:h-7 md:h-8 bg-blue-600 rounded-full"></div>
               <div
-                className="w-0 h-0 -mt-1 drop-shadow-sm"
+                className="w-0 h-0 drop-shadow-sm"
                 style={{
                   borderLeft: "10px solid transparent",
                   borderRight: "10px solid transparent",
@@ -137,33 +137,43 @@ const RamenInfo = ({ product, onBack }) => {
     }
 
     return (
-      <div className="relative w-full flex flex-col items-center pt-9">
+      <div className="relative w-full flex flex-col items-center pt-8 sm:pt-9 md:pt-10">
         {/* Blue guideline */}
         <div className="absolute top-0 left-2 right-2 h-[8px] bg-blue-600 rounded-full"></div>
 
-        {/* Flames grouped with tighter intra-group spacing and small gaps between groups */}
-        <div className="w-full max-w-[620px] flex items-center justify-center">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">{flames.slice(0, 2)}</div>
-            <div className="flex items-center gap-1">{flames.slice(2, 5)}</div>
-            <div className="flex items-center gap-1">{flames.slice(5, 8)}</div>
-            <div className="flex items-center gap-1">{flames.slice(8, 10)}</div>
+        {/* Flames grouped with responsive spacing */}
+        <div className="w-full flex items-center justify-center px-2">
+          <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3">
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              {flames.slice(0, 2)}
+            </div>
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              {flames.slice(2, 5)}
+            </div>
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              {flames.slice(5, 8)}
+            </div>
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              {flames.slice(8, 10)}
+            </div>
           </div>
         </div>
 
-        {/* Labels as pills */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[620px] mt-4">
-          <div className="col-span-2 flex justify-center">
-            <LabelPill text="Mild" variant="mild" />
-          </div>
-          <div className="col-span-3 flex justify-center">
-            <LabelPill text="Medium" variant="medium" />
-          </div>
-          <div className="col-span-3 flex justify-center">
-            <LabelPill text="Hot" variant="hot" />
-          </div>
-          <div className="col-span-2 flex justify-center">
-            <LabelPill text="Fiery" variant="fiery" />
+        {/* Labels as pills with responsive grid */}
+        <div className="w-full flex items-center justify-center px-2 mt-4">
+          <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3 w-full max-w-[95%] sm:max-w-[620px]">
+            <div className="flex-[2] flex justify-center">
+              <LabelPill text="Mild" variant="mild" />
+            </div>
+            <div className="flex-[3] flex justify-center">
+              <LabelPill text="Medium" variant="medium" />
+            </div>
+            <div className="flex-[3] flex justify-center">
+              <LabelPill text="Hot" variant="hot" />
+            </div>
+            <div className="flex-[2] flex justify-center">
+              <LabelPill text="Fiery" variant="fiery" />
+            </div>
           </div>
         </div>
       </div>
@@ -294,24 +304,26 @@ const RamenInfo = ({ product, onBack }) => {
           <div className="md:col-span-9">
             <div className="space-y-4 border border-gray-400 rounded-lg p-5 bg-white relative">
               <div className="text-gray-800 text-base md:text-lg flex items-baseline gap-2">
-                <span>For this specific noodle :</span>
-                <span className="text-blue-700 font-extrabold uppercase tracking-wide text-2xl md:text-3xl">
+                <span className="font-bold">For this specific noodle :</span>
+                <span className="text-blue-700 font-extrabold uppercase tracking-wide text-lg md:text-xl">
                   {`MENU ${selectedRamen.cooker_setting ?? 1}`}
                 </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 md:gap-6">
-                <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
-                  <img
-                    src="/RamenCooker.png"
-                    alt="Ramen Cooker"
-                    className="w-full h-full object-contain"
-                    loading="lazy"
-                  />
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-4 md:gap-6">
+                <div className="flex items-center gap-4 md:gap-6">
+                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center flex-shrink-0">
+                    <img
+                      src="/RamenCooker.png"
+                      alt="Ramen Cooker"
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-gray-500 text-4xl md:text-5xl">→</span>
                 </div>
-                <span className="text-gray-500 text-3xl md:text-4xl">→</span>
-                <div className="flex items-center gap-3 md:gap-4">
-                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
+                <div className="flex items-center gap-3 md:gap-4 relative">
+                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center flex-shrink-0">
                     <img
                       src="/menu.png"
                       alt="Menu button"
@@ -319,8 +331,8 @@ const RamenInfo = ({ product, onBack }) => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-gray-700 text-2xl md:text-3xl">+</span>
-                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
+                  <span className="text-gray-700 text-3xl md:text-4xl">+</span>
+                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center flex-shrink-0">
                     <img
                       src="/startstop.png"
                       alt="Start/Stop button"
@@ -328,18 +340,19 @@ const RamenInfo = ({ product, onBack }) => {
                       loading="lazy"
                     />
                   </div>
+                  <div className="absolute -bottom-16 sm:-bottom-14 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                    <button
+                      type="button"
+                      onClick={() => setIsCookModalOpen(true)}
+                      className="inline-flex items-center justify-center rounded-md bg-gray-200 px-4 py-2 text-gray-800 font-semibold border border-gray-400 hover:bg-gray-300"
+                    >
+                      How to cook
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex justify-end pr-[6rem] mt-6">
-                <button
-                  type="button"
-                  onClick={() => setIsCookModalOpen(true)}
-                  className="inline-flex items-center justify-center rounded-md bg-gray-200 px-4 py-2 text-gray-800 font-semibold border border-gray-400 hover:bg-gray-300"
-                >
-                  How to cook
-                </button>
-              </div>
+              <div className="h-12 sm:h-10"></div>
             </div>
           </div>
         </div>
@@ -367,7 +380,7 @@ const RamenInfo = ({ product, onBack }) => {
                     className={`px-5 py-3 rounded-full text-base md:text-lg font-semibold border transition-colors ${
                       selectedVideoIndex === index
                         ? "bg-blue-600 border-blue-600 text-white"
-                        : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                        : "bg-gray-100 border-gray-300 text-gray-700"
                     }`}
                     aria-label={`Open video ${index + 1}`}
                   >
