@@ -27,11 +27,30 @@ export default function Home() {
 
 function Hero() {
   const [scrollY, setScrollY] = useState(0);
+  const [showUudu, setShowUudu] = useState(false);
+  const [showTagline, setShowTagline] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    // Show "Uudu." first
+    const uuduTimer = setTimeout(() => {
+      setShowUudu(true);
+    }, 300);
+
+    // Show "Fearless Ramen Hack" after "Uudu." has faded in
+    const taglineTimer = setTimeout(() => {
+      setShowTagline(true);
+    }, 1500);
+
+    return () => {
+      clearTimeout(uuduTimer);
+      clearTimeout(taglineTimer);
+    };
   }, []);
 
   // Calculate transition based on scroll position (transition starts after 100px scroll)
@@ -64,7 +83,22 @@ function Hero() {
             className="text-3xl sm:text-6xl font-semibold text-[#C84E00] mb-4"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
-            Uudu. Fearless Ramen Hack
+            <span
+              style={{
+                opacity: showUudu ? 1 : 0,
+                transition: "opacity 0.8s ease-in-out",
+              }}
+            >
+              Uudu.{" "}
+            </span>
+            <span
+              style={{
+                opacity: showTagline ? 1 : 0,
+                transition: "opacity 0.8s ease-in-out",
+              }}
+            >
+              Fearless Ramen Hack
+            </span>
           </h1>
         </div>
       </div>
