@@ -166,7 +166,7 @@ const ToppingsInfo = ({ product, onBack }) => {
       {onBack && (
         <button
           onClick={onBack}
-          className="mb-8 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-2xl"
+          className="mb-12 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-lg md:text-xl"
         >
           <ChevronDown className="w-4 h-4 rotate-90" />
           Back to Menu
@@ -177,8 +177,10 @@ const ToppingsInfo = ({ product, onBack }) => {
       <section className="mt-0">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">Name:</div>
-            <div className="mt-4 text-2xl font-semibold text-black">Price:</div>
+            <div className="text-lg md:text-xl font-bold text-black">Name:</div>
+            <div className="mt-6 text-lg md:text-xl font-bold text-black">
+              Price:
+            </div>
           </div>
           <div className="md:col-span-9">
             <div className="flex flex-col md:flex-row md:items-stretch md:justify-between gap-4">
@@ -189,8 +191,8 @@ const ToppingsInfo = ({ product, onBack }) => {
                 >
                   {selectedTopping.name}
                 </h1>
-                <div className="mt-3 space-y-2">
-                  <div className="flex items-center gap-3 text-2xl text-gray-900">
+                <div className="mt-5 space-y-2">
+                  <div className="flex items-center gap-3 text-lg md:text-xl text-gray-900">
                     <div
                       aria-hidden
                       style={{
@@ -201,7 +203,9 @@ const ToppingsInfo = ({ product, onBack }) => {
                         borderBottom: `36px solid ${getTriangleColor()}`,
                       }}
                     />
-                    <span className="tracking-tight font-normal">{`$ ${selectedTopping.price.toFixed(2)}`}</span>
+                    <span className="tracking-tight font-normal">{`$ ${selectedTopping.price.toFixed(
+                      2
+                    )}`}</span>
                   </div>
                 </div>
               </div>
@@ -223,10 +227,12 @@ const ToppingsInfo = ({ product, onBack }) => {
       </section>
 
       {/* 2. Description */}
-      <section className="mt-8 md:mt-10">
+      <section className="mt-12 md:mt-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">Description:</div>
+            <div className="text-lg md:text-xl font-bold text-black">
+              Description:
+            </div>
           </div>
           <div className="md:col-span-9">
             <p className="text-lg md:text-xl leading-relaxed text-gray-800">
@@ -238,10 +244,12 @@ const ToppingsInfo = ({ product, onBack }) => {
 
       {/* 3. Spiciness (only if present) */}
       {selectedTopping.spiciness && (
-        <section className="mt-8 md:mt-10">
+        <section className="mt-12 md:mt-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
             <div className="md:col-span-3">
-              <div className="text-2xl font-semibold text-black">Spiciness:</div>
+              <div className="text-lg md:text-xl font-bold text-black">
+                Spiciness:
+              </div>
             </div>
             <div className="md:col-span-9">
               {generateFlames(getSpicyLevel(selectedTopping.spiciness))}
@@ -251,13 +259,15 @@ const ToppingsInfo = ({ product, onBack }) => {
       )}
 
       {/* 4. Allergen */}
-      <section className="mt-8 md:mt-10">
+      <section className="mt-12 md:mt-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">Allergen:</div>
+            <div className="text-lg md:text-xl font-bold text-black">
+              Allergen:
+            </div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-base md:text-lg leading-7 text-black">
+            <p className="text-lg md:text-xl leading-relaxed text-gray-800">
               {selectedTopping.allergen ||
                 "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."}
             </p>

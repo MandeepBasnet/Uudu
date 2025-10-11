@@ -192,7 +192,7 @@ const RamenInfo = ({ product, onBack }) => {
       {onBack && (
         <button
           onClick={onBack}
-          className="mb-8 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-2xl"
+          className="mb-12 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-lg md:text-xl"
         >
           <ChevronDown className="w-4 h-4 rotate-90" />
           Back to Menu
@@ -203,8 +203,10 @@ const RamenInfo = ({ product, onBack }) => {
       <section className="mt-0">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">Name:</div>
-            <div className="mt-4 text-2xl font-semibold text-black">Price:</div>
+            <div className="text-lg md:text-xl font-bold text-black">Name:</div>
+            <div className="mt-6 text-lg md:text-xl font-bold text-black">
+              Price:
+            </div>
           </div>
           <div className="md:col-span-9">
             <div className="flex flex-col md:flex-row md:items-stretch md:justify-between gap-4">
@@ -215,8 +217,8 @@ const RamenInfo = ({ product, onBack }) => {
                 >
                   {selectedRamen.name}
                 </h1>
-                <div className="mt-3 space-y-2">
-                  <div className="flex items-center gap-3 text-2xl text-gray-900">
+                <div className="mt-5 space-y-2">
+                  <div className="flex items-center gap-3 text-lg md:text-xl text-gray-900">
                     <div
                       className={`w-8 h-8 rounded-full ${getPriceCircleColor(
                         selectedRamen.price_packet,
@@ -227,7 +229,7 @@ const RamenInfo = ({ product, onBack }) => {
                       selectedRamen.price_packet + selectedRamen.price_bowl
                     ).toFixed(2)}`}</span>
                   </div>
-                  <div className="text-sm md:text-base text-gray-500 italic whitespace-pre pl-12 md:pl-14">
+                  <div className="text-sm md:text-base text-gray-500 italic whitespace-pre ml-11">
                     {`* ( Noodle  $ ${selectedRamen.price_packet.toFixed(
                       2
                     )}   +   Bowl  $ ${selectedRamen.price_bowl.toFixed(2)} )`}
@@ -252,10 +254,10 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 2. Description */}
-      <section className="mt-8 md:mt-10">
+      <section className="mt-12 md:mt-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">
+            <div className="text-lg md:text-xl font-bold text-black">
               Description:
             </div>
           </div>
@@ -268,10 +270,12 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 4. Spiciness */}
-      <section className="mt-8 md:mt-10">
+      <section className="mt-12 md:mt-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">Spiciness:</div>
+            <div className="text-lg md:text-xl font-bold text-black">
+              Spiciness:
+            </div>
           </div>
           <div className="md:col-span-9">
             {generateFlames(getSpicyLevel(selectedRamen.spiciness))}
@@ -280,10 +284,10 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 5. Cooker Setting */}
-      <section className="mt-8 md:mt-10">
+      <section className="mt-12 md:mt-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">
+            <div className="text-lg md:text-xl font-bold text-black">
               Cooker Setting:
             </div>
           </div>
@@ -342,10 +346,10 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 6. Hack Videos */}
-      <section className="mt-8 md:mt-10">
+      <section className="mt-12 md:mt-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">
+            <div className="text-lg md:text-xl font-bold text-black">
               Hack Videos:
             </div>
           </div>
@@ -389,13 +393,15 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 7. Allergen */}
-      <section className="mt-8 md:mt-10">
+      <section className="mt-12 md:mt-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-2xl font-semibold text-black">Allergen:</div>
+            <div className="text-lg md:text-xl font-bold text-black">
+              Allergen:
+            </div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-base md:text-lg leading-7 text-black">
+            <p className="text-lg md:text-xl leading-relaxed text-gray-800">
               All ramen packets are sold in original packaging. Please check the
               label for ingredients and allergen details. Some imported items
               may not have full U.S.-style allergen info—ask a staff if you have
