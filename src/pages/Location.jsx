@@ -1,9 +1,11 @@
 import React from "react";
+import Footer from "../components/Footer";
 
 export default function Location() {
   return (
     <div className="min-h-screen bg-[#F2F2F2] pt-24 md:pt-24 pb-20">
-      {/* Hero */}
+      {/* Commented out original content */}
+      {/* 
       <div className="relative h-60 w-full">
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
           <h1
@@ -15,10 +17,8 @@ export default function Location() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="mx-auto max-w-5xl px-4 sm:px-6 mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Map Embed */}
           <div
             id="map"
             className="bg-white rounded-3xl shadow-sm overflow-hidden"
@@ -34,7 +34,6 @@ export default function Location() {
             ></iframe>
           </div>
 
-          {/* Store Info */}
           <div className="bg-white rounded-3xl shadow-sm p-8">
             <h2
               className="text-2xl font-semibold mb-4"
@@ -43,7 +42,6 @@ export default function Location() {
               UUDU — Cypress Square
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
-              {/* Left column: Address, Title, Button */}
               <div>
                 <p className="text-gray-700 mb-2">
                   4931 Lincoln Avenue <br />
@@ -61,7 +59,6 @@ export default function Location() {
                 </a>
               </div>
 
-              {/* Right column: Hours aligned to top */}
               <div className="mt-6 md:mt-0">
                 <h3
                   className="text-lg mb-2"
@@ -79,6 +76,10 @@ export default function Location() {
           </div>
         </div>
       </div>
+      */}
+
+      {/* Display Footer component */}
+      <Footer />
     </div>
   );
 }
