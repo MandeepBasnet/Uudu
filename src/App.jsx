@@ -34,12 +34,26 @@ export default function App() {
 function AppShell() {
   const location = useLocation();
   const showFooter = location.pathname === "/";
-  const isMobileMenu = location.pathname === "/menu-mobile";
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const isMobileMenuPage = location.pathname === "/menu-mobile";
+  const isMenuPageMobile = location.pathname === "/menu" && isMobile;
+  const shouldHideNavbar = isMobileMenuPage || isMenuPageMobile;
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F2F2F2]">
-      {/* Navbar - hidden on mobile menu page */}
-      {!isMobileMenu && <Navbar />}
+      {/* Navbar - hidden on mobile menu views */}
+      {!shouldHideNavbar && <Navbar />}
 
       {/* Main Content */}
       <main className="flex-1">
