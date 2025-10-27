@@ -10,7 +10,8 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 // Pages
 import Home from "./pages/Home";
-import Menu from "./pages/Menu/MenuMain";
+import MenuMain from "./pages/Menu/MenuMain";
+import MenuMobile from "./pages/Menu/MenuMobile";
 import Cook from "./pages/Cook";
 import WhatsUudu from "./pages/WhatsUudu";
 import Events from "./pages/Events";
@@ -33,19 +34,23 @@ export default function App() {
 function AppShell() {
   const location = useLocation();
   const showFooter = location.pathname === "/";
+  const isMobileMenu = location.pathname === "/menu-mobile";
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F2F2F2]">
-      {/* Navbar stays across pages */}
-      <Navbar />
+      {/* Navbar - hidden on mobile menu page */}
+      {!isMobileMenu && <Navbar />}
 
       {/* Main Content */}
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
 
-          {/* Single Menu Page - no category routing needed */}
-          <Route path="/menu" element={<Menu />} />
+          {/* Desktop Menu - with navbar */}
+          <Route path="/menu" element={<MenuMain />} />
+
+          {/* Mobile Menu - without navbar */}
+          <Route path="/menu-mobile" element={<MenuMobile />} />
 
           {/* Other Pages */}
           <Route path="/cook" element={<Cook />} />
@@ -58,7 +63,7 @@ function AppShell() {
             path="*"
             element={
               <div className="flex min-h-[60vh] items-center justify-center text-gray-500">
-                <p>404 — Page not found</p>
+                <p>404 – Page not found</p>
               </div>
             }
           />
