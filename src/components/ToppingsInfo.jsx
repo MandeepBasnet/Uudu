@@ -106,13 +106,13 @@ const ToppingsInfo = ({ product, onBack }) => {
       flames.push(
         <div
           key={i}
-          className="w-10 h-10 flex items-center justify-center relative"
+          className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center relative flex-shrink-0"
         >
           {i === level && (
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <div className="w-1 h-8 bg-blue-600 rounded-full"></div>
+            <div className="absolute -top-8 sm:-top-9 md:-top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div className="w-1 h-6 sm:h-7 md:h-8 bg-blue-600 rounded-full"></div>
               <div
-                className="w-0 h-0 -mt-1 drop-shadow-sm"
+                className="w-0 h-0 drop-shadow-sm"
                 style={{
                   borderLeft: "10px solid transparent",
                   borderRight: "10px solid transparent",
@@ -127,33 +127,43 @@ const ToppingsInfo = ({ product, onBack }) => {
     }
 
     return (
-      <div className="relative w-full flex flex-col items-center pt-9">
+      <div className="relative w-full flex flex-col items-center pt-8 sm:pt-9 md:pt-10">
         {/* Blue guideline */}
         <div className="absolute top-0 left-2 right-2 h-[8px] bg-blue-600 rounded-full"></div>
 
-        {/* Flames grouped with tighter intra-group spacing and small gaps between groups */}
-        <div className="w-full max-w-[620px] flex items-center justify-center">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">{flames.slice(0, 2)}</div>
-            <div className="flex items-center gap-1">{flames.slice(2, 5)}</div>
-            <div className="flex items-center gap-1">{flames.slice(5, 8)}</div>
-            <div className="flex items-center gap-1">{flames.slice(8, 10)}</div>
+        {/* Flames grouped with responsive spacing */}
+        <div className="w-full flex items-center justify-center px-2">
+          <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3">
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              {flames.slice(0, 2)}
+            </div>
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              {flames.slice(2, 5)}
+            </div>
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              {flames.slice(5, 8)}
+            </div>
+            <div className="flex items-center gap-0.5 sm:gap-1">
+              {flames.slice(8, 10)}
+            </div>
           </div>
         </div>
 
-        {/* Labels as pills */}
-        <div className="grid grid-cols-10 gap-2 w-full max-w-[620px] mt-4">
-          <div className="col-span-2 flex justify-center">
-            <LabelPill text="Mild" variant="mild" />
-          </div>
-          <div className="col-span-3 flex justify-center">
-            <LabelPill text="Medium" variant="medium" />
-          </div>
-          <div className="col-span-3 flex justify-center">
-            <LabelPill text="Hot" variant="hot" />
-          </div>
-          <div className="col-span-2 flex justify-center">
-            <LabelPill text="Fiery" variant="fiery" />
+        {/* Labels as pills with responsive grid */}
+        <div className="w-full flex items-center justify-center px-2 mt-4">
+          <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3 w-full max-w-[95%] sm:max-w-[620px]">
+            <div className="flex-[2] flex justify-center">
+              <LabelPill text="Mild" variant="mild" />
+            </div>
+            <div className="flex-[3] flex justify-center">
+              <LabelPill text="Medium" variant="medium" />
+            </div>
+            <div className="flex-[3] flex justify-center">
+              <LabelPill text="Hot" variant="hot" />
+            </div>
+            <div className="flex-[2] flex justify-center">
+              <LabelPill text="Fiery" variant="fiery" />
+            </div>
           </div>
         </div>
       </div>
