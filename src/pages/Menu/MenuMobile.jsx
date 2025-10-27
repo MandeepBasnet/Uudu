@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ramenData from "../../data/ramen.json";
 import toppingsData from "../../data/toppings.json";
-import ProductCard from "../../components/ProductCard";
+import MobileProductCard from "../../components/MobileProductCard";
 import RamenInfo from "../../components/RamenInfo";
 import ToppingsInfo from "../../components/ToppingsInfo";
 
@@ -114,24 +114,17 @@ export default function MenuMobile() {
         <div className="px-4 py-8">
           {/* Ramen Info Tab */}
           {activeTab === "ramen" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-4 gap-2 sm:gap-4">
               {ramenData.ramen.map((product) => (
-                <div
+                <MobileProductCard
                   key={product.id}
+                  image={
+                    product.image_url
+                      ? `/images/${product.image_url}`
+                      : "/images/placeholder.jpg"
+                  }
                   onClick={() => handleProductClick(product, true)}
-                  className="cursor-pointer"
-                >
-                  <ProductCard
-                    name={product.name}
-                    image={
-                      product.image_url
-                        ? `/images/${product.image_url}`
-                        : "/images/placeholder.jpg"
-                    }
-                    price={product.price_packet}
-                    hidePrice
-                  />
-                </div>
+                />
               ))}
             </div>
           )}
@@ -170,25 +163,17 @@ export default function MenuMobile() {
                       </div>
 
                       {/* Subsection Products Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+                      <div className="grid grid-cols-4 gap-2 sm:gap-4">
                         {categoryToppings.map((product) => (
-                          <div
+                          <MobileProductCard
                             key={product.id}
+                            image={
+                              product.image_url
+                                ? `/images/${product.image_url}`
+                                : "/images/placeholder.jpg"
+                            }
                             onClick={() => handleProductClick(product, false)}
-                            className="cursor-pointer"
-                          >
-                            <ProductCard
-                              name={product.name}
-                              image={
-                                product.image_url
-                                  ? `/images/${product.image_url}`
-                                  : "/images/placeholder.jpg"
-                              }
-                              price={product.price}
-                              hidePrice
-                              uniformScale
-                            />
-                          </div>
+                          />
                         ))}
                       </div>
                     </div>
