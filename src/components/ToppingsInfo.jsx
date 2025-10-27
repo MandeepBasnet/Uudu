@@ -184,9 +184,65 @@ const ToppingsInfo = ({ product, onBack }) => {
         </button>
       )}
 
-      {/* 1. Name */}
+      {/* 1. Name & Price - Mobile: Each row with label and value side-by-side */}
       <section className="mt-0">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
+        {/* Mobile Layout */}
+        <div className="block md:hidden space-y-4">
+          {/* Name Row */}
+          <div className="flex items-start gap-3">
+            <div className="text-sm font-bold text-black whitespace-nowrap">
+              Name:
+            </div>
+            <h1
+              className="text-sm font-normal tracking-tight text-gray-900 flex-1"
+              title={selectedTopping.name}
+            >
+              {selectedTopping.name}
+            </h1>
+          </div>
+
+          {/* Price Row */}
+          <div className="flex items-start gap-3">
+            <div className="text-sm font-bold text-black whitespace-nowrap">
+              Price:
+            </div>
+            <div className="flex-1 space-y-2">
+              <div className="flex items-center gap-2 text-sm text-gray-900">
+                <div
+                  aria-hidden
+                  style={{
+                    width: 0,
+                    height: 0,
+                    borderLeft: "10px solid transparent",
+                    borderRight: "10px solid transparent",
+                    borderBottom: `16px solid ${getTriangleColor()}`,
+                  }}
+                  className="flex-shrink-0"
+                />
+                <span className="tracking-tight font-normal">{`$ ${selectedTopping.price.toFixed(
+                  2
+                )}`}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Image */}
+          <div className="w-full max-w-[200px] mx-auto mt-4">
+            <img
+              src={
+                selectedTopping.image_url
+                  ? `/images/${selectedTopping.image_url}`
+                  : "/images/placeholder.jpg"
+              }
+              alt={selectedTopping.name}
+              className="w-full h-auto object-contain"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        {/* Desktop Layout (unchanged) */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
           <div className="md:col-span-3">
             <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
               Name:

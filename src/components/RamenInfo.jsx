@@ -210,9 +210,65 @@ const RamenInfo = ({ product, onBack }) => {
         </button>
       )}
 
-      {/* 1. Name */}
+      {/* 1. Name & Price - Mobile: Each row with label and value side-by-side */}
       <section className="mt-0">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
+        {/* Mobile Layout */}
+        <div className="block md:hidden space-y-4">
+          {/* Name Row */}
+          <div className="flex items-start gap-3">
+            <div className="text-sm font-bold text-black whitespace-nowrap">
+              Name:
+            </div>
+            <h1
+              className="text-sm font-normal tracking-tight text-gray-900 flex-1"
+              title={selectedRamen.name}
+            >
+              {selectedRamen.name}
+            </h1>
+          </div>
+
+          {/* Price Row */}
+          <div className="flex items-start gap-3">
+            <div className="text-sm font-bold text-black whitespace-nowrap">
+              Price:
+            </div>
+            <div className="flex-1 space-y-2">
+              <div className="flex items-center gap-2 text-sm text-gray-900">
+                <div
+                  className={`w-5 h-5 rounded-full flex-shrink-0 ${getPriceCircleColor(
+                    selectedRamen.price_packet,
+                    selectedRamen.price_bowl
+                  )}`}
+                ></div>
+                <span className="tracking-tight font-normal">{`$ ${(
+                  selectedRamen.price_packet + selectedRamen.price_bowl
+                ).toFixed(2)}`}</span>
+              </div>
+              <div className="text-xs text-gray-500 italic whitespace-pre ml-7">
+                {`* ( Noodle  $ ${selectedRamen.price_packet.toFixed(
+                  2
+                )}   +   Bowl  $ ${selectedRamen.price_bowl.toFixed(2)} )`}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Image */}
+          <div className="w-full max-w-[200px] mx-auto mt-4">
+            <img
+              src={
+                selectedRamen.image_url
+                  ? `/images/${selectedRamen.image_url}`
+                  : "/images/placeholder.jpg"
+              }
+              alt={selectedRamen.name}
+              className="w-full h-auto object-contain"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        {/* Desktop Layout (unchanged) */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
           <div className="md:col-span-3">
             <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
               Name:
