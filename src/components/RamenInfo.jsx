@@ -51,14 +51,15 @@ const RamenInfo = ({ product, onBack }) => {
 
     return (
       <svg
-        width="36"
-        height="36"
+        width="100%"
+        height="100%"
         viewBox="0 0 384 511.4"
         role="img"
         aria-label={`${variant} level flame`}
         shapeRendering="geometricPrecision"
         textRendering="geometricPrecision"
         imageRendering="optimizeQuality"
+        className="w-full h-full"
       >
         <defs>
           <linearGradient
@@ -95,7 +96,7 @@ const RamenInfo = ({ product, onBack }) => {
     };
     return (
       <span
-        className={`inline-flex items-center justify-center h-9 min-w-[84px] px-4 rounded-full border bg-white/95 text-base font-medium tracking-wide shadow-sm ${classByVariant[variant]}`}
+        className={`inline-flex items-center justify-center h-7 sm:h-8 md:h-9 min-w-[60px] sm:min-w-[70px] md:min-w-[84px] px-2 sm:px-3 md:px-4 rounded-full border bg-white/95 text-xs sm:text-sm md:text-base font-medium tracking-wide shadow-sm ${classByVariant[variant]}`}
       >
         {text}
       </span>
@@ -116,17 +117,17 @@ const RamenInfo = ({ product, onBack }) => {
       flames.push(
         <div
           key={i}
-          className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center relative flex-shrink-0"
+          className="w-5 h-5 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 flex items-center justify-center relative flex-shrink-0"
         >
           {i === level && (
-            <div className="absolute -top-8 sm:-top-9 md:-top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <div className="w-1 h-6 sm:h-7 md:h-8 bg-blue-600 rounded-full"></div>
+            <div className="absolute -top-5 sm:-top-8 md:-top-9 lg:-top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div className="w-1 h-4 sm:h-6 md:h-7 lg:h-8 bg-blue-600 rounded-full"></div>
               <div
                 className="w-0 h-0 drop-shadow-sm"
                 style={{
-                  borderLeft: "10px solid transparent",
-                  borderRight: "10px solid transparent",
-                  borderTop: "12px solid #2563eb", // tailwind blue-600
+                  borderLeft: "6px solid transparent",
+                  borderRight: "6px solid transparent",
+                  borderTop: "8px solid #2563eb",
                 }}
               />
             </div>
@@ -137,31 +138,31 @@ const RamenInfo = ({ product, onBack }) => {
     }
 
     return (
-      <div className="relative w-full flex flex-col items-center pt-8 sm:pt-9 md:pt-10">
+      <div className="relative w-full flex flex-col items-center pt-5 sm:pt-8 md:pt-9 lg:pt-10">
         {/* Blue guideline */}
-        <div className="absolute top-0 left-2 right-2 h-[8px] bg-blue-600 rounded-full"></div>
+        <div className="absolute top-0 left-2 right-2 h-[6px] sm:h-[8px] bg-blue-600 rounded-full"></div>
 
         {/* Flames grouped with responsive spacing */}
         <div className="w-full flex items-center justify-center px-2">
-          <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3">
-            <div className="flex items-center gap-0.5 sm:gap-1">
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-2.5 lg:gap-3">
+            <div className="flex items-center gap-0.5">
               {flames.slice(0, 2)}
             </div>
-            <div className="flex items-center gap-0.5 sm:gap-1">
+            <div className="flex items-center gap-0.5">
               {flames.slice(2, 5)}
             </div>
-            <div className="flex items-center gap-0.5 sm:gap-1">
+            <div className="flex items-center gap-0.5">
               {flames.slice(5, 8)}
             </div>
-            <div className="flex items-center gap-0.5 sm:gap-1">
+            <div className="flex items-center gap-0.5">
               {flames.slice(8, 10)}
             </div>
           </div>
         </div>
 
         {/* Labels as pills with responsive grid */}
-        <div className="w-full flex items-center justify-center px-2 mt-4">
-          <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3 w-full max-w-[95%] sm:max-w-[620px]">
+        <div className="w-full flex items-center justify-center px-2 mt-2 sm:mt-4">
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-2.5 lg:gap-3 w-full max-w-[95%] sm:max-w-[620px]">
             <div className="flex-[2] flex justify-center">
               <LabelPill text="Mild" variant="mild" />
             </div>
@@ -197,40 +198,42 @@ const RamenInfo = ({ product, onBack }) => {
   const cookerVideoId = extractVideoId(cookerSettingsVideo.url);
 
   return (
-    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg px-4 sm:px-6 md:px-10 py-8 md:py-10">
+    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg px-4 sm:px-6 md:px-10 py-6 md:py-10">
       {/* Back Button - only show if onBack is provided */}
       {onBack && (
         <button
           onClick={onBack}
-          className="mb-12 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-lg md:text-xl"
+          className="mb-8 md:mb-12 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-sm md:text-lg lg:text-xl"
         >
-          <ChevronDown className="w-4 h-4 rotate-90" />
+          <ChevronDown className="w-3 h-3 md:w-4 md:h-4 rotate-90" />
           Back to Menu
         </button>
       )}
 
       {/* 1. Name */}
       <section className="mt-0">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-lg md:text-xl font-bold text-black">Name:</div>
-            <div className="mt-6 text-lg md:text-xl font-bold text-black">
+            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
+              Name:
+            </div>
+            <div className="mt-4 md:mt-6 text-sm md:text-lg lg:text-xl font-bold text-black">
               Price:
             </div>
           </div>
           <div className="md:col-span-9">
-            <div className="flex flex-col md:flex-row md:items-stretch md:justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-stretch md:justify-between gap-3 md:gap-4">
               <div className="flex-1">
                 <h1
-                  className="text-lg md:text-xl font-normal tracking-tight text-gray-900 truncate"
+                  className="text-sm md:text-lg lg:text-xl font-normal tracking-tight text-gray-900 truncate"
                   title={selectedRamen.name}
                 >
                   {selectedRamen.name}
                 </h1>
-                <div className="mt-5 space-y-2">
-                  <div className="flex items-center gap-3 text-lg md:text-xl text-gray-900">
+                <div className="mt-3 md:mt-5 space-y-2">
+                  <div className="flex items-center gap-2 md:gap-3 text-sm md:text-lg lg:text-xl text-gray-900">
                     <div
-                      className={`w-8 h-8 rounded-full ${getPriceCircleColor(
+                      className={`w-5 h-5 md:w-8 md:h-8 rounded-full ${getPriceCircleColor(
                         selectedRamen.price_packet,
                         selectedRamen.price_bowl
                       )}`}
@@ -239,14 +242,14 @@ const RamenInfo = ({ product, onBack }) => {
                       selectedRamen.price_packet + selectedRamen.price_bowl
                     ).toFixed(2)}`}</span>
                   </div>
-                  <div className="text-sm md:text-base text-gray-500 italic whitespace-pre ml-11">
+                  <div className="text-xs md:text-sm lg:text-base text-gray-500 italic whitespace-pre ml-7 md:ml-11">
                     {`* ( Noodle  $ ${selectedRamen.price_packet.toFixed(
                       2
                     )}   +   Bowl  $ ${selectedRamen.price_bowl.toFixed(2)} )`}
                   </div>
                 </div>
               </div>
-              <div className="w-full md:w-48 self-stretch flex items-center">
+              <div className="hidden md:block w-full md:w-48 self-stretch items-center">
                 <img
                   src={
                     selectedRamen.image_url
@@ -264,15 +267,15 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 2. Description */}
-      <section className="mt-12 md:mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+      <section className="mt-6 md:mt-12 lg:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-lg md:text-xl font-bold text-black">
+            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
               Description:
             </div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-lg md:text-xl leading-relaxed text-gray-800">
+            <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800">
               {selectedRamen.description}
             </p>
           </div>
@@ -280,10 +283,10 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 4. Spiciness */}
-      <section className="mt-12 md:mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+      <section className="mt-6 md:mt-12 lg:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-lg md:text-xl font-bold text-black">
+            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
               Spiciness:
             </div>
           </div>
@@ -294,25 +297,25 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 5. Cooker Setting */}
-      <section className="mt-12 md:mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+      <section className="mt-6 md:mt-12 lg:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-lg md:text-xl font-bold text-black">
+            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
               Cooker Setting:
             </div>
           </div>
           <div className="md:col-span-9">
-            <div className="space-y-4 border border-gray-400 rounded-lg p-5 bg-white relative">
-              <div className="text-gray-800 text-base md:text-lg flex items-baseline gap-2">
+            <div className="space-y-3 md:space-y-4 border border-gray-400 rounded-lg p-3 md:p-5 bg-white relative">
+              <div className="text-gray-800 text-xs md:text-base lg:text-lg flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
                 <span className="font-bold">For this specific noodle :</span>
-                <span className="text-blue-700 font-extrabold uppercase tracking-wide text-lg md:text-xl">
+                <span className="text-blue-700 font-extrabold uppercase tracking-wide text-sm md:text-lg lg:text-xl">
                   {`MENU ${selectedRamen.cooker_setting ?? 1}`}
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-4 md:gap-6">
-                <div className="flex items-center gap-4 md:gap-6">
-                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center flex-shrink-0">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 md:gap-4 lg:gap-6">
+                <div className="flex items-center gap-3 md:gap-4 lg:gap-6">
+                  <div className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center flex-shrink-0">
                     <img
                       src="/RamenCooker.png"
                       alt="Ramen Cooker"
@@ -320,10 +323,12 @@ const RamenInfo = ({ product, onBack }) => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-gray-500 text-4xl md:text-5xl">→</span>
+                  <span className="text-gray-500 text-2xl md:text-4xl lg:text-5xl">
+                    →
+                  </span>
                 </div>
-                <div className="flex items-center gap-3 md:gap-4 relative">
-                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center flex-shrink-0">
+                <div className="flex items-center gap-2 md:gap-3 lg:gap-4 relative">
+                  <div className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center flex-shrink-0">
                     <img
                       src="/menu.png"
                       alt="Menu button"
@@ -331,8 +336,10 @@ const RamenInfo = ({ product, onBack }) => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-gray-700 text-3xl md:text-4xl">+</span>
-                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center flex-shrink-0">
+                  <span className="text-gray-700 text-2xl md:text-3xl lg:text-4xl">
+                    +
+                  </span>
+                  <div className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center flex-shrink-0">
                     <img
                       src="/startstop.png"
                       alt="Start/Stop button"
@@ -340,11 +347,11 @@ const RamenInfo = ({ product, onBack }) => {
                       loading="lazy"
                     />
                   </div>
-                  <div className="absolute -bottom-16 sm:-bottom-14 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                  <div className="absolute -bottom-12 sm:-bottom-16 md:-bottom-14 left-1/2 -translate-x-1/2 whitespace-nowrap">
                     <button
                       type="button"
                       onClick={() => setIsCookModalOpen(true)}
-                      className="inline-flex items-center justify-center rounded-md bg-gray-200 px-4 py-2 text-gray-800 font-semibold border border-gray-400 hover:bg-gray-300"
+                      className="inline-flex items-center justify-center rounded-md bg-gray-200 px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm text-gray-800 font-semibold border border-gray-400 hover:bg-gray-300"
                     >
                       How to cook
                     </button>
@@ -359,17 +366,17 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 6. Hack Videos */}
-      <section className="mt-12 md:mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+      <section className="mt-6 md:mt-12 lg:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-lg md:text-xl font-bold text-black">
+            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
               Hack Videos:
             </div>
           </div>
           <div className="md:col-span-9">
-            <div className="flex items-start gap-6">
-              {/* Large oval buttons on the left */}
-              <div className="flex flex-col gap-3 w-48 md:w-56">
+            <div className="flex flex-row md:flex-row items-start gap-3 md:gap-6">
+              {/* Large oval buttons on the left - vertical on all screens */}
+              <div className="flex flex-col gap-2 sm:gap-3 w-auto md:w-48 lg:w-56">
                 {selectedRamen.suggested_videos.map((video, index) => (
                   <button
                     key={index}
@@ -377,26 +384,29 @@ const RamenInfo = ({ product, onBack }) => {
                       setSelectedVideoIndex(index);
                       setIsVideoModalOpen(true);
                     }}
-                    className={`px-5 py-3 rounded-full text-base md:text-lg font-semibold border transition-colors ${
+                    className={`w-8 h-8 sm:w-auto sm:h-auto px-2 sm:px-3 sm:py-2 md:px-5 md:py-3 rounded-full text-xs sm:text-sm md:text-base lg:text-lg font-semibold border transition-colors flex items-center justify-center ${
                       selectedVideoIndex === index
                         ? "bg-blue-600 border-blue-600 text-white"
                         : "bg-gray-100 border-gray-300 text-gray-700"
                     }`}
                     aria-label={`Open video ${index + 1}`}
                   >
-                    {`Video ${index + 1}`}
+                    <span className="hidden sm:inline">{`Video ${
+                      index + 1
+                    }`}</span>
+                    <span className="sm:hidden">{index + 1}</span>
                   </button>
                 ))}
               </div>
 
               {/* Smaller TV preview on the right */}
-              <div className="flex-1">
+              <div className="flex-1 w-full sm:w-auto">
                 <div className="rounded-lg overflow-hidden border border-gray-200 w-full md:w-[340px]">
                   <div className="bg-black aspect-video flex items-center justify-center">
-                    <Play className="w-12 h-12 text-white opacity-60" />
+                    <Play className="w-8 h-8 md:w-12 md:h-12 text-white opacity-60" />
                   </div>
                 </div>
-                <div className="mt-3 text-gray-700 text-sm">
+                <div className="mt-2 md:mt-3 text-gray-700 text-xs md:text-sm">
                   <p className="font-medium">{currentVideo.description}</p>
                 </div>
               </div>
@@ -406,15 +416,15 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* 7. Allergen */}
-      <section className="mt-12 md:mt-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+      <section className="mt-6 md:mt-12 lg:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
           <div className="md:col-span-3">
-            <div className="text-lg md:text-xl font-bold text-black">
+            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
               Allergen:
             </div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-lg md:text-xl leading-relaxed text-gray-800">
+            <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800">
               All ramen packets are sold in original packaging. Please check the
               label for ingredients and allergen details. Some imported items
               may not have full U.S.-style allergen info—ask a staff if you have
