@@ -52,40 +52,52 @@ function AppShell() {
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F2F2F2]">
-      {/* Navbar - hidden on mobile menu views */}
-      {!shouldHideNavbar && <Navbar />}
+      {isMobile ? (
+        // Mobile: show only MenuMobile for any route, no navbar/footer
+        <main className="flex-1">
+          <Routes>
+            <Route path="*" element={<MenuMobile />} />
+          </Routes>
+        </main>
+      ) : (
+        // Desktop: preserve existing routes and layout
+        <>
+          {/* Navbar - hidden on mobile menu views */}
+          {!shouldHideNavbar && <Navbar />}
 
-      {/* Main Content */}
-      <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Main Content */}
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
 
-          {/* Desktop Menu - with navbar */}
-          <Route path="/menu" element={<MenuMain />} />
+              {/* Desktop Menu - with navbar */}
+              <Route path="/menu" element={<MenuMain />} />
 
-          {/* Mobile Menu - without navbar */}
-          <Route path="/menu-mobile" element={<MenuMobile />} />
+              {/* Mobile Menu - without navbar */}
+              <Route path="/menu-mobile" element={<MenuMobile />} />
 
-          {/* Other Pages */}
-          <Route path="/cook" element={<Cook />} />
-          <Route path="/whats-uudu" element={<WhatsUudu />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/location" element={<Location />} />
+              {/* Other Pages */}
+              <Route path="/cook" element={<Cook />} />
+              <Route path="/whats-uudu" element={<WhatsUudu />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/location" element={<Location />} />
 
-          {/* Fallback */}
-          <Route
-            path="*"
-            element={
-              <div className="flex min-h-[60vh] items-center justify-center text-gray-500">
-                <p>404 – Page not found</p>
-              </div>
-            }
-          />
-        </Routes>
-      </main>
+              {/* Fallback */}
+              <Route
+                path="*"
+                element={
+                  <div className="flex min-h-[60vh] items-center justify-center text-gray-500">
+                    <p>404 – Page not found</p>
+                  </div>
+                }
+              />
+            </Routes>
+          </main>
 
-      {/* Footer visible on Home page only */}
-      {showFooter && <Footer />}
+          {/* Footer visible on Home page only */}
+          {showFooter && <Footer />}
+        </>
+      )}
     </div>
   );
 }
