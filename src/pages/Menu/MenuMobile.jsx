@@ -125,6 +125,7 @@ export default function MenuMobile() {
                   }
                   onClick={() => handleProductClick(product, true)}
                   status={product.status}
+                  id={product.id}
                 />
               ))}
             </div>

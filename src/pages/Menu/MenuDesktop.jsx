@@ -484,6 +484,7 @@ export default function MenuDesktop() {
                               price={product.price || product.price_packet}
                               hidePrice
                               status={product.status}
+                              id={product.id}
                             />
                           </div>
                         ))

@@ -1,7 +1,7 @@
 // src/components/MobileProductCard.jsx
 import React, { useState, useCallback } from "react";
 
-export default function MobileProductCard({ image, onClick, status }) {
+export default function MobileProductCard({ image, onClick, status, id }) {
   const [orientation, setOrientation] = useState("square");
 
   const handleLoad = useCallback((e) => {
@@ -46,6 +46,14 @@ export default function MobileProductCard({ image, onClick, status }) {
             </p>
           </div>
         )}
+      </div>
+      <div className="flex justify-center -mt-2 mb-1 relative z-10">
+        <span
+          className="bg-transparent text-gray-800 border border-gray-400 font-bold px-2 py-0.5 rounded-full shadow-sm text-xs"
+          style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+        >
+          {id}
+        </span>
       </div>
     </div>
   );

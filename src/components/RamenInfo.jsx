@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useId, useEffect } from "react";
-import { Play, ChevronDown, X } from "lucide-react";
+import { Play, ChevronDown, X, CheckSquare, Square } from "lucide-react";
 import ramenData from "../data/updatedRamen.json";
 import NoodleInstructions from "./NoodleInstructions";
 
@@ -12,6 +12,13 @@ const RamenInfo = ({ product, onBack }) => {
   const [isCookModalOpen, setIsCookModalOpen] = useState(false);
 
   // Keep category nav bar visible while cook instructions modal is open
+  const countryFlags = {
+    "S. Korea": "/images/s-korea.jpg",
+    "Japan": "/images/japan.jpg",
+    "Taiwan": "/images/taiwan.jpg",
+    "Other Asia": "🌏",
+  };
+
   useEffect(() => {
     const navEl = document.getElementById("menu-categories-nav");
     if (!navEl) return;
@@ -144,7 +151,7 @@ const RamenInfo = ({ product, onBack }) => {
 
         {/* Flames grouped with responsive spacing */}
         <div className="w-full flex items-center justify-center px-2">
-          <div className="flex items-center gap-1 sm:gap-2 md:gap-2.5 lg:gap-3">
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-5 lg:gap-6">
             <div className="flex items-center gap-0.5">
               {flames.slice(0, 2)}
             </div>
@@ -198,20 +205,27 @@ const RamenInfo = ({ product, onBack }) => {
   const cookerVideoId = extractVideoId(cookerSettingsVideo.url);
 
   return (
-    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg px-4 sm:px-6 md:px-10 py-6 md:py-10">
-      {/* Back Button - only show if onBack is provided */}
+    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+      {/* Sticky Header */}
       {onBack && (
-        <button
-          onClick={onBack}
-          className="mb-8 md:mb-12 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-sm md:text-lg lg:text-xl"
-        >
-          <ChevronDown className="w-3 h-3 md:w-4 md:h-4 rotate-90" />
-          Back to Menu
-        </button>
+        <div className="sticky top-0 z-20 bg-white border-b border-gray-200 px-4 sm:px-6 md:px-10 py-4 mb-6">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-gray-600 hover:text-[#99564c] font-bold text-lg md:text-2xl lg:text-3xl transition-colors"
+            style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+          >
+            <ChevronDown
+              className="w-5 h-5 md:w-6 md:h-6 rotate-90"
+              strokeWidth={3}
+            />
+            Back to Menu
+          </button>
+        </div>
       )}
 
-      {/* 1. Name & Price - Mobile: Each row with label and value side-by-side */}
-      <section className="mt-0">
+      <div className="px-4 sm:px-6 md:px-10 pb-6 md:pb-10">
+        {/* 1. Name & Price - Mobile: Each row with label and value side-by-side */}
+        <section className="mt-0">
         {/* Mobile Layout */}
         <div className="block md:hidden space-y-4">
           {/* Name Row */}
@@ -225,6 +239,31 @@ const RamenInfo = ({ product, onBack }) => {
             >
               {selectedRamen.name}
             </h1>
+          </div>
+
+          {/* Style Row */}
+          <div className="flex items-start gap-3">
+            <div className="text-sm font-bold text-black whitespace-nowrap">
+              Style:
+            </div>
+            <div className="flex items-center gap-4 text-sm text-gray-900">
+              <div className="flex items-center gap-1.5">
+                {selectedRamen.type === "Soup" ? (
+                  <CheckSquare className="w-4 h-4" />
+                ) : (
+                  <Square className="w-4 h-4" />
+                )}
+                <span>Soup</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                {selectedRamen.type === "Sauce" ? (
+                  <CheckSquare className="w-4 h-4" />
+                ) : (
+                  <Square className="w-4 h-4" />
+                )}
+                <span>Sauce</span>
+              </div>
+            </div>
           </div>
 
           {/* Price Row */}
@@ -253,7 +292,7 @@ const RamenInfo = ({ product, onBack }) => {
           </div>
 
           {/* Mobile Image */}
-          <div className="w-full max-w-[200px] mx-auto mt-4">
+          <div className="w-full max-w-[200px] mx-auto mt-4 relative">
             <img
               src={
                 selectedRamen.image_url
@@ -264,6 +303,30 @@ const RamenInfo = ({ product, onBack }) => {
               className="w-full h-auto object-contain"
               loading="lazy"
             />
+            <div className="absolute top-0 right-0 flex items-center gap-2">
+              <span
+                className="bg-white text-black border border-gray-800 font-bold px-2 py-0.5 rounded shadow-sm text-xs"
+                style={{
+                  fontFamily: "Bahnschrift, system-ui, sans-serif",
+                }}
+              >
+                {selectedRamen.id}
+              </span>
+              <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-6 min-w-[30px] overflow-hidden">
+                {countryFlags[selectedRamen.country] &&
+                countryFlags[selectedRamen.country].startsWith("/") ? (
+                  <img
+                    src={countryFlags[selectedRamen.country]}
+                    alt={selectedRamen.country}
+                    className="w-5 h-3.5 object-cover"
+                  />
+                ) : (
+                  <span className="text-lg leading-none">
+                    {countryFlags[selectedRamen.country] || "🌏"}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -272,6 +335,9 @@ const RamenInfo = ({ product, onBack }) => {
           <div className="md:col-span-3">
             <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
               Name:
+            </div>
+            <div className="mt-4 md:mt-6 text-sm md:text-lg lg:text-xl font-bold text-black">
+              Style:
             </div>
             <div className="mt-4 md:mt-6 text-sm md:text-lg lg:text-xl font-bold text-black">
               Price:
@@ -286,6 +352,26 @@ const RamenInfo = ({ product, onBack }) => {
                 >
                   {selectedRamen.name}
                 </h1>
+                <div className="mt-3 md:mt-5 text-sm md:text-lg lg:text-xl text-gray-900 font-normal">
+                  <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-2">
+                      {selectedRamen.type === "Soup" ? (
+                        <CheckSquare className="w-5 h-5 md:w-6 md:h-6" />
+                      ) : (
+                        <Square className="w-5 h-5 md:w-6 md:h-6" />
+                      )}
+                      <span>Soup</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {selectedRamen.type === "Sauce" ? (
+                        <CheckSquare className="w-5 h-5 md:w-6 md:h-6" />
+                      ) : (
+                        <Square className="w-5 h-5 md:w-6 md:h-6" />
+                      )}
+                      <span>Sauce</span>
+                    </div>
+                  </div>
+                </div>
                 <div className="mt-3 md:mt-5 space-y-2">
                   <div className="flex items-center gap-2 md:gap-3 text-sm md:text-lg lg:text-xl text-gray-900">
                     <div
@@ -305,7 +391,7 @@ const RamenInfo = ({ product, onBack }) => {
                   </div>
                 </div>
               </div>
-              <div className="hidden md:block w-full md:w-48 self-stretch items-center">
+              <div className="hidden md:block w-full md:w-48 self-stretch items-center relative">
                 <img
                   src={
                     selectedRamen.image_url
@@ -316,6 +402,30 @@ const RamenInfo = ({ product, onBack }) => {
                   className="w-full h-full object-contain"
                   loading="lazy"
                 />
+                <div className="absolute top-0 right-0 flex items-center gap-2">
+                  <span
+                    className="bg-white text-black border border-gray-800 font-bold px-2 py-0.5 rounded shadow-sm text-lg"
+                    style={{
+                      fontFamily: "Bahnschrift, system-ui, sans-serif",
+                    }}
+                  >
+                    {selectedRamen.id}
+                  </span>
+                  <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-8 min-w-[40px] overflow-hidden">
+                    {countryFlags[selectedRamen.country] &&
+                    countryFlags[selectedRamen.country].startsWith("/") ? (
+                      <img
+                        src={countryFlags[selectedRamen.country]}
+                        alt={selectedRamen.country}
+                        className="w-6 h-4 object-cover"
+                      />
+                    ) : (
+                      <span className="text-2xl leading-none">
+                        {countryFlags[selectedRamen.country] || "🌏"}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -551,6 +661,7 @@ const RamenInfo = ({ product, onBack }) => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };
