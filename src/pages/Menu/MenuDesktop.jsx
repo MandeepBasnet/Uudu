@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 // src/pages/Menu/MenuDesktop.jsx
 import React, { useState, useEffect, useRef } from "react";
-import ramenData from "../../data/ramen.json";
+import ramenData from "../../data/updatedRamen.json";
 import toppingsData from "../../data/toppings.json";
 import categories from "../../data/categories.json";
 import ProductCard from "../../components/ProductCard";
@@ -453,6 +453,7 @@ export default function MenuDesktop() {
                                           }
                                           hidePrice
                                           uniformScale
+                                          status={product.status}
                                         />
                                       </div>
                                     ))}
@@ -482,6 +483,7 @@ export default function MenuDesktop() {
                               }
                               price={product.price || product.price_packet}
                               hidePrice
+                              status={product.status}
                             />
                           </div>
                         ))

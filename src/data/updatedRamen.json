@@ -1,0 +1,1121 @@
+{
+  "ramen": [
+    {
+      "status": "available",
+      "id": "N01",
+      "name": "Nongshim Shin Original",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A generous portion of thick chewy noodles paired with a bold comforting broth that features a rich, umami taste with layers of beefy warmth, aromatic garlic, sweet onion, as well as subtle hints of mushroom and soy sauce.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "8 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=1",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein: Hard-boiled egg or Korean smokies\nVeggie: Bok choy or corn\nHack ingredient (optional): Mayonnaise or sesame paste\nFREE garnishes (optional): Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=FuM1dGWfCTw&ab_channel=KimchiBites",
+          "description": "Hack - Kimchi Bites (2:07)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=8krT-dli1-A&t=11s&ab_channel=AaronandClaire",
+          "description": "Hack - Aaron and Claire (13:54)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=0UnoH6hm-S0&ab_channel=NoodleJourney",
+          "description": "Taste test - Noodle Journey (6:12)"
+        }
+      ],
+      "image_url": "nongshim-original.png"
+    },
+    {
+      "status": "available",
+      "id": "N02",
+      "name": "Nongshim Shin Black",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "Similar to the classic Shin Original, but with a creamier broth that draws extra richness from premium beef bone stock, enhanced garlic, and an added kick from black garlic oil for a smoother, more luxurious finish.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "8 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=2",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein: Soft-boiled egg or Korean fish cake\nVeggie: Spinach or bean sprouts\nHack ingredient (optional):\nFREE garnishes (optional): Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/i-5vEUqeWvU",
+          "description": "Hack - Anita's Kitchen XO (00:55)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=WjNrm2uE6gc&t=11s",
+          "description": "Taste test - NongshimUSA (3:20)"
+        }
+      ],
+      "image_url": "nongshim-shin-black.png"
+    },
+    {
+      "status": "available",
+      "id": "N03",
+      "name": "Nongshim Shin Light",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A lighter take on Shin Original's spicy beefy mushroom flavors, Shin Light has fewer calories and less fat, with non-fried, springy noodles and extra vegetables for a fresh twist.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "8 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=3",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/lqG0bf4nK0k",
+          "description": "Hack - Dumplingally (00:21)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=aAsaShjDboE&ab_channel=NoodleJourney",
+          "description": "Taste test - Noodle Journey (09:54)"
+        }
+      ],
+      "image_url": "nongshim-shin-light.png"
+    },
+    {
+      "status": "available",
+      "id": "N04",
+      "name": "Nongshim Kimchi",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A noticeable but not overwhelming current of tangy, fermented kimchi flavor—bright and slightly sour up front, with a gentle heat that builds as you slurp. It's got that savory depth, a hint of seafood extract, and a satisfying balance of vegetable bits for texture.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "7 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://nongshimusa.com/product-detail?pid=9",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/MAPbx11xJ4s",
+          "description": "Hack - LA Food Adventures (00:10)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=YRagzQH4AeE&t=10s",
+          "description": "Taste test - Anna & Hong (07:11)"
+        }
+      ],
+      "image_url": "nongshim-kimchi.png"
+    },
+    {
+      "status": "available",
+      "id": "N05",
+      "name": "Ottogi Jin Mild",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A generous portion of chubby, chewy noodles served with a gentle beef-based broth that's layered with veggies, mushroom, and a caramelized onion note.  Its comforting mellow taste feels both homey and satisfying without the extra heat, making this ramyun a versatile hack option.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "6 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://www.otoki.com/en/product/product_detail?categorySeqFirst=1&productIdx=11",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/hc7Qb3vqlRc",
+          "description": "Taste Test - justpearlm (01:20)"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/jmgmnmtBnFk",
+          "description": "Taste Test - Noodle Journey (07:14)"
+        }
+      ],
+      "image_url": "ottogi-jin-mild.png"
+    },
+    {
+      "status": "available",
+      "id": "N06",
+      "name": "Ottogi Jin Spicy",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A bountiful amount of smooth, springy noodles served in a flavorful beef-based broth that delivers a lively chili warmth rather than othe verwhelming heat of its Nongshim counterpart. Accented with aromatic garlic, sweet onion, and earthy mushroom, this price-friendly ramyun is a dependable choice for a more cozy yet still satisfying kick.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "7 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://www.otoki.com/en/product/product_detail?categorySeqFirst=1&productIdx=10",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/I7afV9C9FVE",
+          "description": "Hack - logaagm (00:59)"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/_2S7VnDXUBo",
+          "description": "Taste Test - Anna & Hong (13:25)"
+        }
+      ],
+      "image_url": "ottogi-jin-spicy.png"
+    },
+    {
+      "status": "available",
+      "id": "N07",
+      "name": "Jin Cheesy Ramen",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A saucy noodle that fuses classic Korean ramyun chewiness with ultra-creamy mac & cheese vibes — think bold cheddar and smooth mascarpone melting into a thick, flavorful sauce that clings to every strand.",
+      "price_packet": 2.50,
+      "price_bowl": 3.0,
+      "spiciness": "6 out of 10 flames",
+      "cooker_setting": null,
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=x_Qftlm7MpU",
+          "description": "Hack Video"
+        }
+      ],
+      "image_url": "jin-cheesy-ramen.webp"
+    },
+    {
+      "status": "available",
+      "id": "N08",
+      "name": "Jin Spicy Cheesy Soup Ramen",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "Springy noodz soaked in a lightly beefy broth upgraded with rich, melty cheddar cheese — creating a cozy, creamy soup that's mildly spicy and ultra-slurpable.",
+      "price_packet": 2.50,
+      "price_bowl": 3.0,
+      "spiciness": "7 out of 10 flames",
+      "cooker_setting": null,
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/GH5S5qpwFCI",
+          "description": "Hack Video"
+        }
+      ],
+      "image_url": "jin-spicy-cheesy-soup-ramen.png"
+    },
+    {
+      "status": "available",
+      "id": "N09",
+      "name": "Paldo Spicy Seafood",
+      "type": "Soup",
+      "menu": "Menu 3E",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": true
+      },
+      "country": "S. Korea",
+      "description": "Thick, chewy noodles swimming in a bold, deep-red broth — packed with intense gochugaru heat and seafood umami, plus a hint of smoky roasted flavor from the signature spicy oil.",
+      "price_packet": 2.50,
+      "price_bowl": 3.0,
+      "spiciness": "9 out of 10 flames",
+      "cooker_setting": null,
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=bS2VamTJkkQ",
+          "description": "Hack Video 1"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=a3CRRHdvCq4&t=149s",
+          "description": "Hack Video 2"
+        }
+      ],
+      "image_url": "paldo-spicy-seafood.jpg"
+    },
+    {
+      "status": "available",
+      "id": "N10",
+      "name": "Paldo Green Tea Vegan",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "Bright green noodles infused with real green tea, offering a smooth, springy bite. The broth delivers a light, floral matcha aroma and gently earthy flavor - refreshing, unique, and surprisingly soothing.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "7 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "http://www.paldofood.com/product/details-noodle-01-21.php",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/biYIX0EluQs",
+          "description": "Intro - Kiet2008 (00:17)"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/zx5cEoN-UdE",
+          "description": "Hack - basicsunday (00:42)"
+        }
+      ],
+      "image_url": "paldo-green-tea-noodle.png"
+    },
+    {
+      "status": "available",
+      "id": "N11",
+      "name": "Paldo Black Bean Sauce",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A hearty option featuring thick, chewy noodles coated in a wonderfully gooey black bean sauce. Its earthy umami-packed flavor includes tender chunks of soybean and veggies that bring in the right sweet & savory balance.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "8 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "http://www.paldofood.com/product/details-noodle-01-14.php",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/lQr96ENvOqw",
+          "description": "Hack - Bibimus (00:33)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=Rh5mX-MWLVk&ab_channel=PaldoGlobal",
+          "description": "Hack - Paldo Global (03:37)"
+        }
+      ],
+      "image_url": "paldo-black-bean-sauce.png"
+    },
+    {
+      "status": "available",
+      "id": "N12",
+      "name": "Buldak Original",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A fiery stir-fry ramen with chewy noodles drenched in a bold, intensely spicy sauce. The addictive sweet-heat flavor is layered with hints of savory chicken and aromatic garlic, delivering a powerful, lingering kick that thrill-seekers and spice lovers crave.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "9 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://samyangamerica.com/buldak/original",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/d6kPrx6ucrU",
+          "description": "Hack - Ireneykim (01:34)"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/TblqujSIIes",
+          "description": "Hack - Saralein (00:16)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=e2A_h-4Clb4&ab_channel=AaronandClaire",
+          "description": "Hack - Aaron & Claire (13:22)"
+        }
+      ],
+      "image_url": "buldak-original.png"
+    },
+    {
+      "status": "available",
+      "id": "N13",
+      "name": "Buldak 2X Spicy",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A supercharged stir-fry ramen featuring extra-springy noodles coated in an intense, fiery red sauce that packs double the heat of the original. Its explosive profile is layered with savory chicken, deep soy notes, and a touch of sweet garlic, delivering a bold, sweat-inducing thrill for true spice enthusiasts.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "10 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://samyangamerica.com/buldak/2x-spicy",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=zoXrqdDq9tg&ab_channel=ZachChoi",
+          "description": "Hack - Zach Choi (16:43)"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/tZpCeQym1LA",
+          "description": "Hack - Mike's Mighty Good (00:32)"
+        }
+      ],
+      "image_url": "buldak-2X-spicy.png"
+    },
+    {
+      "status": "available",
+      "id": "N14",
+      "name": "Buldak Carbonara",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A creamy twist on Buldak's original fire noodles, this stir-fry ramen combines chewy noodles with a velvety sauce that blends bold Korean heat with smooth, cheesy creaminess.  Accented by savory chicken and a dash of garlic, it offers a spicy yet comforting experience that has become a global favorite among adventurous noodle fans.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "9 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://samyangamerica.com/buldak/carbonara",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or tofu\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/jgIy2nYwv40",
+          "description": "Hack - Chloe Dillon (00:58)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=_SNoFlZNXtg&t=207s&ab_channel=mamah%21",
+          "description": "Taste Test - Mexican Moms (09:53)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=dL229NiqO3g&ab_channel=DylanNobert",
+          "description": "Hack - Dylan Norbert (07:16)"
+        }
+      ],
+      "image_url": "buldak-carbonara.png"
+    },
+    {
+      "status": "available",
+      "id": "N15",
+      "name": "Buldak Rosé Ramen",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "This saucy ramyun coats bouncy noodles in a creamy rosé elixir that balances bold Korean spice with subtle tomato tang and rich dairy smoothness. Savory chicken notes and a slightly smoky sweetness round out its delightful profile.",
+      "price_packet": 2.50,
+      "price_bowl": 3.0,
+      "spiciness": "7 out of 10 flames",
+      "cooker_setting": null,
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/w34nug5YT5Y",
+          "description": "Hack Video 1"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/wGOtZ8sbNCM",
+          "description": "Hack Video 2"
+        }
+      ],
+      "image_url": "buldak-rosé-ramen.png"
+    },
+    {
+      "status": "available",
+      "id": "N16",
+      "name": "Buldak Taco Spicy Ramen",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "S. Korea",
+      "description": "A bold fusion of Buldak's signature heat with Mexican-inspired taco seasoning — bouncy noodles tossed in a savory blend of chili, cumin, and other herbs. It's milder than the original Buldak but still delivers a spicy, smoky, taco-forward punch.",
+      "price_packet": 2.50,
+      "price_bowl": 3.0,
+      "spiciness": "6 out of 10 flames",
+      "cooker_setting": null,
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/3DzXhvmDCKw",
+          "description": "Hack Video 1"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=m57dOZXMFho",
+          "description": "Hack Video 2"
+        }
+      ],
+      "image_url": "buldak-taco-spicy-ramen.png"
+    },
+    {
+      "status": "available",
+      "id": "N17",
+      "name": "Sapporo Ichiban Tonkotsu",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Japan",
+      "description": "A more approachable take on classic tonkotsu, Sapporo Ichiban's version features a balanced, mildly creamy pork broth that's lighter and subtly sweet, making it easy to enjoy for all palates. The familiar curly noodles soak up the savory broth beautifully, offering an affordable choice that still feels satisfying and special.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "6 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://sanyofoodsamerica.com/products/sapporo-ichiban-tonkotsu-ramen",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   \nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/l6UtMvr82W8",
+          "description": "Hack- Sapporo Ichiban (00:43)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=dCA9ae5KGDs&t=35s",
+          "description": "Hack - The Ramen Review (10:40)"
+        }
+      ],
+      "image_url": "sapporo-ichiban-tonkotsu.png"
+    },
+    {
+      "status": "available",
+      "id": "N18",
+      "name": "Sapporo Ichiban Miso",
+      "type": "Soup",
+      "menu": "Menu 1",
+      "cooker_menu": {
+        "menu_1": true,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Japan",
+      "description": "An inviting bowl of springy noodles served in a delicate miso broth made from a blend of six different miso varieties and mixed vegetables. This classic Japanese ramen offers a smooth, mellow umami depth that clearly distincts itself from the bold, fiery taste of Korean ramyun.  Yet the seven-spice chili seasoning does deliver a gentle kick that ties all the flavors beautifully together.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "6 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://sanyofoodsamerica.com/products/sapporo-ichiban-miso-ramen",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/Heyto2x6DdE",
+          "description": "Taste Test - alexamoreno (00:55)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=-BwDE_o4os4&ab_channel=TheRamenRater",
+          "description": "Taste Test - Ramen Rater (11:43)"
+        }
+      ],
+      "image_url": "sapporo-ichiban-miso.png"
+    },
+    {
+      "status": "available",
+      "id": "N19",
+      "name": "Sapporo Chow Mein",
+      "type": "Sauce",
+      "menu": "Menu 3B",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": true,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Japan",
+      "description": "A delectable instant version of the enduring Chinese stir-fried noodles, reimagined in Japanese style. It offers a medley of sweet and savory flavors with its rich, Worcestershire-inspired sauce and bouncy noodles — a comforting, nostalgic taste ready for a hack boost.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "5 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://sanyofoodsamerica.com/collections/north-america/products/sapporo-ichiban-chow-mein",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=EjptLmCswo8&ab_channel=GamerMeg",
+          "description": "Taste Test - Gamer Meg (02:43)"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/fP75RZFMX2k",
+          "description": "Taste Test - Jarayday (00:36)"
+        }
+      ],
+      "image_url": "sapporo-chow-mein.png"
+    },
+    {
+      "status": "available",
+      "id": "N20",
+      "name": "Sapporo Sriracha Yakisoba",
+      "type": "Sauce",
+      "menu": "Menu 3B",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": true,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Japan",
+      "description": "A playful twist on classic yakisoba, this version blends springy noodles with a sriracha-inspired sauce that's surprisingly mild and slightly sweet, offering just a gentle kick rather than overwhelming heat.  Perfect for anyone craving a flavorful stir-fry noodle with a modern, tangy edge.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "5 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://sanyofoodsamerica.com/collections/north-america/products/sriracha-yakisoba",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/sAZFn6x5l2M",
+          "description": "Intro - Moonmiko (00:46)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=G1-FVf6F_5U",
+          "description": "Taste Test - Sapporo Ichiban (14:39)"
+        }
+      ],
+      "image_url": "sapporo-sriracha-yakisoba.png"
+    },
+    {
+      "status": "available",
+      "id": "N21",
+      "name": "Kurata Tonkotsu (2 servings)",
+      "type": "Soup",
+      "menu": "Menu 3D",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": true,
+        "menu_3E": false
+      },
+      "country": "Japan",
+      "description": "A premium, restaurant-grade tonkotsu ramen featuring Hakata-style thin noodles and a luscious, creamy pork broth. Crafted for depth and balance, each pack delivers two satisfying servings for an elevated, authentic ramen experience. Note: Cook each serving separately or cook second serving at home.",
+      "price_packet": 3.50,
+      "price_bowl": 3.0,
+      "spiciness": "4 out of 10 flames",
+      "cooker_setting": null,
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/bLsfQCg0MII",
+          "description": "Hack Video"
+        }
+      ],
+      "image_url": "kurata-tonkotsu(2servings).jpg"
+    },
+    {
+      "status": "available",
+      "id": "N22",
+      "name": "A-Sha Mandarin Style with Original Soy Sauce",
+      "type": "Sauce",
+      "menu": "Menu 3C",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": true,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Taiwan",
+      "description": "Hugely popular in the soy sauce noodles category, this option features A-Sha's famous air-dried wheat flour noodles with a superior chewy texture that stands out even more in this wide cut format.  It's drenched in a refined soy sauce seasoning that highlights subtle umami rather than overpowering the palate, letting the noodz shine as the true star.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "6 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://ashadrynoodle.com/products/meteor-noodles-with-dandan-sauce",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional): Sesame oil; Seame dressing\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/UQ_5eUoeiRY",
+          "description": "Taste Test - Bake It Simple (00:25)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=Y5lANuCR0Ug",
+          "description": "Taste Test - Void of Intelligence (09:51)"
+        }
+      ],
+      "image_url": "a-sha-mandarin-original-soy.png"
+    },
+    {
+      "status": "available",
+      "id": "N23",
+      "name": "A-Sha Hakka Style Noodles with Chili Sauce",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Taiwan",
+      "description": "These Hakka-style wide noodles showcase A-Sha's iconic air-dried chewy texture, with extra surface area that enhances their satisfying bounce. They're paired with a fragrant chili sauce that delivers a gentle, well-rounded heat and savory depth, allowing the noodles to shine while adding just the right kick to keep each bite exciting.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "7 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://ashadrynoodle.com/products/hakka-wide-noodles-chili-flavor-pack-of-5?srsltid=AfmBOoqQAYCguUn2bVuEa4KtbAmD2NOOay6DLcPvpCpv6pFoo03xbwQ_",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional): Lao Gan Ma chili oil; peanut butter\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/60Sy_MWVTek",
+          "description": "Hack - mitz_tiang (00:59)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=uEHiTKV9AGc&ab_channel=Honeysuckle",
+          "description": "Hack- Honeysuckle (10:49)"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/-e5AtSlWjvs",
+          "description": "Hack- Two Plaid Aprons (00:25)"
+        }
+      ],
+      "image_url": "a-sha-hakka-chili-sauce.png"
+    },
+    {
+      "status": "available",
+      "id": "N24",
+      "name": "A-Sha Hello Kitty Noodles with Supercute Soy Sauce",
+      "type": "Sauce",
+      "menu": "Menu 3C",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": true,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Taiwan",
+      "description": "Add a dash of playful charm to every bite with these adorable Hello Kitty Mandarin-style noodles!  Featuring A-Sha's famous air-dried chew in a fun, wide shape, they're paired with a sweet-savory soy sauce that's gentle, comforting, and never spicy — perfect for little taste buds (and big kids at heart).  A cute and tasty way to make every slurp extra special!",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "4 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://ashadrynoodle.com/products/hello-kitty-noodles-with-supercute-soy-sauce",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=Vadzmmavw7s&ab_channel=NoodleJourney",
+          "description": "Taste Test - Noodle Journey (09:06)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=XTqRzc6lskQ&ab_channel=TheRamenRater",
+          "description": "Unbox - Ramen Rater (03:13)"
+        }
+      ],
+      "image_url": "a-sha-hello-kitty.png"
+    },
+    {
+      "status": "available",
+      "id": "N25",
+      "name": "Mom's SurfMama Onion & Shrimp",
+      "type": "Sauce",
+      "menu": "Menu 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": true,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Taiwan",
+      "description": "Premium chewy noodles tossed in a rich, aromatic scallion oil infused with golden dried shrimp and fresh scallions, plus a savory soy-based sauce for deep umami flavor. A top Taiwanese option among experienced foodies.",
+      "price_packet": 2.50,
+      "price_bowl": 3.0,
+      "spiciness": "4 out of 10 flames",
+      "cooker_setting": null,
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=Y3TdoLAYfdU&t=54s",
+          "description": "Hack Video"
+        }
+      ],
+      "image_url": "mom's-surfMama-onion&Shrimp.jpg"
+    },
+    {
+      "status": "available",
+      "id": "N26",
+      "name": "Indomie Mi Goreng Original",
+      "type": "Sauce",
+      "menu": "Menu 3B",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": true,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Other Asia",
+      "description": "A beloved Indonesian street food that has earned its place as the world's best selling instant noodle, Indomie delights global tastebuds with its lightly chewy noodles coated in an addictive sweet-savory sauce made from five flavorful seasoning sachets.  Enjoy its compact size as a quick snack, or double up for a satisfying meal.",
+      "price_packet": 1.5,
+      "price_bowl": 3.0,
+      "spiciness": "4 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://indomie.us/collections/dry-noodles/products/2-boxes-mi-goreng-fried-noodle-original-2x40-pk",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/KlOWufJbckk",
+          "description": "Hack - Sillo (00:58)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=VXIQHcoZLgk&ab_channel=emmymade",
+          "description": "Taste Test - emmymade (3:25)"
+        }
+      ],
+      "image_url": "indomie-original.png"
+    },
+    {
+      "status": "available",
+      "id": "N27",
+      "name": "Indomie Mi Goreng Hot & Spicy",
+      "type": "Sauce",
+      "menu": "Menu 3B",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": true,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Other Asia",
+      "description": "A twist on Indomie's popular original Mi Goreng, this Hot & Spicy version turns up the heat slightly while keeping that signature sweet-savory balance created with five distinctive seasoning sachets. The bouncy noodz come in a compact packet, though many Indomie fans love doubling up for an even more satisfying, fiery feast.",
+      "price_packet": 1.5,
+      "price_bowl": 3.0,
+      "spiciness": "4 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://indomie.us/collections/dry-noodles/products/indomie-mi-goreng-hot-spicy-instant-noodles-2x30-pk",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/CwEqk2Cq6u4",
+          "description": "Taste Test - Golden Gully (00:40)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=uLexwn1k-qU&ab_channel=TheRamenReview",
+          "description": "Taste Test - The Ramen Review (10:36)"
+        }
+      ],
+      "image_url": "indomie-hot&spicy.png"
+    },
+    {
+      "status": "available",
+      "id": "N28",
+      "name": "Mama Shrimp Tom Yum",
+      "type": "Soup",
+      "menu": "Menu 3A",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": true,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Other Asia",
+      "description": "A go-to choice from Thailand, Mama Shrimp Creamy Tom Yum noodle offers that unmistakable spicy-sour kick, balanced with a rich, creamy finish that makes every slurp irresistible.  The springy noodles soak up a fragrant broth layered with lemongrass, lime, and chili, while a subtle shrimp note ties it all together.  Perfect for anyone craving bold, Thai flavors in a comforting bowl.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "4 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://www.ustrading.com/en/products/brands/item.php?itemid=45815",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/bBgGWIGBexg",
+          "description": "Hack - CarlaHuijbers (00:48)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=6AxeyPXuIaI&t=152s",
+          "description": "Hack - Pailin's Kitchen (25:58)"
+        }
+      ],
+      "image_url": "mana-shrimp-tom-yum.png"
+    },
+    {
+      "status": "available",
+      "id": "N29",
+      "name": "Mama Green Curry",
+      "type": "Soup",
+      "menu": "Menu 3A",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": true,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Other Asia",
+      "description": "Inspired by the comforting warmth of Thai green curry, this selection highlights the real taste of creamy coconut milk, balanced with aromatic lemongrass, herbs, and gentle chili heat. The springy noodles soak up a rich, velvety broth layered with earthy spices and a subtle sweetness that keeps each bite exciting.  Ideal for anyone in the mood for a quick yet authentic Thai curry experience.",
+      "price_packet": 2.25,
+      "price_bowl": 3.0,
+      "spiciness": "4 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "'https://spoonfulapp.com/products/mama-green-curry-flavor-instant-noodles/MDA1MjA2NjAwNjI1MA%3D%3D?utm_source=chatgpt.com",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/j0CY0sMvMkY",
+          "description": "Hack - SYFood (00:18)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=LcbiySDgb7I&ab_channel=Daves45auto",
+          "description": "Taste Test - Dave45Auto (04:19)"
+        }
+      ],
+      "image_url": "mama-green-curry.png"
+    },
+    {
+      "status": "available",
+      "id": "N30",
+      "name": "Mama Tom Kha Coconut",
+      "type": "Soup",
+      "menu": "Menu 3A",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": true,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Other Asia",
+      "description": "Impressive springy noodles soak up that iconic Tom Kha soup—rich coconut and aromatic herbs like lemongrass and galangal balanced with tangy lime-like brightness. It's all the comforting flavors of Thailand.",
+      "price_packet": 2.50,
+      "price_bowl": 3.0,
+      "spiciness": "5 out of 10 flames",
+      "cooker_setting": null,
+      "manufacturer_url": "",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=oC426HmqoIg",
+          "description": "Hack Video"
+        }
+      ],
+      "image_url": "mama-tom-kha-coconut.jpg"
+    },
+    {
+      "status": "coming_soon",
+      "id": "N31",
+      "name": "Prima Taste Singapore Curry",
+      "type": "Soup",
+      "menu": "Coming Soon",
+      "phase": "Phase 2",
+      "cooker_menu": {
+        "menu_1": false,
+        "menu_2": false,
+        "menu_3A": false,
+        "menu_3B": false,
+        "menu_3C": false,
+        "menu_3D": false,
+        "menu_3E": false
+      },
+      "country": "Other Asia",
+      "description": "Considered a gold standard of instant noodles, Prima Taste Laksa LaMian transforms an everyday meal into a luxurious treat. Thick, springy air-dried noodles deliver a gourmet bite that rivals fresh ramen shops, while the rich, creamy curry broth explodes with real coconut milk, aromatic spices, and deep seafood umami. Yes, this Singaporean laksa is a premium choice — but social media fans agree: once you taste it, you'll understand why it's worth every slurp.",
+      "price_packet": 5.50,
+      "price_bowl": 3.0,
+      "spiciness": "4 out of 10 flames",
+      "cooker_setting": 1,
+      "manufacturer_url": "https://www.primataste.com/recipes/curry-la-mian",
+      "allergen": "Please refer to each product's packaging for detailed allergen information.",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=ZUZE9rS970c&ab_channel=SIASlurps",
+          "description": "Taste Test - Sia Slurps (01:56)"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/pYY99aHxvfI",
+          "description": "Taste Test - apopofficial (00:21)"
+        },
+        {
+          "url": "https://tinyurl.com/mrxmbkrf",
+          "description": "Taste Test - Noodle Journey (09:40)"
+        }
+      ],
+      "image_url": "prima-taste-singapore-curry.png"
+    }
+  ]
+}

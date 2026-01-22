@@ -1,7 +1,7 @@
 // src/components/MobileProductCard.jsx
 import React, { useState, useCallback } from "react";
 
-export default function MobileProductCard({ image, onClick }) {
+export default function MobileProductCard({ image, onClick, status }) {
   const [orientation, setOrientation] = useState("square");
 
   const handleLoad = useCallback((e) => {
@@ -20,6 +20,8 @@ export default function MobileProductCard({ image, onClick }) {
     }
   }, []);
 
+  const isComingSoon = status === "coming_soon";
+
   return (
     <div onClick={onClick} className="cursor-pointer group">
       <div className="relative w-full h-32 sm:h-40 flex items-center justify-center">
@@ -36,6 +38,14 @@ export default function MobileProductCard({ image, onClick }) {
           }
           loading="lazy"
         />
+        {/* Coming Soon Overlay */}
+        {isComingSoon && (
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 bg-black/60 py-2">
+            <p className="text-white text-center font-bold text-sm tracking-wide">
+              Coming Soon
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

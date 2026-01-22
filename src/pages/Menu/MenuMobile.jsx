@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ramenData from "../../data/ramen.json";
+import ramenData from "../../data/updatedRamen.json";
 import toppingsData from "../../data/toppings.json";
 import MobileProductCard from "../../components/MobileProductCard";
 import RamenInfo from "../../components/RamenInfo";
@@ -124,6 +124,7 @@ export default function MenuMobile() {
                       : "/images/placeholder.jpg"
                   }
                   onClick={() => handleProductClick(product, true)}
+                  status={product.status}
                 />
               ))}
             </div>

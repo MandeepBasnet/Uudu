@@ -7,6 +7,7 @@ export default function ProductCard({
   price,
   hidePrice,
   uniformScale,
+  status,
 }) {
   const [orientation, setOrientation] = useState("square");
 
@@ -31,6 +32,8 @@ export default function ProductCard({
       ? `$${price.toFixed(2)}`
       : undefined;
 
+  const isComingSoon = status === "coming_soon";
+
   return (
     <div className="group">
       {/* Invisible frame that reserves consistent space */}
@@ -50,6 +53,14 @@ export default function ProductCard({
           }
           loading="lazy"
         />
+        {/* Coming Soon Overlay */}
+        {isComingSoon && (
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 bg-black/60 py-3">
+            <p className="text-white text-center font-bold text-lg tracking-wide">
+              Coming Soon
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Text block */}

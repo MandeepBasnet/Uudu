@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useId, useEffect } from "react";
 import { Play, ChevronDown, X } from "lucide-react";
-import ramenData from "../data/ramen.json";
+import ramenData from "../data/updatedRamen.json";
 import NoodleInstructions from "./NoodleInstructions";
 
 const RamenInfo = ({ product, onBack }) => {
