@@ -578,14 +578,18 @@ const RamenInfo = ({ product, onBack }) => {
               </div>
 
               {/* Smaller TV preview on the right */}
-              <div className="flex-1 w-full sm:w-auto">
-                <div className="rounded-lg overflow-hidden border border-gray-200 w-full md:w-[340px]">
+              {/* Smaller TV preview on the right */}
+              <div 
+                className="flex-1 w-full sm:w-auto cursor-pointer group"
+                onClick={() => setIsVideoModalOpen(true)}
+              >
+                <div className="rounded-lg overflow-hidden border border-gray-200 w-full md:w-[340px] transition-transform group-hover:scale-[1.02]">
                   <div className="bg-black aspect-video flex items-center justify-center">
-                    <Play className="w-8 h-8 md:w-12 md:h-12 text-white opacity-60" />
+                    <Play className="w-8 h-8 md:w-12 md:h-12 text-white opacity-60 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </div>
                 <div className="mt-2 md:mt-3 text-gray-700 text-xs md:text-sm">
-                  <p className="font-medium">{currentVideo.description}</p>
+                  <p className="font-medium group-hover:text-blue-600 transition-colors">{currentVideo.description}</p>
                 </div>
               </div>
             </div>
