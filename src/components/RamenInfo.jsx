@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useId, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Play, ChevronDown, X, CheckSquare, Square } from "lucide-react";
 import ramenData from "../data/updatedRamen.json";
 import NoodleInstructions from "./NoodleInstructions";
@@ -475,7 +475,14 @@ const RamenInfo = ({ product, onBack }) => {
               <div className="text-gray-800 text-xs md:text-base lg:text-lg flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
                 <span className="font-bold">For this specific noodle :</span>
                 <span className="text-blue-700 font-extrabold uppercase tracking-wide text-sm md:text-lg lg:text-xl">
-                  {`MENU ${selectedRamen.cooker_setting ?? 1}`}
+                  {(() => {
+                    if (selectedRamen.menu) {
+                      const m = selectedRamen.menu.toUpperCase();
+                      if (m.startsWith("MENU 3")) return "MENU 3";
+                      return m;
+                    } 
+                    return `MENU ${selectedRamen.cooker_setting ?? 1}`;
+                  })()}
                 </span>
               </div>
 
@@ -496,7 +503,12 @@ const RamenInfo = ({ product, onBack }) => {
                 <div className="flex items-center gap-2 md:gap-3 lg:gap-4 relative">
                   <div className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center flex-shrink-0">
                     <img
-                      src="/menu.png"
+                      src={(function(){
+                          const m = selectedRamen.menu || "";
+                          if (m.toLowerCase().includes("menu 2")) return "/menu2.png";
+                          if (m.toLowerCase().includes("menu 3")) return "/menu3.png";
+                          return "/menu1.png";
+                      })()}
                       alt="Menu button"
                       className="w-full h-full object-contain"
                       loading="lazy"
@@ -601,9 +613,9 @@ const RamenInfo = ({ product, onBack }) => {
       </section>
 
       {/* Video Modal */}
-      {isVideoModalOpen && (
+      {isVideoModalOpen && typeof document !== 'undefined' && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70"
           onClick={() => setIsVideoModalOpen(false)}
         >
           <div
@@ -637,11 +649,12 @@ const RamenInfo = ({ product, onBack }) => {
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Cook Instructions Modal (Picture2.png style) */}
-      {isCookModalOpen && (
+      {isCookModalOpen && typeof document !== 'undefined' && createPortal(
         <div
           className="fixed inset-0 z-[9999] flex items-start justify-center bg-black/70 p-4 pt-20"
           onClick={() => setIsCookModalOpen(false)}
@@ -657,9 +670,13 @@ const RamenInfo = ({ product, onBack }) => {
             >
               <X className="w-6 h-6" />
             </button>
-            <NoodleInstructions onClose={() => setIsCookModalOpen(false)} />
+            <NoodleInstructions 
+              onClose={() => setIsCookModalOpen(false)} 
+              menu={selectedRamen.menu || `Menu ${selectedRamen.cooker_setting || 1}`}
+            />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
       </div>
     </div>
