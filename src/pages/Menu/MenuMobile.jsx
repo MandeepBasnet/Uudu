@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ramenData from "../../data/updatedRamen.json";
-import toppingsData from "../../data/toppings.json";
+import toppingsData from "../../data/updatedToppings.json";
 import MobileProductCard from "../../components/MobileProductCard";
 import RamenInfo from "../../components/RamenInfo";
 import ToppingsInfo from "../../components/ToppingsInfo";
@@ -10,6 +10,7 @@ export default function MenuMobile() {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const handleProductClick = (product, isRamen) => {
+    if (product.status === "coming_soon") return;
     setSelectedProduct({
       ...product,
       isRamen: isRamen,
@@ -175,6 +176,7 @@ export default function MenuMobile() {
                                 : "/images/placeholder.jpg"
                             }
                             onClick={() => handleProductClick(product, false)}
+                            status={product.status}
                           />
                         ))}
                       </div>

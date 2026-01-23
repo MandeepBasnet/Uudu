@@ -6,36 +6,38 @@ export default function Footer() {
     <footer className="pb-10 pt-6">
       <div className="w-full px-4 sm:px-6">
         <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 items-start">
             {/* Location Section */}
-            <div>
-              <h3
-                className="text-2xl font-semibold text-[#99564c] mb-4"
-                style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
-              >
-                Location
-              </h3>
-              <div className="space-y-2">
-                <p
-                  className="text-lg font-semibold text-[#3E3E3E]"
+            <div className="flex flex-col items-end">
+              <div className="text-left">
+                <h3
+                  className="text-3xl font-semibold text-[#99564c] mb-4"
                   style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
                 >
-                  CYPRESS SQUARE
-                </p>
-                <div className="text-[#3E3E3E]">
-                  <p>4931 Lincoln Avenue</p>
-                  <p>Cypress, CA 90630</p>
+                  Location
+                </h3>
+                <div className="space-y-2">
+                  <p
+                    className="text-2xl font-semibold text-[#3E3E3E]"
+                    style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+                  >
+                    CYPRESS SQUARE
+                  </p>
+                  <div className="text-[#3E3E3E] text-xl">
+                    <p>4931 Lincoln Avenue</p>
+                    <p>Cypress, CA 90630</p>
+                  </div>
+                  <p className="text-[#3E3E3E] text-xl">(123) 456-7890</p>
                 </div>
-                <p className="text-[#3E3E3E]">(123) 456-7890</p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=4931+Lincoln+Avenue%2C+Cypress%2C+CA+90630"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-block bg-[#99564c] text-white px-4 py-2 rounded text-lg font-medium hover:bg-[#99564c]/80 transition-colors"
+                >
+                  MAP
+                </a>
               </div>
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=4931+Lincoln+Avenue%2C+Cypress%2C+CA+90630"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-block bg-[#99564c] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#99564c]/80 transition-colors"
-              >
-                MAP
-              </a>
             </div>
 
             {/* Map Embed */}
@@ -64,17 +66,19 @@ export default function Footer() {
             </div>
 
             {/* Hours Section */}
-            <div>
-              <h3
-                className="text-2xl font-semibold text-[#99564c] mb-4"
-                style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
-              >
-                Hours
-              </h3>
-              <div className="text-[#3E3E3E]">
-                <p>Mon – Thu: 11:00 AM – 9:00 PM</p>
-                <p>Fri – Sat: 11:00 AM – 10:00 PM</p>
-                <p>Sun: 12:00 PM – 8:00 PM</p>
+            <div className="flex flex-col items-end">
+              <div className="text-left">
+                <h3
+                  className="text-3xl font-semibold text-[#99564c] mb-4"
+                  style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+                >
+                  Hours
+                </h3>
+                <div className="text-[#3E3E3E] text-xl">
+                  <p>Mon – Thu: 11:00 AM – 9:00 PM</p>
+                  <p>Fri – Sat: 11:00 AM – 10:00 PM</p>
+                  <p>Sun: 12:00 PM – 8:00 PM</p>
+                </div>
               </div>
             </div>
           </div>

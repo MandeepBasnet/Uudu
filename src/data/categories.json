@@ -27,7 +27,7 @@
     "name": "Toppers",
     "slug": "toppers",
     "flag": "🍳",
-    "description": "Transform your ramen with our curated selection of proteins, vegetables, and garnishes. From Korean fish cake to crispy eggs, these toppings let you customize your bowl exactly how you want it."
+    "description": "Instant noodles are just the starting point as the real upgrade begins with UUDU’s bold toppings. From classic veggies like bok choy and popular garnishes like Flamin’ Hot Cheetos to lip-smackin’ proteins like Korean mini smokies. Add sauces from Kewpie mayo to UUDU’s “rocket boosters” — our own house-made hack blends —, and suddenly the broth pops, the noodles hit harder, and any packet becomes a truly elevated bowl."
   },
   {
     "name": "BÊV",
@@ -40,11 +40,6 @@
     "slug": "snax",
     "flag": "🍢",
     "description": "Perfect sides and snacks to round out your meal. From crispy treats to traditional accompaniments, these items enhance your ramen adventure."
-  },
-  {
-    "name": "Specials",
-    "slug": "specials",
-    "flag": "⭐",
-    "description": "Limited-time offerings and unique creations that showcase innovative flavor combinations and seasonal ingredients. Check back regularly for new discoveries."
   }
+
 ]

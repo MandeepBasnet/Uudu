@@ -2,7 +2,7 @@
 
 import React, { useId } from "react";
 import { ChevronDown } from "lucide-react";
-import toppingsData from "../data/toppings.json";
+import toppingsData from "../data/updatedToppings.json";
 
 const ToppingsInfo = ({ product, onBack }) => {
   // Use the product prop if provided, otherwise default to first topping
@@ -15,8 +15,8 @@ const ToppingsInfo = ({ product, onBack }) => {
     const price = Number(selectedTopping.price || 0);
     if (Math.abs(price - 0.65) < 0.001) return "#f2960c"; // orange
     if (Math.abs(price - 0.35) < 0.001) return "#26e320"; // green
-    if (Math.abs(price - 0.9) < 0.001) return "#e320dc"; // purple
-    if (Math.abs(price - 2.0) < 0.001) return "#0d0c0d"; // black
+    if (Math.abs(price - 0.95) < 0.001) return "#e320dc"; // pink
+    if (Math.abs(price - 1.25) < 0.001) return "#0d0c0d"; // black
     return "#9ca3af"; // gray-400 fallback
   };
 
@@ -172,17 +172,25 @@ const ToppingsInfo = ({ product, onBack }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg px-4 sm:px-6 md:px-10 py-6 md:py-10">
-      {/* Back Button - only show if onBack is provided */}
+    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+      {/* Sticky Header */}
       {onBack && (
-        <button
-          onClick={onBack}
-          className="mb-8 md:mb-12 flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium text-sm md:text-lg lg:text-xl"
-        >
-          <ChevronDown className="w-3 h-3 md:w-4 md:h-4 rotate-90" />
-          Back to Menu
-        </button>
+        <div className="sticky top-0 z-20 bg-white border-b border-gray-200 px-4 sm:px-6 md:px-10 py-4 mb-6">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-gray-600 hover:text-[#99564c] font-bold text-lg md:text-2xl lg:text-3xl transition-colors"
+            style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+          >
+            <ChevronDown
+              className="w-5 h-5 md:w-6 md:h-6 rotate-90"
+              strokeWidth={3}
+            />
+            Back to Menu
+          </button>
+        </div>
       )}
+
+      <div className="px-4 sm:px-6 md:px-10 pb-6 md:pb-10">
 
       {/* 1. Name & Price - Mobile: Each row with label and value side-by-side */}
       <section className="mt-0">
@@ -350,11 +358,12 @@ const ToppingsInfo = ({ product, onBack }) => {
           <div className="md:col-span-9">
             <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800">
               {selectedTopping.allergen ||
-                "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."}
+                "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish, msg). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."}
             </p>
           </div>
         </div>
       </section>
+    </div>
     </div>
   );
 };

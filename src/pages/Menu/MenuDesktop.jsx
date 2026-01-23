@@ -4,7 +4,7 @@
 // src/pages/Menu/MenuDesktop.jsx
 import React, { useState, useEffect, useRef } from "react";
 import ramenData from "../../data/updatedRamen.json";
-import toppingsData from "../../data/toppings.json";
+import toppingsData from "../../data/updatedToppings.json";
 import categories from "../../data/categories.json";
 import ProductCard from "../../components/ProductCard";
 import CategoryInfo from "../../components/CategoryInfo";
@@ -126,6 +126,7 @@ export default function MenuDesktop() {
   };
 
   const handleProductClick = (product, categorySlug) => {
+    if (product.status === "coming_soon") return;
     setSelectedProduct({
       ...product,
       categorySlug: categorySlug,
@@ -165,7 +166,18 @@ export default function MenuDesktop() {
             <div className="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm border rounded-2xl mx-2 mt-4 mb-3">
               <div className="py-3 px-4">
                 {/* Desktop: split groups */}
-                <div className="flex items-center justify-between px-2">
+                <div className="flex items-center justify-between px-2 relative">
+                  {/* Center Label */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                    <span
+                      className="text-[#FF6B00] font-extrabold text-2xl whitespace-nowrap"
+                      style={{
+                        fontFamily: "Bahnschrift, system-ui, sans-serif",
+                      }}
+                    >
+                      [ Temporary Website ]
+                    </span>
+                  </div>
                   <div className="flex items-center space-x-6">
                     <span className="text-gray-500 font-medium whitespace-nowrap">
                       UUDU
@@ -238,8 +250,6 @@ export default function MenuDesktop() {
                         ? "#f0f9ff"
                         : category.slug === "snax"
                         ? "#fefce8"
-                        : category.slug === "specials"
-                        ? "#fdf2f8"
                         : "transparent",
                     padding: [
                       "korea",
@@ -249,7 +259,6 @@ export default function MenuDesktop() {
                       "toppers",
                       "bev",
                       "snax",
-                      "specials",
                     ].includes(category.slug)
                       ? "2rem 1rem"
                       : "0",
@@ -261,7 +270,6 @@ export default function MenuDesktop() {
                       "toppers",
                       "bev",
                       "snax",
-                      "specials",
                     ].includes(category.slug)
                       ? "3rem"
                       : "2rem",
@@ -300,9 +308,7 @@ export default function MenuDesktop() {
                         </div>
                         {category.description && (
                           <p className="text-[24px] font-normal text-gray-700 max-w-5xl mx-auto leading-relaxed text-justify">
-                            {category.slug === "toppers"
-                              ? "Instant noodles are just the beginning - our 32 toppings unlock the real hack. From fresh veggies and bold sauces to melty cheeses and savoury proteins, each add-on transforms a simple bowl into your signature creation. Layer, mix, and match  - this is where the flavour adventure takes flight."
-                              : category.description}
+                            {category.description}
                           </p>
                         )}
                       </div>
@@ -489,8 +495,24 @@ export default function MenuDesktop() {
                           </div>
                         ))
                       ) : (
-                        <div className="col-span-full text-center py-12">
-                          <p className="text-gray-500">Coming soon...</p>
+                        <div className="col-span-full py-12 px-4 md:px-8">
+                          <div className="w-full h-64 md:h-80 flex flex-col items-center justify-center border border-gray-200 rounded-3xl bg-white/40 backdrop-blur-sm shadow-sm relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-white/20 opacity-50" />
+                            <div className="relative z-10 text-center p-8">
+                              <h3
+                                className="text-4xl md:text-6xl font-black text-gray-300 uppercase tracking-widest mb-4"
+                                style={{
+                                  fontFamily:
+                                    "Bahnschrift, system-ui, sans-serif",
+                                }}
+                              >
+                                Coming Soon
+                              </h3>
+                              <p className="text-gray-400 font-medium text-lg md:text-xl">
+                                We're cooking up something special!
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       );
                     })()}

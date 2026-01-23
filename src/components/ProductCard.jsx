@@ -64,14 +64,16 @@ export default function ProductCard({
         )}
       </div>
 
-      <div className="flex justify-center -mt-3 mb-2 relative z-10">
-        <span
-          className="bg-transparent text-gray-800 border border-gray-400 font-bold px-3 py-1 rounded-full shadow-sm text-sm sm:text-base"
-          style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
-        >
-          {id}
-        </span>
-      </div>
+      {id && (
+        <div className="flex justify-center -mt-3 mb-2 relative z-10">
+          <span
+            className="bg-transparent text-gray-800 border border-gray-400 font-bold px-3 py-1 rounded-full shadow-sm text-sm sm:text-base"
+            style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
+          >
+            {id}
+          </span>
+        </div>
+      )}
 
       {/* Text block */}
       <div className="mt-3 text-center px-2">

@@ -26,8 +26,8 @@ export default function Navbar() {
     { label: "Menu", path: "/menu" },
     { label: "Cook", path: "/cook" },
     { label: "Location", path: "/location" },
-    { label: "What's Uudu?", path: "/whats-uudu" },
-    { label: "Events", path: "/events" },
+    // { label: "What's Uudu?", path: "/whats-uudu" },
+    // { label: "Events", path: "/events" },
   ];
 
   return (
@@ -39,14 +39,14 @@ export default function Navbar() {
       <div className="w-full px-4 sm:px-6">
         <nav className="mt-4 mb-3 rounded-2xl bg-white/60 supports-[backdrop-filter]:bg-white/40 backdrop-blur-md backdrop-saturate-150 ring-1 ring-white/50 shadow-md">
           <div className="flex items-center justify-between px-4 py-3">
-            <a href="/" className="flex flex-col items-center">
+            <a href="/" className="flex flex-row items-center gap-4">
               <img
                 src="/images/logo.png"
                 alt="UUDU Logo"
-                className="size-8 rounded-full object-cover"
+                className="w-16 h-16 rounded-full object-cover"
               />
               <span
-                className="text-xs font-semibold tracking-wide mt-1 text-[#99564c]"
+                className="text-lg font-bold tracking-wide text-[#99564c]"
                 style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
               >
                 UUDU
@@ -81,7 +81,7 @@ export default function Navbar() {
                 )}
               </svg>
             </button>
-            <ul className="hidden gap-6 lg:gap-8 md:flex text-lg font-bold">
+            <ul className="hidden gap-6 lg:gap-8 md:flex text-2xl font-bold">
               {navLinks.map((link, index) => (
                 <li key={link.label} className="flex items-center">
                   <a

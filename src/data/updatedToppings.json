@@ -1,0 +1,302 @@
+{
+  "toppings": [
+    {
+      "id": 1,
+      "name": "Bok Choy",
+      "category": "Veggies",
+      "description": "A fresh, blanched green that works with nearly every ramen style—soupy or dry, mild or spicy. It adds crispness, balance, and a hint of sweetness to any bowl.",
+      "price": 0.65,
+      "spiciness": "1 out of 10 flames",
+      "status": "available",
+      "image_url": "bok-choy.png"
+    },
+    {
+      "id": 2,
+      "name": "Corn",
+      "category": "Veggies",
+      "description": "Corn brings that sweet, juicy hit every bowl deserves. Classic Japanese add-on that crushes it in any noodle style.",
+      "price": 0.35,
+      "spiciness": "1 out of 10 flames",
+      "status": "available",
+      "image_url": "corn.png"
+    },
+    {
+      "id": 3,
+      "name": "Kimchi",
+      "category": "Veggies",
+      "description": "Fermented Korean side dish bringing bold, tangy heat. Punches up Shin-style broths or cuts through creamy hacks.",
+      "price": 0.65,
+      "spiciness": "8 out of 10 flames",
+      "status": "available",
+      "image_url": "kimchi.png"
+    },
+    {
+      "id": 4,
+      "name": "Green Peas",
+      "category": "Veggies",
+      "description": "An underrated winner. Adds snappy sweetness to creamy, cheesy hacks like Buldak Carbonara.",
+      "price": 0.65,
+      "spiciness": "1 out of 10 flames",
+      "status": "coming_soon",
+      "image_url": "green-peas.png"
+    },
+    {
+      "id": 5,
+      "name": "Mushroom",
+      "category": "Veggies",
+      "description": "Earthy umami bomb. Pre-sautéed for max flavor in brothy ramens or dry noodle hacks.",
+      "price": 0.65,
+      "status": "coming_soon",
+      "image_url": "mushroom.png"
+    },
+    {
+      "id": 6,
+      "name": "Jalapeños",
+      "category": "Veggies",
+      "description": "Lightly pickled and always FREE. Clean heat with a tangy twist to cut through rich broths.",
+      "price": 0.00,
+      "spiciness": "8 out of 10 flames",
+      "status": "available",
+      "image_url": "jalapeños.png"
+    },
+    {
+      "id": 7,
+      "name": "Mayonnaise (House)",
+      "category": "Flavoring",
+      "description": "A true ramen secret weapon. Levels up brothy bowls and dry hacks with savory richness.",
+      "price": 0.35,
+      "spiciness": "1 out of 10 flames",
+      "status": "available",
+      "image_url": "mayonnaise.png"
+    },
+    {
+      "id": 8,
+      "name": "Mayonnaise (Kewpie)",
+      "category": "Flavoring",
+      "description": "The premium standard for rich, creamy mayo hacks.",
+      "price": 0.65,
+      "spiciness": "1 out of 10 flames",
+      "status": "coming_soon",
+      "image_url": "mayonnaise.png"
+    },
+    {
+      "id": 9,
+      "name": "Butter",
+      "category": "Flavoring",
+      "description": "Simple but game-changing. Adds instant richness and silky mouthfeel to spicy broths or dry noodles.",
+      "price": 0.35,
+      "status": "available",
+      "image_url": "butter.png"
+    },
+    {
+      "id": 10,
+      "name": "Soy Sauce",
+      "category": "Flavoring",
+      "description": "Clean, salty, and deeply savory. A splash of soy sauce enhances broth, boosts dry noodles, and unifies your toppings with classic umami. Always FREE at UUDU.",
+      "price": 0.00,
+      "spiciness": "Mild (2 /10)",
+      "status": "available",
+      "image_url": "soy-sauce.png"
+    },
+    {
+      "id": 11,
+      "name": "Chili Oil (House)",
+      "category": "Flavoring",
+      "description": "Our house chili oil brings smooth, savory heat perfect for mixing into any broth or dry noodle hack.",
+      "price": 0.35,
+      "spiciness": "8 out of 10 flames",
+      "status": "available",
+      "image_url": "chili-oil(house&lao-gan-ma).png"
+    },
+    {
+      "id": 12,
+      "name": "Chili Oil (Lao Gan Ma)",
+      "category": "Flavoring",
+      "description": "The cult-favorite chili crisp loaded with crunchy bits and bold umami punch.",
+      "price": 0.65,
+      "spiciness": "8 out of 10 flames",
+      "status": "coming_soon",
+      "image_url": "chili-oil(house&lao-gan-ma).png"
+    },
+    {
+      "id": 13,
+      "name": "Rocket Booster # 1",
+      "category": "Flavoring",
+      "description": "UUDU’s house-made flavor bomb crafted from a medley of scallions, ginger, Haday soy sauce, and other savory elements. Built to wake up dry noodles with depth and aroma.",
+      "price": 0.65,
+      "spiciness": "Mild (5 /10)",
+      "status": "available",
+      "image_url": "rocket-booster-1.png"
+    },
+    {
+      "id": 14,
+      "name": "Rocket Booster # 2",
+      "category": "Flavoring",
+      "description": "A creamy, slightly tangy flavor charger built from mayo, sriracha, ponzu, and other savory components. Mellows out spicy Korean soup noodles or adds rich balance to Japanese sauce-based bowls.",
+      "price": 0.65,
+      "spiciness": "Mild (5 /10)",
+      "status": "available",
+      "image_url": "rocket-booster-2.png"
+    },
+    {
+      "id": 15,
+      "name": "Rocket Booster # 3",
+      "category": "Flavoring",
+      "description": "Coming soon.",
+      "price": 0.65,
+      "spiciness": "Hot (7 /10)",
+      "status": "coming_soon",
+      "image_url": "rocket-booster-3.png"
+    },
+    {
+      "id": 16,
+      "name": "Rocket Booster # 4",
+      "category": "Flavoring",
+      "description": "Coming soon.",
+      "price": 0.65,
+      "spiciness": "Hot (7 /10)",
+      "status": "coming_soon",
+      "image_url": "rocket-booster-4.png"
+    },
+    {
+      "id": 17,
+      "name": "Lime",
+      "category": "Flavoring",
+      "description": "Bright, tangy, and irresistibly zesty. Squeeze it in to cut the heat and mellow out bold flavors.",
+      "price": 0.35,
+      "spiciness": "1 out of 10 flames",
+      "status": "available",
+      "image_url": "lime.png"
+    },
+    {
+      "id": 18,
+      "name": "Mozzarella Cheese",
+      "category": "Garnishes",
+      "description": "Fun, gooey texture for dry-style noodles or savory upgrade to brothy favorites.",
+      "price": 0.65,
+      "spiciness": "1 out of 10 flames",
+      "status": "coming_soon",
+      "image_url": "mozzarella-cheese.png"
+    },
+    {
+      "id": 19,
+      "name": "Mexican Blend Cheese",
+      "category": "Garnishes",
+      "description": "A big time SoCal cheese move—this beloved blend offers bolder, sharper flavor perfect for rich, creamy hacks or spicy ramen upgrades. Shredded thin, it melts fast—coating your noodz in a smooth, velvety finish.",
+      "price": 0.65,
+      "spiciness": "1 out of 10 flames",
+      "status": "available",
+      "image_url": "mexican-blend-cheese.png"
+    },
+    {
+      "id": 20,
+      "name": "Flamin’ Hot Cheetos Crumble",
+      "category": "Garnishes",
+      "description": "Viral status justified—this fiery red crunch delivers an intense, tangy, cheesy explosion that turns any ramen into a snack-culture flex. A bold topping fearless hackers can’t resist.",
+      "price": 0.65,
+      "spiciness": "1 out of 10 flames",
+      "status": "available",
+      "image_url": "flamin’hot-cheetos-crumble.png"
+    },
+    {
+      "id": 21,
+      "name": "Green Onion",
+      "category": "Garnishes",
+      "description": "Green onion brings crispness and vibrant color. The most popular ramen topping.",
+      "price": 0.00,
+      "spiciness": "3 out of 10 flames",
+      "status": "available",
+      "image_url": "green-onion.png"
+    },
+    {
+      "id": 22,
+      "name": "Egg - Hard Boiled; Plain",
+      "category": "Protein",
+      "description": "The no-fuss protein hero. Drop it whole or smash the yolk into broth.",
+      "price": 0.65,
+      "spiciness": "1 out of 10 flames",
+      "status": "available",
+      "image_url": "egg-hard-boiled.png"
+    },
+    {
+      "id": 23,
+      "name": "Egg - Soft Boiled; Ramen Style",
+      "category": "Protein",
+      "description": "The classic ramen egg with that iconic jammy yolk.",
+      "price": 0.95,
+      "spiciness": "2 out of 10 flames",
+      "status": "available",
+      "image_url": "egg-soft-boiled,ramen-style .png"
+    },
+    {
+      "id": 24,
+      "name": "Egg - Extra Crispy",
+      "category": "Protein",
+      "description": "Blistered, golden crust with soft yolk inside. A bold twist.",
+      "price": 0.95,
+      "spiciness": "2 out of 10 flames",
+      "status": "coming_soon",
+      "image_url": "egg-extra-crispy.png"
+    },
+    {
+      "id": 25,
+      "name": "Stir Fried Fish Cake",
+      "category": "Protein",
+      "description": "Flat strips of tasty Korean fish cake, lightly sautéed for savory depth.",
+      "price": 0.95,
+      "spiciness": "2 out of 10 flames",
+      "status": "available",
+      "image_url": "korean-fish-cake.png"
+    },
+    {
+      "id": 26,
+      "name": "Korean Mini Smokies",
+      "category": "Protein",
+      "description": "Juicy, smoky bite-sized sausages packed with umami.",
+      "price": 0.95,
+      "spiciness": "2 out of 10 flames",
+      "status": "available",
+      "image_url": "korean-mini-smokies.png"
+    },
+    {
+      "id": 27,
+      "name": "Lap Cheong Sausage",
+      "category": "Protein",
+      "description": "Chinese classic with sweet-savory punch. Rich, tender, and slightly smoky.",
+      "price": 0.95,
+      "spiciness": "2 out of 10 flames",
+      "status": "available",
+      "image_url": "lap-cheong-sausage.png"
+    },
+    {
+      "id": 28,
+      "name": "Crispy Pork Egg Roll",
+      "category": "Protein",
+      "description": "Golden, crunchy, and packed with savory pork and veggies.",
+      "price": 1.25,
+      "spiciness": "2 out of 10 flames",
+      "status": "available",
+      "image_url": "crispy-pork-egg-roll.png"
+    },
+    {
+      "id": 29,
+      "name": "K-Spam Crunch",
+      "category": "Protein",
+      "description": "Thick, juicy Spam coated in a golden, fluffy batter loaded with crispy ramen bits.",
+      "price": 1.25,
+      "spiciness": "2 out of 10 flames",
+      "status": "available",
+      "image_url": "k-spam-crunch.png"
+    },
+    {
+      "id": 30,
+      "name": "Fish Balls with Egg Roe",
+      "category": "Protein",
+      "description": "Bouncy fish balls filled with rich, creamy egg roe that bursts with savory umami.",
+      "price": 1.25,
+      "spiciness": "Mild (2 /10)",
+      "status": "available",
+      "image_url": "fish-balls-egg-roe.png"
+    }
+  ]
+}

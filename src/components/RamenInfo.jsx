@@ -660,11 +660,11 @@ const RamenInfo = ({ product, onBack }) => {
       {/* Cook Instructions Modal (Picture2.png style) */}
       {isCookModalOpen && typeof document !== 'undefined' && createPortal(
         <div
-          className="fixed inset-0 z-[9999] flex items-start justify-center bg-black/70 p-4 pt-20"
+          className="fixed inset-0 z-[9999] flex items-start justify-center bg-black/70 p-4 pt-10"
           onClick={() => setIsCookModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl max-h-[90vh] overflow-y-auto"
+            className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl max-h-[90vh] overflow-y-auto no-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             <button
