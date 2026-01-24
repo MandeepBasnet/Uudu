@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ramenData from "../../data/updatedRamen.json";
+import { useRamenData } from "../../hooks/useRamenData";
 import toppingsData from "../../data/updatedToppings.json";
 import MobileProductCard from "../../components/MobileProductCard";
 import RamenInfo from "../../components/RamenInfo";
@@ -8,6 +8,9 @@ import ToppingsInfo from "../../components/ToppingsInfo";
 export default function MenuMobile() {
   const [activeTab, setActiveTab] = useState("ramen");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  
+  // Appwrite Data Hook
+  const { data: ramenItems } = useRamenData();
 
   const handleProductClick = (product, isRamen) => {
     if (product.status === "coming_soon") return;
@@ -16,6 +19,8 @@ export default function MenuMobile() {
       isRamen: isRamen,
     });
   };
+
+  // ... (keep handleBackToCategory and renderMobileModal unchanged)
 
   const handleBackToCategory = () => {
     setSelectedProduct(null);
@@ -116,12 +121,12 @@ export default function MenuMobile() {
           {/* Ramen Info Tab */}
           {activeTab === "ramen" && (
             <div className="grid grid-cols-4 gap-2 sm:gap-4">
-              {ramenData.ramen.map((product) => (
+              {ramenItems && ramenItems.map((product) => (
                 <MobileProductCard
                   key={product.id}
                   image={
                     product.image_url
-                      ? `/images/${product.image_url}`
+                      ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
                       : "/images/placeholder.jpg"
                   }
                   onClick={() => handleProductClick(product, true)}

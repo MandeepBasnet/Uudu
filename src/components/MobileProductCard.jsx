@@ -46,6 +46,15 @@ export default function MobileProductCard({ image, onClick, status, id }) {
             </p>
           </div>
         )}
+
+        {/* Sold Out Overlay */}
+        {status === "out_of_stock" && (
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 bg-red-800/80 py-2">
+            <p className="text-white text-center font-bold text-sm tracking-wide uppercase">
+              Sold Out
+            </p>
+          </div>
+        )}
       </div>
       {id && (
         <div className="flex justify-center -mt-2 mb-1 relative z-10">

@@ -20,6 +20,8 @@ import Location from "./pages/Location";
 // Global Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Login from "./pages/Login";
+import Edit from "./pages/Edit";
 
 export default function App() {
   return (
@@ -48,7 +50,8 @@ function AppShell() {
 
   const isMobileMenuPage = location.pathname === "/menu-mobile";
   const isMenuPageMobile = location.pathname === "/menu" && isMobile;
-  const shouldHideNavbar = isMobileMenuPage || isMenuPageMobile;
+  const isEditPage = location.pathname === "/edit";
+  const shouldHideNavbar = isMobileMenuPage || isMenuPageMobile || isEditPage;
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F2F2F2]">
@@ -81,6 +84,10 @@ function AppShell() {
               <Route path="/whats-uudu" element={<WhatsUudu />} />
               <Route path="/events" element={<Events />} />
               <Route path="/location" element={<Location />} />
+              
+              {/* Admin Routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/edit" element={<Edit />} />
 
               {/* Fallback */}
               <Route

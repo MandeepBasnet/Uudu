@@ -11,21 +11,6 @@ const RamenInfo = ({ product, onBack }) => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isCookModalOpen, setIsCookModalOpen] = useState(false);
 
-  // Keep category nav bar visible while cook instructions modal is open
-  const countryFlags = {
-    "S. Korea": "/images/s-korea.jpg",
-    "Japan": "/images/japan.jpg",
-    "Taiwan": "/images/taiwan.jpg",
-    "Other Asia": "🌏",
-  };
-
-  useEffect(() => {
-    const navEl = document.getElementById("menu-categories-nav");
-    if (!navEl) return;
-    // Always ensure nav is visible
-    navEl.classList.remove("hidden");
-  }, [isCookModalOpen]);
-
   // Extract spiciness level from text (e.g., "8 out of 10 flames" -> 8)
   const getSpicyLevel = (spicinessText) => {
     const match = spicinessText.match(/(\d+)\s*out\s*of\s*10/);
@@ -196,14 +181,8 @@ const RamenInfo = ({ product, onBack }) => {
     return match ? match[1] : null;
   };
 
-  const cookerSettingsVideo = {
-    url: "https://www.youtube.com/shorts/XTrnfmHpWwo",
-    description: "Cooker Settings Guide",
-  };
-
   const currentVideo = selectedRamen.suggested_videos[selectedVideoIndex];
   const videoId = extractVideoId(currentVideo.url);
-  const cookerVideoId = extractVideoId(cookerSettingsVideo.url);
 
   return (
     <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg">
@@ -251,18 +230,11 @@ const RamenInfo = ({ product, onBack }) => {
                   {selectedRamen.id}
                 </span>
                 <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-6 min-w-[30px] overflow-hidden">
-                  {countryFlags[selectedRamen.country] &&
-                  countryFlags[selectedRamen.country].startsWith("/") ? (
-                    <img
-                      src={countryFlags[selectedRamen.country]}
-                      alt={selectedRamen.country}
-                      className="w-5 h-3.5 object-cover"
-                    />
-                  ) : (
                     <span className="text-lg leading-none">
-                      {countryFlags[selectedRamen.country] || "🌏"}
+                      {selectedRamen.country === "S. Korea" ? "🇰🇷" : 
+                       selectedRamen.country === "Japan" ? "🇯🇵" : 
+                       selectedRamen.country === "Taiwan" ? "🇹🇼" : "🌏"}
                     </span>
-                  )}
                 </div>
               </div>
             </div>
@@ -430,25 +402,18 @@ const RamenInfo = ({ product, onBack }) => {
                 {selectedRamen.id}
               </span>
               <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-8 min-w-[40px] overflow-hidden">
-                {countryFlags[selectedRamen.country] &&
-                countryFlags[selectedRamen.country].startsWith("/") ? (
-                  <img
-                    src={countryFlags[selectedRamen.country]}
-                    alt={selectedRamen.country}
-                    className="w-6 h-4 object-cover"
-                  />
-                ) : (
                   <span className="text-2xl leading-none">
-                    {countryFlags[selectedRamen.country] || "🌏"}
+                      {selectedRamen.country === "S. Korea" ? "🇰🇷" : 
+                       selectedRamen.country === "Japan" ? "🇯🇵" : 
+                       selectedRamen.country === "Taiwan" ? "🇹🇼" : "🌏"}
                   </span>
-                )}
               </div>
             </div>
             <div className="relative w-full h-full">
               <img
                 src={
                   selectedRamen.image_url
-                    ? `/images/${selectedRamen.image_url}`
+                    ? (selectedRamen.image_url.startsWith('http') ? selectedRamen.image_url : `/images/${selectedRamen.image_url}`)
                     : "/images/placeholder.jpg"
                 }
                 alt={selectedRamen.name}
@@ -503,14 +468,9 @@ const RamenInfo = ({ product, onBack }) => {
               <div className="text-gray-800 text-xs md:text-base lg:text-lg flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
                 <span className="font-bold">For this specific noodle :</span>
                 <span className="text-blue-700 font-extrabold uppercase tracking-wide text-sm md:text-lg lg:text-xl">
-                  {(() => {
-                    if (selectedRamen.menu) {
-                      const m = selectedRamen.menu.toUpperCase();
-                      if (m.startsWith("MENU 3")) return "MENU 3";
-                      return m;
-                    } 
-                    return `MENU ${selectedRamen.cooker_setting ?? 1}`;
-                  })()}
+                <span className="text-blue-700 font-extrabold uppercase tracking-wide text-sm md:text-lg lg:text-xl">
+                  {selectedRamen.menu ? selectedRamen.menu.toUpperCase().startsWith("MENU 3") ? "MENU 3" : selectedRamen.menu.toUpperCase() : "MENU 1"}
+                </span>
                 </span>
               </div>
 
@@ -644,14 +604,11 @@ const RamenInfo = ({ product, onBack }) => {
               Allergen:
             </div>
           </div>
-          <div className="md:col-span-9">
-            <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800">
-              All ramen packets are sold in original packaging. Please check the
-              label for ingredients and allergen details. Some imported items
-              may not have full U.S.-style allergen info—ask a staff if you have
-              questions.
-            </p>
-          </div>
+           <div className="md:col-span-9">
+             <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800">
+               Please refer to each product's packaging for detailed allergen information.
+             </p>
+           </div>
         </div>
       </section>
 
@@ -715,7 +672,7 @@ const RamenInfo = ({ product, onBack }) => {
             </button>
             <NoodleInstructions 
               onClose={() => setIsCookModalOpen(false)} 
-              menu={selectedRamen.menu || `Menu ${selectedRamen.cooker_setting || 1}`}
+              menu={selectedRamen.menu || "Menu 1"}
             />
           </div>
         </div>,

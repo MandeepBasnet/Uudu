@@ -1,9 +1,10 @@
 "use client";
 
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */
 // src/pages/Menu/MenuDesktop.jsx
 import React, { useState, useEffect, useRef } from "react";
-import ramenData from "../../data/updatedRamen.json";
+import { useRamenData } from "../../hooks/useRamenData";
 import toppingsData from "../../data/updatedToppings.json";
 import categories from "../../data/categories.json";
 import ProductCard from "../../components/ProductCard";
@@ -18,10 +19,13 @@ export default function MenuDesktop() {
   const lastY = useRef(window.scrollY);
   const [navHidden, setNavHidden] = useState(false);
   const rafId = useRef(null);
+  
+  // Appwrite Data Hook
+  const { data: ramenItems, loading } = useRamenData();
 
   useEffect(() => {
     loadProducts(activeCategory);
-  }, [activeCategory]);
+  }, [activeCategory, ramenItems]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -91,14 +95,15 @@ export default function MenuDesktop() {
   const loadProducts = (categorySlug) => {
     let items = [];
     if (["korea", "japan", "taiwan", "other-asia"].includes(categorySlug)) {
-      const ramenItems = ramenData.ramen || [];
+      // Use data from hook
+      const currentRamen = ramenItems || [];
       const categoryToCountry = {
         korea: "S. Korea",
         japan: "Japan",
         taiwan: "Taiwan",
         "other-asia": "Other Asia",
       };
-      items = ramenItems.filter(
+      items = currentRamen.filter(
         (r) => r.country === categoryToCountry[categorySlug]
       );
     } else if (categorySlug === "toppers") {
@@ -154,11 +159,11 @@ export default function MenuDesktop() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F2F2F2] pt-44 md:pt-48">
+      <div className="min-h-screen bg-[#F2F2F2] pt-44 md:pt-48 relative">
         {/* Fixed Menu Navigation */}
         <div
           id="menu-categories-nav"
-          className={`fixed top-24 md:top-24 left-0 right-0 z-40 transition-transform duration-300 ${
+          className={`fixed top-24 md:top-24 left-0 right-0 z-30 transition-transform duration-300 ${
             navHidden ? "-translate-y-full" : "translate-y-0"
           }`}
         >
@@ -226,8 +231,8 @@ export default function MenuDesktop() {
 
         <div className="w-full px-2 py-8 pt-0">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-            {/* Main Content Area */}
-            <div className={selectedProduct ? "flex-1 lg:w-1/2" : "flex-1"}>
+            {/* Main Content Area - Always full width */}
+            <div className="flex-1 w-full">
               {categories.map((category) => (
                 <div
                   key={category.slug}
@@ -259,7 +264,7 @@ export default function MenuDesktop() {
                       "toppers",
                       "bev",
                       "snax",
-                    ].includes(category.slug)
+                      ].includes(category.slug)
                       ? "2rem 1rem"
                       : "0",
                     marginBottom: [
@@ -355,12 +360,8 @@ export default function MenuDesktop() {
                     </div>
                   )}
 
-                  {/* Products Grid */}
-                  <div
-                    className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 ${
-                      selectedProduct ? "lg:grid-cols-3" : "lg:grid-cols-5"
-                    }`}
-                  >
+                  {/* Products Grid - Always 5 cols on full desktop */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10">
                     {(() => {
                       let items = [];
                       if (
@@ -368,14 +369,14 @@ export default function MenuDesktop() {
                           category.slug
                         )
                       ) {
-                        const ramenItems = ramenData.ramen || [];
+                        const currentRamen = ramenItems || [];
                         const categoryToCountry = {
                           korea: "S. Korea",
                           japan: "Japan",
                           taiwan: "Taiwan",
                           "other-asia": "Other Asia",
                         };
-                        items = ramenItems.filter(
+                        items = currentRamen.filter(
                           (r) => r.country === categoryToCountry[category.slug]
                         );
                       } else if (category.slug === "toppers") {
@@ -428,13 +429,7 @@ export default function MenuDesktop() {
                                   </div>
 
                                   {/* Subsection Products Grid */}
-                                  <div
-                                    className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 ${
-                                      selectedProduct
-                                        ? "lg:grid-cols-3"
-                                        : "lg:grid-cols-5"
-                                    }`}
-                                  >
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10">
                                     {categoryToppings.map((product) => (
                                       <div
                                         key={product.id}
@@ -484,7 +479,7 @@ export default function MenuDesktop() {
                               name={product.name}
                               image={
                                 product.image_url
-                                  ? `/images/${product.image_url}`
+                                  ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
                                   : "/images/placeholder.jpg"
                               }
                               price={product.price || product.price_packet}
@@ -520,19 +515,35 @@ export default function MenuDesktop() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
 
-            {/* Right Sidebar - Product Info (only when a product is selected) */}
-            {selectedProduct && (
-              <div
-                className={`lg:order-none ${
-                  selectedProduct ? "lg:w-1/2" : "lg:w-80"
-                }`}
-              >
-                <div className="lg:sticky md:top-36 lg:top-44 xl:top-48 overflow-visible max-h-[calc(100vh-12rem)] overflow-y-auto">
-                  {renderInfoPanel()}
+        {/* Overlay Drawer */}
+        <div
+          className={`fixed inset-0 z-50 pointer-events-none transition-all duration-500 ease-in-out ${
+            selectedProduct ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {/* Backdrop */}
+          <div
+            className={`absolute inset-0 bg-black/85 transition-opacity duration-300 ${
+               selectedProduct ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
+            onClick={handleBackToCategory}
+          />
+          
+          {/* Drawer Content */}
+          <div
+            className={`absolute top-0 right-0 h-full w-full md:max-w-xl lg:max-w-2xl xl:max-w-3xl transform transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) ${
+               selectedProduct ? "translate-x-0 pointer-events-auto" : "translate-x-full pointer-events-none"
+            }`}
+          > 
+             {/* Padding container to give it that "floating card" look requested by user ("point it starts from the card with rounded corner") */}
+             <div className="h-full w-full p-4 md:p-6 lg:p-8 flex flex-col justify-center">
+                <div className="w-full h-full max-h-full overflow-y-auto no-scrollbar rounded-xl shadow-2xl">
+                   {renderInfoPanel()}
                 </div>
-              </div>
-            )}
+             </div>
           </div>
         </div>
       </div>

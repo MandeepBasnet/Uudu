@@ -310,7 +310,7 @@ const ToppingsInfo = ({ product, onBack }) => {
             <img
               src={
                 selectedTopping.image_url
-                  ? `/images/${selectedTopping.image_url}`
+                  ? (selectedTopping.image_url.startsWith('http') ? selectedTopping.image_url : `/images/${selectedTopping.image_url}`)
                   : "/images/placeholder.jpg"
               }
               alt={selectedTopping.name}
