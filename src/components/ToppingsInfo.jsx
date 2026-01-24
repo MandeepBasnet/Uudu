@@ -128,54 +128,55 @@ const ToppingsInfo = ({ product, onBack }) => {
     }
 
     return (
-      <div className="relative w-full flex flex-col items-center pt-5 sm:pt-8 md:pt-9 lg:pt-10">
+      <div className="relative w-full pt-5 sm:pt-8 md:pt-9 lg:pt-10">
         {/* Blue guideline */}
         <div className="absolute top-0 left-2 right-2 h-[6px] sm:h-[8px] bg-blue-600 rounded-full"></div>
 
-        {/* Flames grouped with responsive spacing */}
-        <div className="w-full flex items-center justify-center px-2">
-          <div className="flex items-center gap-1 sm:gap-2 md:gap-2.5 lg:gap-3">
-            <div className="flex items-center gap-0.5">
+        {/* Grouped Flames and Labels */}
+        <div className="w-full max-w-[95%] sm:max-w-[620px] mx-auto flex items-end justify-between gap-1 sm:gap-2 px-2">
+          
+          {/* Mild Group */}
+          <div className="flex flex-col items-center gap-2 sm:gap-4 flex-1">
+            <div className="flex items-center gap-0.5 h-10 sm:h-12 items-end">
               {flames.slice(0, 2)}
             </div>
-            <div className="flex items-center gap-0.5">
+            <LabelPill text="Mild" variant="mild" />
+          </div>
+
+          {/* Medium Group */}
+          <div className="flex flex-col items-center gap-2 sm:gap-4 flex-1">
+            <div className="flex items-center gap-0.5 h-10 sm:h-12 items-end">
               {flames.slice(2, 5)}
             </div>
-            <div className="flex items-center gap-0.5">
+            <LabelPill text="Medium" variant="medium" />
+          </div>
+
+          {/* Hot Group */}
+          <div className="flex flex-col items-center gap-2 sm:gap-4 flex-1">
+            <div className="flex items-center gap-0.5 h-10 sm:h-12 items-end">
               {flames.slice(5, 8)}
             </div>
-            <div className="flex items-center gap-0.5">
-              {flames.slice(8, 10)}
-            </div>
+            <LabelPill text="Hot" variant="hot" />
           </div>
-        </div>
 
-        {/* Labels as pills with responsive grid */}
-        <div className="w-full flex items-center justify-center px-2 mt-2 sm:mt-4">
-          <div className="flex items-center gap-1 sm:gap-2 md:gap-2.5 lg:gap-3 w-full max-w-[95%] sm:max-w-[620px]">
-            <div className="flex-[2] flex justify-center">
-              <LabelPill text="Mild" variant="mild" />
+          {/* Fiery Group */}
+          <div className="flex flex-col items-center gap-2 sm:gap-4 flex-1">
+            <div className="flex items-center gap-0.5 h-10 sm:h-12 items-end">
+               {flames.slice(8, 10)}
             </div>
-            <div className="flex-[3] flex justify-center">
-              <LabelPill text="Medium" variant="medium" />
-            </div>
-            <div className="flex-[3] flex justify-center">
-              <LabelPill text="Hot" variant="hot" />
-            </div>
-            <div className="flex-[2] flex justify-center">
-              <LabelPill text="Fiery" variant="fiery" />
-            </div>
+            <LabelPill text="Fiery" variant="fiery" />
           </div>
+
         </div>
       </div>
     );
   };
 
   return (
-    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg">
       {/* Sticky Header */}
       {onBack && (
-        <div className="sticky top-0 z-20 bg-white border-b border-gray-200 px-4 sm:px-6 md:px-10 py-4 mb-6">
+        <div className="sticky top-0 z-20 bg-white border-b border-gray-200 px-4 sm:px-6 md:px-10 py-4 mb-6 rounded-t-xl">
           <button
             onClick={onBack}
             className="flex items-center gap-2 text-gray-600 hover:text-[#99564c] font-bold text-lg md:text-2xl lg:text-3xl transition-colors"
@@ -249,68 +250,73 @@ const ToppingsInfo = ({ product, onBack }) => {
           </div>
         </div>
 
-        {/* Desktop Layout (unchanged) */}
-        <div className="hidden md:grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
-          <div className="md:col-span-3">
-            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
-              Name:
+        {/* Desktop Layout - Refactored for alignment */}
+        <div className="hidden md:flex gap-6 lg:gap-10 items-start">
+          {/* Left Side: Labels and Values Stack */}
+          <div className="flex-1 flex flex-col gap-6 min-w-0">
+            
+            {/* Row 1: Name */}
+            <div className="flex items-start gap-4">
+              <div className="w-20 lg:w-24 flex-shrink-0 text-lg lg:text-xl font-bold text-black pt-0.5">
+                Name:
+              </div>
+              <h1
+                className="text-lg lg:text-xl font-normal tracking-tight text-gray-900"
+                title={selectedTopping.name}
+              >
+                {selectedTopping.name}
+              </h1>
             </div>
-            <div className="mt-4 md:mt-6 text-sm md:text-lg lg:text-xl font-bold text-black">
-              Price:
-            </div>
-          </div>
-          <div className="md:col-span-9">
-            <div className="flex flex-col md:flex-row md:items-stretch md:justify-between gap-3 md:gap-4">
-              <div className="flex-1">
-                <h1
-                  className="text-sm md:text-lg lg:text-xl font-normal tracking-tight text-gray-900 truncate"
-                  title={selectedTopping.name}
-                >
-                  {selectedTopping.name}
-                </h1>
-                <div className="mt-3 md:mt-5 space-y-2">
-                  <div className="flex items-center gap-2 md:gap-3 text-sm md:text-lg lg:text-xl text-gray-900">
-                    <div
-                      aria-hidden
-                      style={{
-                        width: 0,
-                        height: 0,
-                        borderLeft: "10px solid transparent",
-                        borderRight: "10px solid transparent",
-                        borderBottom: `16px solid ${getTriangleColor()}`,
-                      }}
-                      className="md:hidden"
-                    />
-                    <div
-                      aria-hidden
-                      style={{
-                        width: 0,
-                        height: 0,
-                        borderLeft: "20px solid transparent",
-                        borderRight: "20px solid transparent",
-                        borderBottom: `36px solid ${getTriangleColor()}`,
-                      }}
-                      className="hidden md:block"
-                    />
-                    <span className="tracking-tight font-normal">{`$ ${selectedTopping.price.toFixed(
-                      2
-                    )}`}</span>
-                  </div>
+
+            {/* Row 2: Price */}
+            <div className="flex items-start gap-4">
+              <div className="w-20 lg:w-24 flex-shrink-0 text-lg lg:text-xl font-bold text-black pt-0.5">
+                Price:
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 text-lg lg:text-xl text-gray-900">
+                  <div
+                    aria-hidden
+                    style={{
+                      width: 0,
+                      height: 0,
+                      borderLeft: "10px solid transparent",
+                      borderRight: "10px solid transparent",
+                      borderBottom: `16px solid ${getTriangleColor()}`,
+                    }}
+                    className="md:hidden"
+                  />
+                  <div
+                    aria-hidden
+                    style={{
+                      width: 0,
+                      height: 0,
+                      borderLeft: "20px solid transparent",
+                      borderRight: "20px solid transparent",
+                      borderBottom: `36px solid ${getTriangleColor()}`,
+                    }}
+                    className="hidden md:block"
+                  />
+                  <span className="tracking-tight font-normal">{`$ ${selectedTopping.price.toFixed(
+                    2
+                  )}`}</span>
                 </div>
               </div>
-              <div className="hidden md:block w-full md:w-48 self-stretch items-center">
-                <img
-                  src={
-                    selectedTopping.image_url
-                      ? `/images/${selectedTopping.image_url}`
-                      : "/images/placeholder.jpg"
-                  }
-                  alt={selectedTopping.name}
-                  className="w-full h-full object-contain"
-                  loading="lazy"
-                />
-              </div>
             </div>
+          </div>
+
+          {/* Right Side: Image */}
+          <div className="hidden md:block w-48 self-stretch items-center flex-shrink-0">
+            <img
+              src={
+                selectedTopping.image_url
+                  ? `/images/${selectedTopping.image_url}`
+                  : "/images/placeholder.jpg"
+              }
+              alt={selectedTopping.name}
+              className="w-full h-full object-contain"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>

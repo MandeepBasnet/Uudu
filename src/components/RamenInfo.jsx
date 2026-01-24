@@ -145,44 +145,45 @@ const RamenInfo = ({ product, onBack }) => {
     }
 
     return (
-      <div className="relative w-full flex flex-col items-center pt-5 sm:pt-8 md:pt-9 lg:pt-10">
+      <div className="relative w-full pt-5 sm:pt-8 md:pt-9 lg:pt-10">
         {/* Blue guideline */}
         <div className="absolute top-0 left-2 right-2 h-[6px] sm:h-[8px] bg-blue-600 rounded-full"></div>
 
-        {/* Flames grouped with responsive spacing */}
-        <div className="w-full flex items-center justify-center px-2">
-          <div className="flex items-center gap-2 sm:gap-4 md:gap-5 lg:gap-6">
-            <div className="flex items-center gap-0.5">
+        {/* Grouped Flames and Labels */}
+        <div className="w-full max-w-[95%] sm:max-w-[620px] mx-auto flex items-end justify-between gap-1 sm:gap-2 px-2">
+          
+          {/* Mild Group */}
+          <div className="flex flex-col items-center gap-2 sm:gap-4 flex-1">
+            <div className="flex items-center gap-0.5 h-10 sm:h-12 items-end">
               {flames.slice(0, 2)}
             </div>
-            <div className="flex items-center gap-0.5">
+            <LabelPill text="Mild" variant="mild" />
+          </div>
+
+          {/* Medium Group */}
+          <div className="flex flex-col items-center gap-2 sm:gap-4 flex-1">
+            <div className="flex items-center gap-0.5 h-10 sm:h-12 items-end">
               {flames.slice(2, 5)}
             </div>
-            <div className="flex items-center gap-0.5">
+            <LabelPill text="Medium" variant="medium" />
+          </div>
+
+          {/* Hot Group */}
+          <div className="flex flex-col items-center gap-2 sm:gap-4 flex-1">
+            <div className="flex items-center gap-0.5 h-10 sm:h-12 items-end">
               {flames.slice(5, 8)}
             </div>
-            <div className="flex items-center gap-0.5">
-              {flames.slice(8, 10)}
-            </div>
+            <LabelPill text="Hot" variant="hot" />
           </div>
-        </div>
 
-        {/* Labels as pills with responsive grid */}
-        <div className="w-full flex items-center justify-center px-2 mt-2 sm:mt-4">
-          <div className="flex items-center gap-1 sm:gap-2 md:gap-2.5 lg:gap-3 w-full max-w-[95%] sm:max-w-[620px]">
-            <div className="flex-[2] flex justify-center">
-              <LabelPill text="Mild" variant="mild" />
+          {/* Fiery Group */}
+          <div className="flex flex-col items-center gap-2 sm:gap-4 flex-1">
+            <div className="flex items-center gap-0.5 h-10 sm:h-12 items-end">
+               {flames.slice(8, 10)}
             </div>
-            <div className="flex-[3] flex justify-center">
-              <LabelPill text="Medium" variant="medium" />
-            </div>
-            <div className="flex-[3] flex justify-center">
-              <LabelPill text="Hot" variant="hot" />
-            </div>
-            <div className="flex-[2] flex justify-center">
-              <LabelPill text="Fiery" variant="fiery" />
-            </div>
+            <LabelPill text="Fiery" variant="fiery" />
           </div>
+
         </div>
       </div>
     );
@@ -205,10 +206,10 @@ const RamenInfo = ({ product, onBack }) => {
   const cookerVideoId = extractVideoId(cookerSettingsVideo.url);
 
   return (
-    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+    <div className="max-w-4xl mx-auto font-sans bg-white border border-gray-200 rounded-xl shadow-lg">
       {/* Sticky Header */}
       {onBack && (
-        <div className="sticky top-0 z-20 bg-white border-b border-gray-200 px-4 sm:px-6 md:px-10 py-4 mb-6">
+        <div className="sticky top-0 z-20 bg-white border-b border-gray-200 px-4 sm:px-6 md:px-10 py-4 mb-6 rounded-t-xl">
           <button
             onClick={onBack}
             className="flex items-center gap-2 text-gray-600 hover:text-[#99564c] font-bold text-lg md:text-2xl lg:text-3xl transition-colors"
@@ -230,15 +231,41 @@ const RamenInfo = ({ product, onBack }) => {
         <div className="block md:hidden space-y-4">
           {/* Name Row */}
           <div className="flex items-start gap-3">
-            <div className="text-sm font-bold text-black whitespace-nowrap">
+            <div className="text-sm font-bold text-black whitespace-nowrap py-0.5">
               Name:
             </div>
-            <h1
-              className="text-sm font-normal tracking-tight text-gray-900 flex-1"
-              title={selectedRamen.name}
-            >
-              {selectedRamen.name}
-            </h1>
+            <div className="flex-1 flex justify-between items-start gap-2">
+              <h1
+                className="text-sm font-normal tracking-tight text-gray-900"
+                title={selectedRamen.name}
+              >
+                {selectedRamen.name}
+              </h1>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span
+                  className="bg-white text-black border border-gray-800 font-bold px-2 py-0.5 rounded shadow-sm text-xs"
+                  style={{
+                    fontFamily: "Bahnschrift, system-ui, sans-serif",
+                  }}
+                >
+                  {selectedRamen.id}
+                </span>
+                <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-6 min-w-[30px] overflow-hidden">
+                  {countryFlags[selectedRamen.country] &&
+                  countryFlags[selectedRamen.country].startsWith("/") ? (
+                    <img
+                      src={countryFlags[selectedRamen.country]}
+                      alt={selectedRamen.country}
+                      className="w-5 h-3.5 object-cover"
+                    />
+                  ) : (
+                    <span className="text-lg leading-none">
+                      {countryFlags[selectedRamen.country] || "🌏"}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Style Row */}
@@ -303,130 +330,131 @@ const RamenInfo = ({ product, onBack }) => {
               className="w-full h-auto object-contain"
               loading="lazy"
             />
-            <div className="absolute top-0 right-0 flex items-center gap-2">
+
+          </div>
+        </div>
+
+        {/* Desktop Layout - Refactored for alignment */}
+        <div className="hidden md:flex gap-6 lg:gap-10 items-start">
+          {/* Left Side: Labels and Values Stack */}
+          <div className="flex-1 flex flex-col gap-6 min-w-0">
+            
+            {/* Row 1: Name (Top Aligned for wrapping) */}
+            <div className="flex items-start gap-4">
+              <div className="w-20 lg:w-24 flex-shrink-0 text-lg lg:text-xl font-bold text-black pt-0.5">
+                Name:
+              </div>
+              <h1
+                className="text-lg lg:text-xl font-normal tracking-tight text-gray-900"
+                title={selectedRamen.name}
+              >
+                {selectedRamen.name}
+              </h1>
+            </div>
+
+            {/* Row 2: Style (Center Aligned for icons) */}
+            <div className="flex items-center gap-4">
+              <div className="w-20 lg:w-24 flex-shrink-0 text-lg lg:text-xl font-bold text-black">
+                Style:
+              </div>
+              <div className="text-lg lg:text-xl text-gray-900 font-normal">
+                <div className="flex items-center gap-6">
+                  <div className="flex items-center gap-2">
+                    {selectedRamen.type === "Soup" ? (
+                      <CheckSquare className="w-6 h-6" />
+                    ) : (
+                      <Square className="w-6 h-6" />
+                    )}
+                    <span>Soup</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {selectedRamen.type === "Sauce" ? (
+                      <CheckSquare className="w-6 h-6" />
+                    ) : (
+                      <Square className="w-6 h-6" />
+                    )}
+                    <span>Sauce</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Row 3: Price (Center Aligned for circle) */}
+            <div className="flex items-start gap-4"> 
+               {/* Using items-start for price row to handle the breakdown text below nicely if we want label at top, 
+                   OR items-center if we want label centered. 
+                   User's plan said "items-center" for Price Row. 
+                   However, the price section has a breakdown line below it. 
+                   If we center the label, it will be centered relative to the whole block (Value + Breakdown). 
+                   Actually, typically "Price:" connects to the Value "$ 5.25". The breakdown is secondary. 
+                   Let's use items-start but adjust the visual center of the first line?
+                   Or separate the breakdown?
+                   Let's try items-start (top aligned) but give the label a little top padding to align with the circle/text center?
+                   Actually, if we use items-center, the breakdown will pull the label down. 
+                   Let's stick to the previous Grid-like behavior for Price but with better control.
+                   Let's separate Label and Value block. 
+               */}
+               <div className="w-20 lg:w-24 flex-shrink-0 text-lg lg:text-xl font-bold text-black pt-0.5">
+                Price:
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 text-lg lg:text-xl text-gray-900">
+                  <div
+                    className={`w-8 h-8 rounded-full ${getPriceCircleColor(
+                      selectedRamen.price_packet,
+                      selectedRamen.price_bowl
+                    )}`}
+                  ></div>
+                  <span className="tracking-tight font-normal">{`$ ${(
+                    selectedRamen.price_packet + selectedRamen.price_bowl
+                  ).toFixed(2)}`}</span>
+                </div>
+                <div className="text-sm lg:text-base text-gray-500 italic ml-11">
+                  {`* ( Noodle  $ ${selectedRamen.price_packet.toFixed(
+                    2
+                  )}   +   Bowl  $ ${selectedRamen.price_bowl.toFixed(2)} )`}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side: Image and ID */}
+          <div className="hidden md:flex w-48 flex-col items-center flex-shrink-0">
+            <div className="w-full flex justify-end items-center gap-2 mb-2">
               <span
-                className="bg-white text-black border border-gray-800 font-bold px-2 py-0.5 rounded shadow-sm text-xs"
+                className="bg-white text-black border border-gray-800 font-bold px-2 py-0.5 rounded shadow-sm text-lg"
                 style={{
                   fontFamily: "Bahnschrift, system-ui, sans-serif",
                 }}
               >
                 {selectedRamen.id}
               </span>
-              <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-6 min-w-[30px] overflow-hidden">
+              <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-8 min-w-[40px] overflow-hidden">
                 {countryFlags[selectedRamen.country] &&
                 countryFlags[selectedRamen.country].startsWith("/") ? (
                   <img
                     src={countryFlags[selectedRamen.country]}
                     alt={selectedRamen.country}
-                    className="w-5 h-3.5 object-cover"
+                    className="w-6 h-4 object-cover"
                   />
                 ) : (
-                  <span className="text-lg leading-none">
+                  <span className="text-2xl leading-none">
                     {countryFlags[selectedRamen.country] || "🌏"}
                   </span>
                 )}
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Desktop Layout (unchanged) */}
-        <div className="hidden md:grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
-          <div className="md:col-span-3">
-            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
-              Name:
-            </div>
-            <div className="mt-4 md:mt-6 text-sm md:text-lg lg:text-xl font-bold text-black">
-              Style:
-            </div>
-            <div className="mt-4 md:mt-6 text-sm md:text-lg lg:text-xl font-bold text-black">
-              Price:
-            </div>
-          </div>
-          <div className="md:col-span-9">
-            <div className="flex flex-col md:flex-row md:items-stretch md:justify-between gap-3 md:gap-4">
-              <div className="flex-1">
-                <h1
-                  className="text-sm md:text-lg lg:text-xl font-normal tracking-tight text-gray-900 truncate"
-                  title={selectedRamen.name}
-                >
-                  {selectedRamen.name}
-                </h1>
-                <div className="mt-3 md:mt-5 text-sm md:text-lg lg:text-xl text-gray-900 font-normal">
-                  <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2">
-                      {selectedRamen.type === "Soup" ? (
-                        <CheckSquare className="w-5 h-5 md:w-6 md:h-6" />
-                      ) : (
-                        <Square className="w-5 h-5 md:w-6 md:h-6" />
-                      )}
-                      <span>Soup</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {selectedRamen.type === "Sauce" ? (
-                        <CheckSquare className="w-5 h-5 md:w-6 md:h-6" />
-                      ) : (
-                        <Square className="w-5 h-5 md:w-6 md:h-6" />
-                      )}
-                      <span>Sauce</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-3 md:mt-5 space-y-2">
-                  <div className="flex items-center gap-2 md:gap-3 text-sm md:text-lg lg:text-xl text-gray-900">
-                    <div
-                      className={`w-5 h-5 md:w-8 md:h-8 rounded-full ${getPriceCircleColor(
-                        selectedRamen.price_packet,
-                        selectedRamen.price_bowl
-                      )}`}
-                    ></div>
-                    <span className="tracking-tight font-normal">{`$ ${(
-                      selectedRamen.price_packet + selectedRamen.price_bowl
-                    ).toFixed(2)}`}</span>
-                  </div>
-                  <div className="text-xs md:text-sm lg:text-base text-gray-500 italic whitespace-pre ml-7 md:ml-11">
-                    {`* ( Noodle  $ ${selectedRamen.price_packet.toFixed(
-                      2
-                    )}   +   Bowl  $ ${selectedRamen.price_bowl.toFixed(2)} )`}
-                  </div>
-                </div>
-              </div>
-              <div className="hidden md:block w-full md:w-48 self-stretch items-center relative">
-                <img
-                  src={
-                    selectedRamen.image_url
-                      ? `/images/${selectedRamen.image_url}`
-                      : "/images/placeholder.jpg"
-                  }
-                  alt={selectedRamen.name}
-                  className="w-full h-full object-contain"
-                  loading="lazy"
-                />
-                <div className="absolute top-0 right-0 flex items-center gap-2">
-                  <span
-                    className="bg-white text-black border border-gray-800 font-bold px-2 py-0.5 rounded shadow-sm text-lg"
-                    style={{
-                      fontFamily: "Bahnschrift, system-ui, sans-serif",
-                    }}
-                  >
-                    {selectedRamen.id}
-                  </span>
-                  <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-8 min-w-[40px] overflow-hidden">
-                    {countryFlags[selectedRamen.country] &&
-                    countryFlags[selectedRamen.country].startsWith("/") ? (
-                      <img
-                        src={countryFlags[selectedRamen.country]}
-                        alt={selectedRamen.country}
-                        className="w-6 h-4 object-cover"
-                      />
-                    ) : (
-                      <span className="text-2xl leading-none">
-                        {countryFlags[selectedRamen.country] || "🌏"}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
+            <div className="relative w-full h-full">
+              <img
+                src={
+                  selectedRamen.image_url
+                    ? `/images/${selectedRamen.image_url}`
+                    : "/images/placeholder.jpg"
+                }
+                alt={selectedRamen.name}
+                className="w-full h-full object-contain"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
@@ -486,9 +514,12 @@ const RamenInfo = ({ product, onBack }) => {
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:flex-wrap items-center gap-3 md:gap-4 lg:gap-6">
-                <div className="flex items-center gap-3 md:gap-4 lg:gap-6">
-                  <div className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center flex-shrink-0">
+              {/* Single row container with no wrapping, centered items */}
+              <div className="flex flex-nowrap items-center justify-start sm:justify-center gap-2 sm:gap-3 md:gap-4 overflow-x-auto no-scrollbar py-2 w-full">
+                
+                {/* Cooker Image Group */}
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center">
                     <img
                       src="/RamenCooker.png"
                       alt="Ramen Cooker"
@@ -496,12 +527,15 @@ const RamenInfo = ({ product, onBack }) => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-gray-500 text-2xl md:text-4xl lg:text-5xl">
+                  <span className="text-gray-500 text-xl md:text-2xl">
                     →
                   </span>
                 </div>
-                <div className="flex items-center gap-2 md:gap-3 lg:gap-4 relative">
-                  <div className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center flex-shrink-0">
+
+                {/* Info Group: Menu + Start/Stop */}
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  {/* Menu Icon */}
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center">
                     <img
                       src={(function(){
                           const m = selectedRamen.menu || "";
@@ -514,10 +548,13 @@ const RamenInfo = ({ product, onBack }) => {
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-gray-700 text-2xl md:text-3xl lg:text-4xl">
+                  
+                  <span className="text-gray-700 text-xl md:text-2xl">
                     +
                   </span>
-                  <div className="w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 flex items-center justify-center flex-shrink-0">
+
+                  {/* Start/Stop Icon */}
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center">
                     <img
                       src="/startstop.png"
                       alt="Start/Stop button"
@@ -525,19 +562,21 @@ const RamenInfo = ({ product, onBack }) => {
                       loading="lazy"
                     />
                   </div>
-                  <div className="absolute -bottom-12 sm:-bottom-16 md:-bottom-14 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                    <button
-                      type="button"
-                      onClick={() => setIsCookModalOpen(true)}
-                      className="inline-flex items-center justify-center rounded-md bg-gray-200 px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm text-gray-800 font-semibold border border-gray-400 hover:bg-gray-300"
-                    >
-                      How to cook
-                    </button>
-                  </div>
                 </div>
               </div>
 
-              <div className="h-12 sm:h-10"></div>
+              {/* How to Cook Button - Below the icons */}
+              <div className="flex justify-start sm:justify-center mt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsCookModalOpen(true)}
+                  className="inline-flex items-center justify-center rounded-md bg-gray-200 px-4 py-2 text-xs sm:text-sm text-gray-800 font-semibold border border-gray-400 hover:bg-gray-300 transition-colors"
+                >
+                  How to cook
+                </button>
+              </div>
+
+              <div className="h-4 sm:h-6"></div>
             </div>
           </div>
         </div>
