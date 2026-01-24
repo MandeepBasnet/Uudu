@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { account } from '../lib/appwrite';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -13,12 +13,6 @@ const Login = () => {
         e.preventDefault();
         setError('');
         setLoading(true);
-
-        // Hardcoded map for simple username experience
-        let email = username;
-        if (username === 'uudu_admin') {
-            email = 'uudu_admin@example.com';
-        }
 
         try {
             // Check if there's an existing session and delete it to force new login
@@ -64,13 +58,13 @@ const Login = () => {
 
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                         <input 
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#99564c] focus:border-transparent outline-none transition-all"
-                            placeholder="uudu_admin"
+                            placeholder="uudu_admin@example.com"
                             required
                         />
                     </div>
