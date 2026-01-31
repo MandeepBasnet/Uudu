@@ -582,27 +582,23 @@
     {
       "status": "available",
       "id": "N24",
-      "name": "A-Sha Hello Kitty Noodles with Supercute Soy Sauce",
+      "name": "Mom's SurfMama Sichuan Spicy Flavor",
       "type": "Sauce",
-      "menu": "Menu 3C",
+      "menu": "Menu 2",
       "country": "Taiwan",
-      "description": "Add a dash of playful charm to every bite with these adorable Hello Kitty Mandarin-style noodles!  Featuring A-Sha's famous air-dried chew in a fun, wide shape, they're paired with a sweet-savory soy sauce that's gentle, comforting, and never spicy — perfect for little taste buds (and big kids at heart).  A cute and tasty way to make every slurp extra special!",
-      "price_packet": 2.25,
+      "description": "Premium thick, bouncy wheat noodles coated in a fragrant Sichuan-style mala sauce, built around the gently tongue-numbing buzz of Sichuan peppercorns and layered chili heat for a balanced, crave-worthy bump. A cult Taiwanese favorite among intrepid noodle hackers.",
+      "price_packet": 2.75,
       "price_bowl": 3,
-      "spiciness": "4 out of 10 flames",
-      "manufacturer_url": "https://ashadrynoodle.com/products/hello-kitty-noodles-with-supercute-soy-sauce",
-      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "spiciness": "8 out of 10 flames",
+      "manufacturer_url": "",
+      "suggested_toppings": "",
       "suggested_videos": [
         {
-          "url": "https://www.youtube.com/watch?v=Vadzmmavw7s&ab_channel=NoodleJourney",
-          "description": "Taste Test - Noodle Journey (09:06)"
-        },
-        {
-          "url": "https://www.youtube.com/watch?v=XTqRzc6lskQ&ab_channel=TheRamenRater",
-          "description": "Unbox - Ramen Rater (03:13)"
+          "url": "https://www.youtube.com/watch?v=JNHjEU6L4uA",
+          "description": "Hack Video"
         }
       ],
-      "image_url": "a-sha-hello-kitty.png"
+      "image_url": "mom's-surfMama-sichuan-spicy-flavor.png"
     },
     {
       "status": "available",
@@ -798,6 +794,31 @@
         }
       ],
       "image_url": "kurata-tonkotsu(2servings).jpg"
+    },
+    {
+      "status": "archived",
+      "id": "N24_OLD",
+      "name": "A-Sha Hello Kitty Noodles with Supercute Soy Sauce",
+      "type": "Sauce",
+      "menu": "Menu 3C",
+      "country": "Taiwan",
+      "description": "Add a dash of playful charm to every bite with these adorable Hello Kitty Mandarin-style noodles!  Featuring A-Sha's famous air-dried chew in a fun, wide shape, they're paired with a sweet-savory soy sauce that's gentle, comforting, and never spicy — perfect for little taste buds (and big kids at heart).  A cute and tasty way to make every slurp extra special!",
+      "price_packet": 2.25,
+      "price_bowl": 3,
+      "spiciness": "4 out of 10 flames",
+      "manufacturer_url": "https://ashadrynoodle.com/products/hello-kitty-noodles-with-supercute-soy-sauce",
+      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/watch?v=Vadzmmavw7s&ab_channel=NoodleJourney",
+          "description": "Taste Test - Noodle Journey (09:06)"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=XTqRzc6lskQ&ab_channel=TheRamenRater",
+          "description": "Unbox - Ramen Rater (03:13)"
+        }
+      ],
+      "image_url": "a-sha-hello-kitty.png"
     }
   ]
 }
