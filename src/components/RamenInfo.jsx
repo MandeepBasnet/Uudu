@@ -569,7 +569,8 @@ const RamenInfo = ({ product, onBack }) => {
           <div className="md:col-span-9">
             <div className="flex flex-row md:flex-row items-start gap-3 md:gap-6">
               {/* Large oval buttons on the left - vertical on all screens */}
-              <div className="flex flex-col gap-2 sm:gap-3 w-auto md:w-48 lg:w-56">
+              {/* Buttons on the left, aligned with video height */}
+              <div className="flex flex-col justify-center gap-1 sm:gap-2 w-auto min-w-[100px] md:w-36 lg:w-48 h-full">
                 {selectedRamen.suggested_videos.map((video, index) => (
                   <button
                     key={index}
@@ -577,17 +578,19 @@ const RamenInfo = ({ product, onBack }) => {
                       setSelectedVideoIndex(index);
                       setIsVideoModalOpen(true);
                     }}
-                    className={`w-8 h-8 sm:w-auto sm:h-auto px-2 sm:px-3 sm:py-2 md:px-5 md:py-3 rounded-full text-xs sm:text-sm md:text-base lg:text-lg font-semibold border transition-colors flex items-center justify-center ${
-                      selectedVideoIndex === index
-                        ? "bg-blue-600 border-blue-600 text-white"
-                        : "bg-gray-100 border-gray-300 text-gray-700"
-                    }`}
+                    className={`
+                      w-full py-1.5 sm:py-2 px-3 sm:px-4 
+                      rounded-[2rem] border transition-colors flex items-center justify-center 
+                      text-xs sm:text-sm font-semibold shadow-sm
+                      ${
+                        selectedVideoIndex === index
+                          ? "bg-blue-600 border-blue-600 text-white"
+                          : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+                      }
+                    `}
                     aria-label={`Open video ${index + 1}`}
                   >
-                    <span className="hidden sm:inline">{`Video ${
-                      index + 1
-                    }`}</span>
-                    <span className="sm:hidden">{index + 1}</span>
+                    <span>{`Video ${index + 1}`}</span>
                   </button>
                 ))}
               </div>
