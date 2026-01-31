@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { databases, appwriteConfig } from "../lib/appwrite";
 
 export default function Footer() {
+  const [businessHours, setBusinessHours] = useState({
+    day1: "Mon – Thu",
+    hours1: "11:00 AM – 9:00 PM",
+    day2: "Fri – Sat",
+    hours2: "11:00 AM – 10:00 PM",
+    day3: "Sun",
+    hours3: "12:00 PM – 8:00 PM"
+  });
+
+  useEffect(() => {
+    const fetchHours = async () => {
+      try {
+        if (!appwriteConfig.dbId || !appwriteConfig.collectionId) return;
+        const response = await databases.getDocument(
+          appwriteConfig.dbId,
+          appwriteConfig.collectionId,
+          'metadata_location'
+        );
+        if (response && response.description) {
+          const parsed = JSON.parse(response.description);
+          setBusinessHours(prev => ({ ...prev, ...parsed }));
+        }
+      } catch (err) {
+        // Silent fail, use defaults
+      }
+    };
+    fetchHours();
+  }, []);
+
   return (
     <footer className="pb-10 pt-6">
       <div className="w-full px-4 sm:px-6">
@@ -75,9 +105,9 @@ export default function Footer() {
                   Hours
                 </h3>
                 <div className="text-[#3E3E3E] text-xl">
-                  <p>Mon – Thu: 11:00 AM – 9:00 PM</p>
-                  <p>Fri – Sat: 11:00 AM – 10:00 PM</p>
-                  <p>Sun: 12:00 PM – 8:00 PM</p>
+                  <p>{businessHours.day1}: {businessHours.hours1}</p>
+                  <p>{businessHours.day2}: {businessHours.hours2}</p>
+                  <p>{businessHours.day3}: {businessHours.hours3}</p>
                 </div>
               </div>
             </div>

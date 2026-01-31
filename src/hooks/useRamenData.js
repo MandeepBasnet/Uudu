@@ -31,7 +31,9 @@ export function useRamenData() {
 
                 if (response.documents.length > 0) {
                     // Map Appwrite documents to our data structure
-                    const processedDocs = response.documents.map(doc => ({
+                    const processedDocs = response.documents
+                        .filter(doc => !doc.id.startsWith('metadata_')) // Filter out metadata
+                        .map(doc => ({
                         ...doc,
                         // Parse suggested_videos if it's a string (from Appwrite)
                         suggested_videos: typeof doc.suggested_videos === 'string' 

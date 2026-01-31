@@ -23,6 +23,92 @@ const Edit = () => {
     const hasChanges = () => {
         if (!selectedRamen || !originalRamen) return false;
         return JSON.stringify(selectedRamen) !== JSON.stringify(originalRamen);
+        return JSON.stringify(selectedRamen) !== JSON.stringify(originalRamen);
+    };
+
+    // Business Hours State
+    const [showHoursModal, setShowHoursModal] = useState(false);
+    const [businessHours, setBusinessHours] = useState({
+        day1: "Mon – Thu",
+        hours1: "11:00 AM – 9:00 PM",
+        day2: "Fri – Sat",
+        hours2: "11:00 AM – 10:00 PM",
+        day3: "Sun",
+        hours3: "12:00 PM – 8:00 PM"
+    });
+    const [originalBusinessHours, setOriginalBusinessHours] = useState(null);
+    const [savingHours, setSavingHours] = useState(false);
+
+    const hasHoursChanges = () => {
+        if (!originalBusinessHours) return false;
+        return JSON.stringify(businessHours) !== JSON.stringify(originalBusinessHours);
+    };
+
+    const fetchBusinessHours = async () => {
+        try {
+            const response = await databases.getDocument(
+                appwriteConfig.dbId,
+                appwriteConfig.collectionId,
+                'metadata_location'
+            );
+            if (response.description) {
+                const parsed = JSON.parse(response.description);
+                setBusinessHours(parsed);
+                setOriginalBusinessHours(parsed);
+            } else {
+                setOriginalBusinessHours(businessHours);
+            }
+        } catch (err) {
+            // Default hours already set
+            setOriginalBusinessHours(businessHours);
+        }
+    };
+
+    const handleSaveHours = async (e) => {
+        e.preventDefault();
+        setSavingHours(true);
+        try {
+            const payload = {
+                id: 'metadata_location',
+                name: 'Location Metadata',
+                status: 'available',
+                type: 'Soup',
+                country: 'Other Asia',
+                description: JSON.stringify(businessHours),
+                image_url: 'placeholder',
+                price_packet: 0,
+                price_bowl: 0,
+                spiciness: 'None',
+                menu: 'None'
+            };
+
+            // Try to update, if fail (404), create
+            try {
+                await databases.updateDocument(
+                    appwriteConfig.dbId,
+                    appwriteConfig.collectionId,
+                    'metadata_location',
+                    payload
+                );
+            } catch (err) {
+                if (err.code === 404) {
+                    await databases.createDocument(
+                        appwriteConfig.dbId,
+                        appwriteConfig.collectionId,
+                        'metadata_location',
+                        payload
+                    );
+                } else {
+                    throw err;
+                }
+            }
+            setShowHoursModal(false);
+            setMessage({ type: 'success', text: 'Business Hours updated!' });
+        } catch (err) {
+            alert('Failed to save hours: ' + err.message);
+        } finally {
+            setSavingHours(false);
+        }
     };
 
     useEffect(() => {
@@ -70,7 +156,9 @@ const Edit = () => {
             
             // Sort by ID naturally if possible (N01, N02...)
             // Simple sort
-            const sorted = response.documents.sort((a, b) => a.id.localeCompare(b.id)); // Assuming stored ID is used as document ID or 'id' field
+            const sorted = response.documents
+                .filter(doc => !doc.id.startsWith('metadata_'))
+                .sort((a, b) => a.id.localeCompare(b.id)); 
             setRamenList(sorted);
         } catch (err) {
             console.error("Fetch error", err);
@@ -287,6 +375,17 @@ const Edit = () => {
                         </button>
                     ))}
                 </div>
+                <div className="p-4 border-t border-gray-200">
+                    <button
+                        onClick={() => {
+                            fetchBusinessHours();
+                            setShowHoursModal(true);
+                        }}
+                        className="w-full py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded text-sm transition-colors"
+                    >
+                        Edit Business Hours
+                    </button>
+                </div>
             </div>
 
             {/* Main Content */}
@@ -394,25 +493,52 @@ const Edit = () => {
                                         className="w-full border border-gray-300 rounded px-3 py-2"
                                     />
                                 </div>
-                                <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Spiciness</label>
-                                    <input 
-                                        value={selectedRamen.spiciness} 
-                                        onChange={(e) => handleChange('spiciness', e.target.value)}
-                                        placeholder="X out of 10 flames"
-                                        className="w-full border border-gray-300 rounded px-3 py-2"
-                                    />
+                                <div className="col-span-3">
+                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Spiciness</label>
+                                    <div className="flex gap-2">
+                                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((level) => {
+                                            const currentLevel = parseInt(selectedRamen.spiciness?.match(/\d+/)?.[0] || '0');
+                                            const isSelected = level === currentLevel;
+                                            return (
+                                                <div key={level} className="flex flex-col items-center">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleChange('spiciness', `${level} out of 10 flames`)}
+                                                        className={`w-6 h-6 border-2 rounded transition-all ${
+                                                            isSelected 
+                                                                ? 'bg-orange-500 border-orange-500' 
+                                                                : 'bg-white border-gray-400 hover:border-gray-500'
+                                                        }`}
+                                                        title={`${level} out of 10 flames`}
+                                                    >
+                                                        {isSelected && <span className="text-white text-xs">✓</span>}
+                                                    </button>
+                                                    <span className="text-xs text-gray-500 mt-1">{level}</span>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    <p className="text-xs text-gray-400 mt-2">{selectedRamen.spiciness || 'Click to set spiciness'}</p>
                                 </div>
                             </div>
 
                             {/* Menu Selection */}
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Menu Code (e.g. Menu 1, Menu 3E)</label>
-                                <input 
-                                    value={selectedRamen.menu} 
+                                <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Menu</label>
+                                <select 
+                                    value={selectedRamen.menu}
                                     onChange={(e) => handleChange('menu', e.target.value)}
                                     className="w-full border border-gray-300 rounded px-3 py-2"
-                                />
+                                >
+                                    <option value="Menu 1">Menu 1</option>
+                                    <option value="Menu 2">Menu 2</option>
+                                    <option value="Menu 3A">Menu 3A</option>
+                                    <option value="Menu 3B">Menu 3B</option>
+                                    <option value="Menu 3C">Menu 3C</option>
+                                    <option value="Menu 3D">Menu 3D</option>
+                                    <option value="Menu 3E">Menu 3E</option>
+                                    <option value="Coming Soon">Coming Soon</option>
+                                </select>
                                 <p className="text-xs text-gray-400 mt-1">This controls the cooker instructions logic.</p>
                             </div>
 
@@ -555,6 +681,97 @@ const Edit = () => {
                     </div>
                 )}
             </div>
+            {/* Business Hours Modal */}
+            {showHoursModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-xl p-6 w-full max-w-md">
+                        <h2 className="text-xl font-bold mb-4">Edit Business Hours</h2>
+                        <form onSubmit={handleSaveHours} className="space-y-4">
+                            <div className="space-y-3">
+                                {/* Row 1 */}
+                                <div className="flex gap-2">
+                                    <div className="w-1/3">
+                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Days</label>
+                                        <input 
+                                            value={businessHours.day1}
+                                            onChange={(e) => setBusinessHours(prev => ({ ...prev, day1: e.target.value }))}
+                                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                                            placeholder="Mon – Thu"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Hours</label>
+                                        <input 
+                                            value={businessHours.hours1}
+                                            onChange={(e) => setBusinessHours(prev => ({ ...prev, hours1: e.target.value }))}
+                                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                                            placeholder="11:00 AM – 9:00 PM"
+                                        />
+                                    </div>
+                                </div>
+                                {/* Row 2 */}
+                                <div className="flex gap-2">
+                                    <div className="w-1/3">
+                                        <input 
+                                            value={businessHours.day2}
+                                            onChange={(e) => setBusinessHours(prev => ({ ...prev, day2: e.target.value }))}
+                                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                                            placeholder="Fri – Sat"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <input 
+                                            value={businessHours.hours2}
+                                            onChange={(e) => setBusinessHours(prev => ({ ...prev, hours2: e.target.value }))}
+                                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                                            placeholder="11:00 AM – 10:00 PM"
+                                        />
+                                    </div>
+                                </div>
+                                {/* Row 3 */}
+                                <div className="flex gap-2">
+                                    <div className="w-1/3">
+                                        <input 
+                                            value={businessHours.day3}
+                                            onChange={(e) => setBusinessHours(prev => ({ ...prev, day3: e.target.value }))}
+                                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                                            placeholder="Sun"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <input 
+                                            value={businessHours.hours3}
+                                            onChange={(e) => setBusinessHours(prev => ({ ...prev, hours3: e.target.value }))}
+                                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                                            placeholder="12:00 PM – 8:00 PM"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex justify-end gap-2 pt-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowHoursModal(false)}
+                                    className="px-4 py-2 text-gray-500 hover:bg-gray-100 rounded"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={savingHours || !hasHoursChanges()}
+                                    className={`px-4 py-2 rounded font-bold transition-colors ${
+                                        hasHoursChanges() 
+                                            ? 'bg-[#99564c] text-white hover:bg-[#7a453d]' 
+                                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                    }`}
+                                >
+                                    {savingHours ? 'Saving...' : 'Save'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
