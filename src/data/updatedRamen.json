@@ -507,12 +507,12 @@
     {
       "status": "available",
       "id": "N21",
-      "name": "Kurata Tonkotsu (2 servings)",
+      "name": "Menraku Shoyu Tonkotsu",
       "type": "Soup",
       "menu": "Menu 3D",
       "country": "Japan",
-      "description": "A premium, restaurant-grade tonkotsu ramen featuring Hakata-style thin noodles and a luscious, creamy pork broth. Crafted for depth and balance, each pack delivers two satisfying servings for an elevated, authentic ramen experience. Note: Cook each serving separately or cook second serving at home.",
-      "price_packet": 3.5,
+      "description": "This Tonkotsu builds on classic pork-bone richness with the added depth of shoyu, delivering a deeper and more complex broth. Menraku's firm noodles carry the layered flavors beautifully, making it a solid step-up option for those ready to explore a richer tonkotsu experience.",
+      "price_packet": 2.75,
       "price_bowl": 3,
       "spiciness": "4 out of 10 flames",
       "manufacturer_url": "",
@@ -520,10 +520,10 @@
       "suggested_videos": [
         {
           "url": "https://www.youtube.com/shorts/bLsfQCg0MII",
-          "description": "Hack Video"
+          "description": "Review Video"
         }
       ],
-      "image_url": "kurata-tonkotsu(2servings).jpg"
+      "image_url": "menraku-shoyu-tonkotsu.png"
     },
     {
       "status": "available",
@@ -775,6 +775,29 @@
         }
       ],
       "image_url": "prima-taste-singapore-curry.png"
+    }
+  ],
+  "archived_ramen": [
+    {
+      "status": "archived",
+      "id": "N21_OLD",
+      "name": "Kurata Tonkotsu (2 servings)",
+      "type": "Soup",
+      "menu": "Menu 3D",
+      "country": "Japan",
+      "description": "A premium, restaurant-grade tonkotsu ramen featuring Hakata-style thin noodles and a luscious, creamy pork broth. Crafted for depth and balance, each pack delivers two satisfying servings for an elevated, authentic ramen experience. Note: Cook each serving separately or cook second serving at home.",
+      "price_packet": 3.5,
+      "price_bowl": 3,
+      "spiciness": "4 out of 10 flames",
+      "manufacturer_url": "",
+      "suggested_toppings": "",
+      "suggested_videos": [
+        {
+          "url": "https://www.youtube.com/shorts/bLsfQCg0MII",
+          "description": "Hack Video"
+        }
+      ],
+      "image_url": "kurata-tonkotsu(2servings).jpg"
     }
   ]
 }
