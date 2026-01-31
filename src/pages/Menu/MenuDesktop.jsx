@@ -5,7 +5,8 @@
 // src/pages/Menu/MenuDesktop.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { useRamenData } from "../../hooks/useRamenData";
-import toppingsData from "../../data/updatedToppings.json";
+import { useToppingsData } from "../../hooks/useToppingsData";
+// import toppingsData from "../../data/updatedToppings.json";
 import categories from "../../data/categories.json";
 import ProductCard from "../../components/ProductCard";
 import CategoryInfo from "../../components/CategoryInfo";
@@ -22,10 +23,11 @@ export default function MenuDesktop() {
   
   // Appwrite Data Hook
   const { data: ramenItems, loading } = useRamenData();
+  const { data: toppingsItems } = useToppingsData();
 
   useEffect(() => {
     loadProducts(activeCategory);
-  }, [activeCategory, ramenItems]);
+  }, [activeCategory, ramenItems, toppingsItems]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -107,7 +109,7 @@ export default function MenuDesktop() {
         (r) => r.country === categoryToCountry[categorySlug]
       );
     } else if (categorySlug === "toppers") {
-      items = toppingsData.toppings || [];
+      items = toppingsItems || [];
     } else {
       items = []; // placeholder for bev/snax/specials
     }
@@ -380,7 +382,7 @@ export default function MenuDesktop() {
                           (r) => r.country === categoryToCountry[category.slug]
                         );
                       } else if (category.slug === "toppers") {
-                        const allToppings = toppingsData.toppings || [];
+                        const allToppings = toppingsItems || [];
                         const toppingCategories = [
                           "Veggies",
                           "Flavoring",

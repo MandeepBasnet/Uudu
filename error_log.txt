@@ -1,0 +1,4 @@
+[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ΓÜÖ∩╕Å  load multiple .env files with { path: ['.env.local', '.env'] }
+Starting migration of 30 toppings...
+Migration finished. Success: 0, Failed: 1
+Failed to migrate T01: "{\"message\":\"Invalid document structure: Unknown attribute: \\\"image_url\\\"\",\"code\":400,\"type\":\"document_invalid_structure\",\"version\":\"1.8.1\"}"

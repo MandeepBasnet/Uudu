@@ -6,6 +6,7 @@ export const appwriteConfig = {
     dbId: import.meta.env.VITE_APPWRITE_DB_ID,
     collectionId: import.meta.env.VITE_APPWRITE_COLLECTION_ID,
     bucketId: import.meta.env.VITE_APPWRITE_BUCKET_ID,
+    toppingsCollectionId: import.meta.env.VITE_APPWRITE_TOPPINGS_COLLECTION_ID,
 };
 
 const client = new Client();

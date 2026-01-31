@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRamenData } from "../../hooks/useRamenData";
-import toppingsData from "../../data/updatedToppings.json";
+import { useToppingsData } from "../../hooks/useToppingsData";
+// import toppingsData from "../../data/updatedToppings.json"; // Hook handles fallback
 import MobileProductCard from "../../components/MobileProductCard";
 import RamenInfo from "../../components/RamenInfo";
 import ToppingsInfo from "../../components/ToppingsInfo";
@@ -11,6 +12,7 @@ export default function MenuMobile() {
   
   // Appwrite Data Hook
   const { data: ramenItems } = useRamenData();
+  const { data: toppingsItems } = useToppingsData();
 
   const handleProductClick = (product, isRamen) => {
     if (product.status === "coming_soon") return;
@@ -150,7 +152,7 @@ export default function MenuMobile() {
                 ];
 
                 return toppingCategories.map((categoryName) => {
-                  const categoryToppings = toppingsData.toppings.filter(
+                  const categoryToppings = toppingsItems.filter(
                     (topping) => topping.category === categoryName
                   );
 
