@@ -185,9 +185,9 @@ export default function MenuDesktop() {
                   </div>
                   <div className="flex items-center space-x-6">
                     <span className="text-gray-500 font-medium whitespace-nowrap">
-                      UUDU
+                      NUUDU
                     </span>
-                    <span className="text-gray-300">—</span>
+                    <span className="text-gray-500">—</span>
                     {categories.slice(0, 4).map((cat) => (
                       <button
                         key={cat.slug}
