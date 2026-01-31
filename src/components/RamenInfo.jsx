@@ -230,11 +230,19 @@ const RamenInfo = ({ product, onBack }) => {
                   {selectedRamen.id}
                 </span>
                 <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-6 min-w-[30px] overflow-hidden">
-                    <span className="text-lg leading-none">
-                      {selectedRamen.country === "S. Korea" ? "🇰🇷" : 
-                       selectedRamen.country === "Japan" ? "🇯🇵" : 
-                       selectedRamen.country === "Taiwan" ? "🇹🇼" : "🌏"}
-                    </span>
+                  {["S. Korea", "Japan", "Taiwan"].includes(selectedRamen.country) ? (
+                    <img 
+                      src={
+                        selectedRamen.country === "S. Korea" ? "/images/s-korea.jpg" :
+                        selectedRamen.country === "Japan" ? "/images/japan.jpg" :
+                        "/images/taiwan.jpg"
+                      }
+                      alt={selectedRamen.country}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-lg leading-none">🌏</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -402,11 +410,19 @@ const RamenInfo = ({ product, onBack }) => {
                 {selectedRamen.id}
               </span>
               <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-8 min-w-[40px] overflow-hidden">
-                  <span className="text-2xl leading-none">
-                      {selectedRamen.country === "S. Korea" ? "🇰🇷" : 
-                       selectedRamen.country === "Japan" ? "🇯🇵" : 
-                       selectedRamen.country === "Taiwan" ? "🇹🇼" : "🌏"}
-                  </span>
+                  {["S. Korea", "Japan", "Taiwan"].includes(selectedRamen.country) ? (
+                    <img 
+                      src={
+                        selectedRamen.country === "S. Korea" ? "/images/s-korea.jpg" :
+                        selectedRamen.country === "Japan" ? "/images/japan.jpg" :
+                        "/images/taiwan.jpg"
+                      }
+                      alt={selectedRamen.country}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-2xl leading-none">🌏</span>
+                  )}
               </div>
             </div>
             <div className="relative w-full h-full">
