@@ -14,9 +14,16 @@ const Edit = () => {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
+    const [originalRamen, setOriginalRamen] = useState(null);
     
     // For initializing DB
     const [initStatus, setInitStatus] = useState('');
+
+    // Check if any changes have been made
+    const hasChanges = () => {
+        if (!selectedRamen || !originalRamen) return false;
+        return JSON.stringify(selectedRamen) !== JSON.stringify(originalRamen);
+    };
 
     useEffect(() => {
         checkAuth();
@@ -73,7 +80,17 @@ const Edit = () => {
     };
 
     const handleSelect = (ramen) => {
-        setSelectedRamen({ ...ramen }); // Deep copy if needed, but shallow is okay for flat inputs
+        let parsedVideos = ramen.suggested_videos;
+        if (typeof parsedVideos === 'string') {
+            try {
+                parsedVideos = JSON.parse(parsedVideos);
+            } catch (e) {
+                parsedVideos = [];
+            }
+        }
+        const ramenWithParsedVideos = { ...ramen, suggested_videos: parsedVideos };
+        setSelectedRamen(ramenWithParsedVideos);
+        setOriginalRamen(ramenWithParsedVideos);
         setMessage({ type: '', text: '' });
     };
 
@@ -432,12 +449,99 @@ const Edit = () => {
                                 </div>
                             </div>
 
+                            {/* Suggested Toppings */}
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Suggested Toppings</label>
+                                <textarea 
+                                    value={selectedRamen.suggested_toppings || ''} 
+                                    onChange={(e) => handleChange('suggested_toppings', e.target.value)}
+                                    rows={4}
+                                    className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-[#99564c]"
+                                    placeholder="Protein: ... Veggie: ..."
+                                />
+                            </div>
+
+                            {/* Suggested Videos */}
+                            <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                <label className="block text-xs font-bold text-gray-500 uppercase mb-3">Suggested Videos</label>
+                                
+                                {/* Video List */}
+                                <div className="space-y-3 mb-4">
+                                    {Array.isArray(selectedRamen.suggested_videos) && selectedRamen.suggested_videos.length > 0 ? (
+                                        selectedRamen.suggested_videos.map((video, idx) => (
+                                            <div key={idx} className="flex gap-2 items-start bg-white p-3 rounded border border-gray-200">
+                                                <div className="flex-1 overflow-hidden">
+                                                    <div className="text-xs font-bold text-gray-700 truncate">{video.description}</div>
+                                                    <a href={video.url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 hover:underline truncate block">
+                                                        {video.url}
+                                                    </a>
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newVideos = selectedRamen.suggested_videos.filter((_, i) => i !== idx);
+                                                        handleChange('suggested_videos', newVideos);
+                                                    }}
+                                                    className="text-red-500 hover:text-red-700 p-1"
+                                                >
+                                                    ✕
+                                                </button>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="text-sm text-gray-400 italic">No videos added yet.</p>
+                                    )}
+                                </div>
+
+                                {/* Add New Video */}
+                                <div className="flex flex-col sm:flex-row gap-2">
+                                    <input 
+                                        id="newVideoDesc"
+                                        placeholder="Description (e.g. Hack Video)" 
+                                        className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm"
+                                    />
+                                    <input 
+                                        id="newVideoUrl"
+                                        placeholder="YouTube URL" 
+                                        className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const descInput = document.getElementById('newVideoDesc');
+                                            const urlInput = document.getElementById('newVideoUrl');
+                                            
+                                            if (descInput.value && urlInput.value) {
+                                                const newVideo = { description: descInput.value, url: urlInput.value };
+                                                
+                                                // Use functional update to get the latest state
+                                                setSelectedRamen(prev => {
+                                                    const currentVideos = Array.isArray(prev.suggested_videos) ? prev.suggested_videos : [];
+                                                    return { ...prev, suggested_videos: [...currentVideos, newVideo] };
+                                                });
+                                                
+                                                // Clear inputs
+                                                descInput.value = '';
+                                                urlInput.value = '';
+                                            }
+                                        }}
+                                        className="bg-gray-200 text-gray-700 px-4 py-2 rounded text-sm font-semibold hover:bg-gray-300"
+                                    >
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+
                             {/* Save Button */}
                             <div className="pt-4 flex justify-end">
                                 <button
                                     type="submit"
-                                    disabled={saving}
-                                    className="bg-[#99564c] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#7a453d] transition-colors disabled:opacity-50"
+                                    disabled={saving || !hasChanges()}
+                                    className={`px-8 py-3 rounded-lg font-bold transition-colors ${
+                                        hasChanges() 
+                                            ? 'bg-[#99564c] text-white hover:bg-[#7a453d]' 
+                                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                    } disabled:opacity-50`}
                                 >
                                     {saving ? 'Saving...' : 'Save Changes'}
                                 </button>

@@ -190,8 +190,12 @@
       "suggested_toppings": "",
       "suggested_videos": [
         {
-          "url": "https://www.youtube.com/shorts/GH5S5qpwFCI",
-          "description": "Hack Video"
+          "url": "https://www.youtube.com/watch?v=kIc6-Z8IG3A",
+          "description": "Hack Video 1"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=va4RfCCG1AA",
+          "description": "Hack Video 2"
         }
       ],
       "image_url": "jin-spicy-cheesy-soup-ramen.png"
@@ -766,7 +770,7 @@
           "description": "Taste Test - apopofficial (00:21)"
         },
         {
-          "url": "https://tinyurl.com/mrxmbkrf",
+          "url": "https://www.youtube.com/watch?v=Bxx-SVOxJAA&t=454s",
           "description": "Taste Test - Noodle Journey (09:40)"
         }
       ],
