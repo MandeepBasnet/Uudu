@@ -27,7 +27,7 @@ export default function Footer() {
                     <p>4931 Lincoln Avenue</p>
                     <p>Cypress, CA 90630</p>
                   </div>
-                  <p className="text-[#3E3E3E] text-xl">(123) 456-7890</p>
+                  <p className="text-[#3E3E3E] text-xl">(657) 256-1024</p>
                 </div>
                 <a
                   href="https://www.google.com/maps/search/?api=1&query=4931+Lincoln+Avenue%2C+Cypress%2C+CA+90630"

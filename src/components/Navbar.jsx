@@ -46,7 +46,7 @@ export default function Navbar() {
                 className="w-16 h-16 rounded-full object-cover"
               />
               <span
-                className="text-lg font-bold tracking-wide text-[#99564c]"
+                className="text-3xl font-bold tracking-wide text-[#99564c]"
                 style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
               >
                 UUDU

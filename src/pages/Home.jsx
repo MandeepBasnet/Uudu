@@ -91,15 +91,30 @@ function Hero() {
             >
               Uudu.{" "}
             </span>
-            <span
-              style={{
-                opacity: showTagline ? 1 : 0,
-                transition: "opacity 0.8s ease-in-out",
-              }}
+              <span
+                style={{
+                  opacity: showTagline ? 1 : 0,
+                  transition: "opacity 0.8s ease-in-out",
+                }}
+              >
+                Fearless Ramen Hack
+              </span>
+            </h1>
+            <div
+               className="mt-6 text-white text-base sm:text-2xl font-normal tracking-wider opacity-0"
+               style={{
+                 fontFamily: "Bahnschrift, system-ui, sans-serif",
+                 animation: showTagline ? "fadeIn 1s ease-out forwards 1s" : "none"
+               }}
             >
-              Fearless Ramen Hack
-            </span>
-          </h1>
+              [ Temporary Website ]
+            </div>
+            <style jsx>{`
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+            `}</style>
         </div>
       </div>
     </section>
@@ -165,7 +180,7 @@ function SoHackinEasy() {
               Scroll through social and you'll see it—instant ramen fans taking
               their bowls to the next level, far beyond the basic packet. That
               kind of flavor magic and hack-level fun takes more than noodles
-              alone, which is why UUDU stocks 28 unique toppings and bold hack
+              alone, which is why UUDU stocks over 30 unique toppings and bold hack
               sauces to make any instant ramen—Korean, Japanese, or
               otherwise—taste incredible… even out of this world.
             </p>
