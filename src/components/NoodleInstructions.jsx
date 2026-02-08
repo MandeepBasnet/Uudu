@@ -77,7 +77,7 @@ export default function NoodleInstructions({ onClose, menu }) {
       type: "Sauce",
       title: "MENU 3B: SAUCE NOODLE",
       subtitle: "420 ml water & 180 seconds (3 minutes)",
-      step2_desc: "Press the Menu 2 button, then press the Start button.",
+      step2_desc: "Press the Menu 3 button, then press the Start button.",
       step2_note: "The cooker will automatically fill the bowl with hot water, then boils as the timer counts down.",
       step4_type: "Sauce",
       step5: "Place bowl on the serving tray and safely bring it to the dining area. Now smack that ramen!",
