@@ -23,7 +23,9 @@ const RamenInfo = ({ product, onBack }) => {
     const b = Number(bowlPrice);
     const is = (x, y) => Math.abs(x - y) < 0.001;
     if (is(p, 2.25) && is(b, 3.0)) return "bg-blue-600";
+    if (is(p, 1.75) && is(b, 3.0)) return "bg-blue-600"; // $4.75
     if (is(p, 1.5) && is(b, 3.0)) return "bg-red-600";
+    if (is(p, 5.75) && is(b, 3.0)) return "bg-red-600"; // $8.75
     if (is(p, 5.5) && is(b, 3.0)) return "bg-yellow-400";
     return "bg-gray-400";
   };
