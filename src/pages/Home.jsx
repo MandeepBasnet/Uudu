@@ -107,7 +107,7 @@ function Hero() {
                  animation: showTagline ? "fadeIn 1s ease-out forwards 1s" : "none"
                }}
             >
-              [ Temporary Website ]
+              {/* [ Temporary Website ] */}
             </div>
             <style jsx>{`
               @keyframes fadeIn {
