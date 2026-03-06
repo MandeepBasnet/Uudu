@@ -369,7 +369,6 @@ const Edit = () => {
                         <option value="available">Available</option>
                         <option value="out_of_stock">Out of Stock</option>
                         <option value="coming_soon">Coming Soon</option>
-                        <option value="archived">Archived</option>
                     </select>
                 </div>
                 <div>

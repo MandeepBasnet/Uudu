@@ -776,53 +776,5 @@
       ],
       "image_url": "prima-taste-singapore-curry.png"
     }
-  ],
-  "archived_ramen": [
-    {
-      "status": "archived",
-      "id": "N21_OLD",
-      "name": "Kurata Tonkotsu (2 servings)",
-      "type": "Soup",
-      "menu": "Menu 3D",
-      "country": "Japan",
-      "description": "A premium, restaurant-grade tonkotsu ramen featuring Hakata-style thin noodles and a luscious, creamy pork broth. Crafted for depth and balance, each pack delivers two satisfying servings for an elevated, authentic ramen experience. Note: Cook each serving separately or cook second serving at home.",
-      "price_packet": 3.5,
-      "price_bowl": 3,
-      "spiciness": "4 out of 10 flames",
-      "manufacturer_url": "",
-      "suggested_toppings": "",
-      "suggested_videos": [
-        {
-          "url": "https://www.youtube.com/shorts/bLsfQCg0MII",
-          "description": "Hack Video"
-        }
-      ],
-      "image_url": "kurata-tonkotsu(2servings).jpg"
-    },
-    {
-      "status": "archived",
-      "id": "N24_OLD",
-      "name": "A-Sha Hello Kitty Noodles with Supercute Soy Sauce",
-      "type": "Sauce",
-      "menu": "Menu 3C",
-      "country": "Taiwan",
-      "description": "Add a dash of playful charm to every bite with these adorable Hello Kitty Mandarin-style noodles!  Featuring A-Sha's famous air-dried chew in a fun, wide shape, they're paired with a sweet-savory soy sauce that's gentle, comforting, and never spicy — perfect for little taste buds (and big kids at heart).  A cute and tasty way to make every slurp extra special!",
-      "price_packet": 2.25,
-      "price_bowl": 3,
-      "spiciness": "4 out of 10 flames",
-      "manufacturer_url": "https://ashadrynoodle.com/products/hello-kitty-noodles-with-supercute-soy-sauce",
-      "suggested_toppings": "Protein:   Hard-boiled egg or sliced rotisserie chicken\nVeggie:   Snap peas or Kimchi\nHack ingredient (optional):   Gochujang\nFREE garnishes (optional):   Green onion, jalapenos, red radish, cilantro",
-      "suggested_videos": [
-        {
-          "url": "https://www.youtube.com/watch?v=Vadzmmavw7s&ab_channel=NoodleJourney",
-          "description": "Taste Test - Noodle Journey (09:06)"
-        },
-        {
-          "url": "https://www.youtube.com/watch?v=XTqRzc6lskQ&ab_channel=TheRamenRater",
-          "description": "Unbox - Ramen Rater (03:13)"
-        }
-      ],
-      "image_url": "a-sha-hello-kitty.png"
-    }
   ]
 }
