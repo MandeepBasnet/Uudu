@@ -123,7 +123,13 @@ export default function MenuMobile() {
           {/* Ramen Info Tab */}
           {activeTab === "ramen" && (
             <div className="grid grid-cols-4 gap-2 sm:gap-4">
-              {ramenItems && ramenItems.map((product) => (
+              {ramenItems && [...ramenItems].sort((a, b) => {
+                const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                if (aFlag && !bFlag) return 1;
+                if (!aFlag && bFlag) return -1;
+                return 0;
+              }).map((product) => (
                 <MobileProductCard
                   key={product.id}
                   image={
@@ -133,7 +139,7 @@ export default function MenuMobile() {
                   }
                   onClick={() => handleProductClick(product, true)}
                   status={product.status}
-                  id={product.id}
+                  id={(product.status === "coming_soon" || product.status === "out_of_stock") ? null : product.id}
                 />
               ))}
             </div>
@@ -154,7 +160,13 @@ export default function MenuMobile() {
                 return toppingCategories.map((categoryName) => {
                   const categoryToppings = toppingsItems.filter(
                     (topping) => topping.category === categoryName
-                  );
+                  ).sort((a, b) => {
+                    const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                    const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                    if (aFlag && !bFlag) return 1;
+                    if (!aFlag && bFlag) return -1;
+                    return 0;
+                  });
 
                   if (categoryToppings.length === 0) return null;
 
@@ -184,6 +196,7 @@ export default function MenuMobile() {
                             }
                             onClick={() => handleProductClick(product, false)}
                             status={product.status}
+                            id={null}
                           />
                         ))}
                       </div>

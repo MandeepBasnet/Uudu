@@ -67,7 +67,7 @@ export default function ProductCard({
         {status === "out_of_stock" && (
           <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 bg-red-800/80 py-3">
             <p className="text-white text-center font-bold text-lg tracking-wide uppercase">
-              Sold Out
+              Not Available
             </p>
           </div>
         )}

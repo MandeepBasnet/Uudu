@@ -380,7 +380,13 @@ export default function MenuDesktop() {
                         };
                         items = currentRamen.filter(
                           (r) => r.country === categoryToCountry[category.slug]
-                        );
+                        ).sort((a, b) => {
+                          const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                          const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                          if (aFlag && !bFlag) return 1;
+                          if (!aFlag && bFlag) return -1;
+                          return 0;
+                        });
                       } else if (category.slug === "toppers") {
                         const allToppings = toppingsItems || [];
                         const toppingCategories = [
@@ -396,7 +402,13 @@ export default function MenuDesktop() {
                               const categoryToppings = allToppings.filter(
                                 (topping) =>
                                   topping.category === toppingCategory
-                              );
+                              ).sort((a, b) => {
+                                const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                                const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                                if (aFlag && !bFlag) return 1;
+                                if (!aFlag && bFlag) return -1;
+                                return 0;
+                              });
 
                               if (categoryToppings.length === 0) return null;
 
@@ -457,6 +469,7 @@ export default function MenuDesktop() {
                                           hidePrice
                                           uniformScale
                                           status={product.status}
+                                          id={null}
                                         />
                                       </div>
                                     ))}
@@ -487,7 +500,7 @@ export default function MenuDesktop() {
                               price={product.price || product.price_packet}
                               hidePrice
                               status={product.status}
-                              id={product.id}
+                              id={(product.status === "coming_soon" || product.status === "out_of_stock") ? null : product.id}
                             />
                           </div>
                         ))
