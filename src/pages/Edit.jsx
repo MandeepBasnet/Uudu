@@ -160,7 +160,28 @@ const Edit = () => {
     };
 
     const handleChange = (field, value) => {
-        setSelectedItem(prev => ({ ...prev, [field]: value }));
+        setSelectedItem(prev => {
+            const updated = { ...prev, [field]: value };
+            
+            // Auto-clear fields when marking as Not Available or Coming Soon
+            if (field === 'status' && (value === 'out_of_stock' || value === 'coming_soon')) {
+                updated.name = '';
+                updated.description = '';
+                updated.image_url = '';
+                if (activeTab === 'ramen') {
+                    updated.suggested_toppings = '';
+                    updated.suggested_videos = [];
+                    updated.manufacturer_url = '';
+                    updated.price_packet = 0;
+                    updated.price_bowl = 0;
+                    updated.spiciness = '0 out of 10 flames';
+                } else {
+                    updated.price = 0;
+                    updated.spiciness = '0 out of 10 flames';
+                }
+            }
+            return updated;
+        });
     };
 
     const handleLogout = async () => {
