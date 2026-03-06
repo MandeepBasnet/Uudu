@@ -133,7 +133,7 @@ export default function MenuDesktop() {
   };
 
   const handleProductClick = (product, categorySlug) => {
-    if (product.status === "coming_soon") return;
+    if (product.status === "coming_soon" || product.status === "out_of_stock") return;
     setSelectedProduct({
       ...product,
       categorySlug: categorySlug,

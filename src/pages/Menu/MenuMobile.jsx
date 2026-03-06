@@ -15,7 +15,7 @@ export default function MenuMobile() {
   const { data: toppingsItems } = useToppingsData();
 
   const handleProductClick = (product, isRamen) => {
-    if (product.status === "coming_soon") return;
+    if (product.status === "coming_soon" || product.status === "out_of_stock") return;
     setSelectedProduct({
       ...product,
       isRamen: isRamen,
