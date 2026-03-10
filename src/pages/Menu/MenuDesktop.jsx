@@ -500,7 +500,7 @@ export default function MenuDesktop() {
                               price={product.price || product.price_packet}
                               hidePrice
                               status={product.status}
-                              id={(product.status === "coming_soon" || product.status === "out_of_stock") ? null : product.id}
+                              id={product.display_id}
                             />
                           </div>
                         ))

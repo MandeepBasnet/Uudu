@@ -229,7 +229,7 @@ const RamenInfo = ({ product, onBack }) => {
                     fontFamily: "Bahnschrift, system-ui, sans-serif",
                   }}
                 >
-                  {selectedRamen.id}
+                  {selectedRamen.display_id}
                 </span>
                 <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-6 min-w-[30px] overflow-hidden">
                   {["S. Korea", "Japan", "Taiwan"].includes(selectedRamen.country) ? (
@@ -409,7 +409,7 @@ const RamenInfo = ({ product, onBack }) => {
                   fontFamily: "Bahnschrift, system-ui, sans-serif",
                 }}
               >
-                {selectedRamen.id}
+                {selectedRamen.display_id}
               </span>
               <div className="bg-white border border-gray-800 rounded px-1 shadow-sm flex items-center justify-center h-8 min-w-[40px] overflow-hidden">
                   {["S. Korea", "Japan", "Taiwan"].includes(selectedRamen.country) ? (

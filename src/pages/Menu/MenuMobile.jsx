@@ -139,7 +139,7 @@ export default function MenuMobile() {
                   }
                   onClick={() => handleProductClick(product, true)}
                   status={product.status}
-                  id={(product.status === "coming_soon" || product.status === "out_of_stock") ? null : product.id}
+                  id={product.display_id}
                 />
               ))}
             </div>
