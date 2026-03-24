@@ -4,7 +4,7 @@
 
 ### Added
 - **Shuffle Mode** — drag-and-drop reordering of the noodle shelf in the admin Edit page. Live N-number preview updates as you drag. Order persists via `metadata_sort_order` in Appwrite.
-- **Add Blank Noodle** — insert a new empty noodle slot at any position in Shuffle Mode.
+- **Add Blank Noodle** — insert a new empty noodle slot at any N-slot position in Shuffle Mode. Noodles below the insertion point shift down (e.g. N29 → N30); if the shelf is already full, the last item is pushed past N30 and becomes unavailable (limit is 30 active slots).
 - **Image Crop Tool** — interactive crop modal on image upload with pan, zoom (0.2×–4×), and aspect ratio presets (Free, Portrait 3:4, Square 1:1, Landscape 4:3). Exports as PNG with transparent background.
 
 ### Fixed
