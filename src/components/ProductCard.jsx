@@ -45,12 +45,12 @@ export default function ProductCard({
           onLoad={handleLoad}
           className={
             uniformScale
-              ? "max-h-full max-w-[85%] object-contain"
+              ? "max-h-[calc(100%-3rem)] max-w-[85%] object-contain"
               : orientation === "portrait"
-              ? "max-h-full max-w-[70%] object-contain"
+              ? "max-h-[calc(100%-3rem)] max-w-[70%] object-contain"
               : orientation === "landscape"
-              ? "max-h-full max-w-[95%] object-contain"
-              : "max-h-full max-w-[85%] object-contain"
+              ? "max-h-[calc(100%-3rem)] max-w-[95%] object-contain"
+              : "max-h-[calc(100%-3rem)] max-w-[85%] object-contain"
           }
           loading="lazy"
         />

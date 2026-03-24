@@ -191,7 +191,7 @@ export default function MenuMobile() {
                             key={product.id}
                             image={
                               product.image_url
-                                ? `/images/${product.image_url}`
+                                ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
                                 : "/images/placeholder.jpg"
                             }
                             onClick={() => handleProductClick(product, false)}

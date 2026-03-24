@@ -459,7 +459,7 @@ export default function MenuDesktop() {
                                           name={product.name}
                                           image={
                                             product.image_url
-                                              ? `/images/${product.image_url}`
+                                              ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
                                               : "/images/placeholder.jpg"
                                           }
                                           price={

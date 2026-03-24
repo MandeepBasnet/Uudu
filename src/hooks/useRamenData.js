@@ -5,15 +5,34 @@ import localRamenData from "../data/updatedRamen.json";
 /**
  * Assigns sequential display_id (N01–N30) to available noodles.
  * Unavailable noodles (coming_soon / out_of_stock) get display_id = null.
- * Items are sorted by their raw `id` field first to preserve shelf order.
+ * If sortOrder (array of IDs) is provided, items are sorted by their position
+ * in that array. Items absent from sortOrder are appended at the end, sorted
+ * by raw id. Falls back to pure id-based sort when sortOrder is null/empty.
  */
-export function assignDisplayIds(items) {
-  // Sort by the raw id field to get canonical shelf order (N01, N02, …)
-  const sorted = [...items].sort((a, b) => {
-    const numA = parseInt((a.id || "").replace(/\D/g, ""), 10) || 999;
-    const numB = parseInt((b.id || "").replace(/\D/g, ""), 10) || 999;
-    return numA - numB;
-  });
+export function assignDisplayIds(items, sortOrder = null) {
+  let sorted;
+  if (sortOrder && sortOrder.length > 0) {
+    sorted = [...items].sort((a, b) => {
+      const posA = sortOrder.indexOf(a.id);
+      const posB = sortOrder.indexOf(b.id);
+      const rankA =
+        posA === -1
+          ? sortOrder.length + (parseInt((a.id || "").replace(/\D/g, ""), 10) || 999)
+          : posA;
+      const rankB =
+        posB === -1
+          ? sortOrder.length + (parseInt((b.id || "").replace(/\D/g, ""), 10) || 999)
+          : posB;
+      return rankA - rankB;
+    });
+  } else {
+    // Default: sort by the raw id field to get canonical shelf order (N01, N02, …)
+    sorted = [...items].sort((a, b) => {
+      const numA = parseInt((a.id || "").replace(/\D/g, ""), 10) || 999;
+      const numB = parseInt((b.id || "").replace(/\D/g, ""), 10) || 999;
+      return numA - numB;
+    });
+  }
 
   let counter = 1;
   return sorted.map((item) => {
@@ -54,6 +73,19 @@ export function useRamenData() {
         );
 
         if (response.documents.length > 0) {
+          // Extract sort order from metadata before filtering
+          const sortOrderDoc = response.documents.find(
+            (doc) => doc.id === "metadata_sort_order",
+          );
+          let parsedSortOrder = null;
+          if (sortOrderDoc?.description) {
+            try {
+              parsedSortOrder = JSON.parse(sortOrderDoc.description);
+            } catch (e) {
+              console.warn("Failed to parse metadata_sort_order:", e);
+            }
+          }
+
           // Map Appwrite documents to our data structure
           const processedDocs = response.documents
             .filter((doc) => !doc.id.startsWith("metadata_")) // Filter out metadata
@@ -65,7 +97,7 @@ export function useRamenData() {
                   ? JSON.parse(doc.suggested_videos)
                   : doc.suggested_videos,
             }));
-          setData(assignDisplayIds(processedDocs));
+          setData(assignDisplayIds(processedDocs, parsedSortOrder));
           setSource("remote");
         } else {
           // Database is empty, fallback to local

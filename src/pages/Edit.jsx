@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import Cropper from "react-easy-crop";
 import { useNavigate } from "react-router-dom";
 import {
   account,
@@ -31,6 +32,21 @@ const Edit = () => {
 
   // For initializing DB
   const [initStatus, setInitStatus] = useState("");
+
+  // Crop Modal State
+  const [cropModal, setCropModal] = useState({ open: false, src: null, file: null });
+  const [cropAspect, setCropAspect] = useState(null); // null = free, number = ratio
+  const [cropZoom, setCropZoom] = useState(1);
+  const [cropPosition, setCropPosition] = useState({ x: 0, y: 0 });
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+  // Shuffle Mode State
+  const [sortOrder, setSortOrder] = useState(null);
+  const [shuffleMode, setShuffleMode] = useState(false);
+  const [shuffleList, setShuffleList] = useState([]);
+  const [draggingId, setDraggingId] = useState(null);
+  const [dragOverId, setDragOverId] = useState(null);
+  const [savingOrder, setSavingOrder] = useState(false);
 
   // Business Hours State
   const [showHoursModal, setShowHoursModal] = useState(false);
@@ -78,6 +94,8 @@ const Edit = () => {
       setOriginalItem(null);
       setMessage({ type: "", text: "" });
       setInitStatus("");
+      setShuffleMode(false);
+      setShuffleList([]);
     }
   }, [activeTab, user]);
 
@@ -123,6 +141,18 @@ const Edit = () => {
       console.log("Response documents count:", response.documents.length);
       console.log("First document:", response.documents[0]);
 
+      // Extract sort order metadata before filtering
+      const sortOrderDoc = response.documents.find(
+        (doc) => doc.id === "metadata_sort_order",
+      );
+      let fetchedSortOrder = null;
+      if (sortOrderDoc?.description) {
+        try {
+          fetchedSortOrder = JSON.parse(sortOrderDoc.description);
+        } catch (e) {}
+      }
+      setSortOrder(fetchedSortOrder);
+
       // Sort by ID naturally
       const sorted = response.documents
         .filter((doc) => !doc.id.startsWith("metadata_"))
@@ -131,7 +161,7 @@ const Edit = () => {
 
       // For ramen: compute display_ids and sort available first, unavailable at bottom
       if (tab === "ramen") {
-        const withDisplayIds = assignDisplayIds(sorted);
+        const withDisplayIds = assignDisplayIds(sorted, fetchedSortOrder);
         withDisplayIds.sort((a, b) => {
           const aUnavail = a.display_id === null;
           const bUnavail = b.display_id === null;
@@ -227,7 +257,7 @@ const Edit = () => {
 
       // Remove system attributes and computed-only fields not stored in DB
       const cleanPayload = {};
-      const excludedKeys = new Set(["display_id"]);
+      const excludedKeys = new Set(["display_id", "_isNew"]);
       Object.keys(payload).forEach((key) => {
         if (!key.startsWith("$") && !excludedKeys.has(key)) {
           cleanPayload[key] = payload[key];
@@ -247,7 +277,7 @@ const Edit = () => {
           item.$id === selectedItem.$id ? { ...item, ...cleanPayload } : item,
         );
         if (activeTab === "ramen") {
-          const withDisplayIds = assignDisplayIds(updated);
+          const withDisplayIds = assignDisplayIds(updated, sortOrder);
           withDisplayIds.sort((a, b) => {
             const aUnavail = a.display_id === null;
             const bUnavail = b.display_id === null;
@@ -321,10 +351,8 @@ const Edit = () => {
     }
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
+  // Shared upload logic used by both "upload original" and "crop & upload"
+  const doUploadFile = useCallback(async (file) => {
     setSaving(true);
     try {
       const response = await storage.createFile(
@@ -332,34 +360,81 @@ const Edit = () => {
         ID.unique(),
         file,
       );
-
-      const fileUrl = storage.getFileView(
-        appwriteConfig.bucketId,
-        response.$id,
-      );
+      const fileUrl = storage.getFileView(appwriteConfig.bucketId, response.$id);
       const finalUrl =
         fileUrl && typeof fileUrl === "object" && "href" in fileUrl
           ? fileUrl.href
           : fileUrl;
-
-      setSelectedItem((prev) => ({
-        ...prev,
-        image_url: finalUrl,
-      }));
-
-      setMessage({
-        type: "success",
-        text: "Image uploaded! Remember to Save.",
-      });
+      setSelectedItem((prev) => ({ ...prev, image_url: finalUrl }));
+      setMessage({ type: "success", text: "Image uploaded! Remember to Save." });
     } catch (err) {
       console.error("Upload failed", err);
-      setMessage({
-        type: "error",
-        text: "Image upload failed. " + err.message,
-      });
+      setMessage({ type: "error", text: "Image upload failed. " + err.message });
     } finally {
       setSaving(false);
     }
+  }, []);
+
+  // Opens the crop modal instead of uploading immediately
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    e.target.value = "";
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setCropModal({ open: true, src: ev.target.result, file });
+      setCropAspect(null);
+      setCropZoom(1);
+      setCropPosition({ x: 0, y: 0 });
+      setCroppedAreaPixels(null);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Reads the pixel region from react-easy-crop, draws it on a canvas, uploads.
+  // Handles zoom-out: empty space outside the image is filled with white.
+  const handleCropAndUpload = async () => {
+    if (!croppedAreaPixels || !cropModal.src) return;
+    const { x, y, width, height } = croppedAreaPixels;
+
+    const image = new Image();
+    image.src = cropModal.src;
+    await new Promise((res) => { image.onload = res; });
+
+    const maxDim = 1400;
+    const outScale = Math.min(1, maxDim / Math.max(width, height));
+    const canvasW = Math.round(width * outScale);
+    const canvasH = Math.round(height * outScale);
+
+    const canvas = document.createElement("canvas");
+    canvas.width = canvasW;
+    canvas.height = canvasH;
+    const ctx = canvas.getContext("2d");
+
+    // Canvas is transparent by default — no fill needed
+
+    // Intersection of crop area with actual image bounds
+    const srcX = Math.max(0, x);
+    const srcY = Math.max(0, y);
+    const srcRight = Math.min(image.naturalWidth, x + width);
+    const srcBottom = Math.min(image.naturalHeight, y + height);
+    const srcW = srcRight - srcX;
+    const srcH = srcBottom - srcY;
+
+    if (srcW > 0 && srcH > 0) {
+      const dstX = ((srcX - x) / width) * canvasW;
+      const dstY = ((srcY - y) / height) * canvasH;
+      const dstW = (srcW / width) * canvasW;
+      const dstH = (srcH / height) * canvasH;
+      ctx.drawImage(image, srcX, srcY, srcW, srcH, dstX, dstY, dstW, dstH);
+    }
+
+    canvas.toBlob(async (blob) => {
+      if (!blob) return;
+      const croppedFile = new File([blob], cropModal.file.name, { type: "image/png" });
+      setCropModal({ open: false, src: null, file: null });
+      await doUploadFile(croppedFile);
+    }, "image/png");
   };
 
   // --- Migration Logic ---
@@ -434,6 +509,184 @@ const Edit = () => {
       );
     }
     fetchItems();
+  };
+
+  // --- Shuffle Mode Helpers & Handlers ---
+
+  // Compute live preview N-numbers for the current shuffle list order.
+  const getShufflePreviewIds = (list) => {
+    const map = new Map();
+    let counter = 1;
+    for (const item of list) {
+      const isUnavailable =
+        item.status === "coming_soon" || item.status === "out_of_stock";
+      if (isUnavailable || counter > 30) {
+        map.set(item.id, null);
+      } else {
+        map.set(item.id, `N${String(counter).padStart(2, "0")}`);
+        counter++;
+      }
+    }
+    return map;
+  };
+
+  const enterShuffleMode = () => {
+    setShuffleList([...itemsList]);
+    setShuffleMode(true);
+  };
+
+  const exitShuffleMode = () => {
+    setShuffleMode(false);
+    setShuffleList([]);
+    setDraggingId(null);
+    setDragOverId(null);
+  };
+
+  const handleAddBlankTemplate = () => {
+    const rawId = window.prompt(
+      "Enter an ID for the new noodle slot (e.g. N31, N32):",
+    );
+    if (!rawId) return;
+    const trimmed = rawId.trim().toUpperCase();
+    if (!isValidId(trimmed)) {
+      alert("Invalid ID. Use alphanumeric characters only (e.g. N31).");
+      return;
+    }
+    if (shuffleList.some((item) => item.id === trimmed)) {
+      alert(`ID "${trimmed}" already exists in the list.`);
+      return;
+    }
+    const blankItem = {
+      id: trimmed,
+      $id: trimmed,
+      name: "(New Noodle)",
+      status: "available",
+      type: "Soup",
+      country: "S. Korea",
+      description: "",
+      price_packet: 0,
+      price_bowl: 0,
+      spiciness: "5 out of 10 flames",
+      menu: "Menu 1",
+      manufacturer_url: "",
+      suggested_toppings: "",
+      suggested_videos: "[]",
+      image_url: "",
+      display_id: null,
+      _isNew: true,
+    };
+    setShuffleList((prev) => [...prev, blankItem]);
+  };
+
+  const handleDragStart = (e, itemId) => {
+    setDraggingId(itemId);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e, itemId) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    if (itemId !== draggingId) setDragOverId(itemId);
+  };
+
+  const handleDrop = (e, targetId) => {
+    e.preventDefault();
+    if (!draggingId || draggingId === targetId) return;
+    setShuffleList((prev) => {
+      const list = [...prev];
+      const fromIdx = list.findIndex((item) => item.id === draggingId);
+      const toIdx = list.findIndex((item) => item.id === targetId);
+      if (fromIdx === -1 || toIdx === -1) return prev;
+      const [moved] = list.splice(fromIdx, 1);
+      list.splice(toIdx, 0, moved);
+      return list;
+    });
+    setDragOverId(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggingId(null);
+    setDragOverId(null);
+  };
+
+  const handleSaveOrder = async () => {
+    setSavingOrder(true);
+    try {
+      const metaCollectionId = appwriteConfig.collectionId;
+
+      // Step 1: Create any new (_isNew) items in Appwrite
+      for (const item of shuffleList.filter((i) => i._isNew)) {
+        const payload = {
+          id: item.id,
+          name: item.name,
+          status: item.status,
+          type: item.type,
+          country: item.country,
+          description: item.description,
+          price_packet: item.price_packet,
+          price_bowl: item.price_bowl,
+          spiciness: item.spiciness,
+          menu: item.menu,
+          manufacturer_url: item.manufacturer_url,
+          suggested_toppings: item.suggested_toppings,
+          suggested_videos: item.suggested_videos,
+          image_url: item.image_url,
+        };
+        try {
+          await databases.createDocument(
+            appwriteConfig.dbId,
+            metaCollectionId,
+            item.id,
+            payload,
+          );
+        } catch (err) {
+          if (err.code !== 409) throw err;
+        }
+      }
+
+      // Step 2: Save sort order array as metadata document
+      const orderedIds = shuffleList.map((i) => i.id);
+      const sortPayload = {
+        id: "metadata_sort_order",
+        name: "Sort Order Metadata",
+        status: "available",
+        type: "Soup",
+        country: "Other Asia",
+        description: JSON.stringify(orderedIds),
+        image_url: "placeholder",
+        price_packet: 0,
+        price_bowl: 0,
+        spiciness: "None",
+        menu: "None",
+      };
+      try {
+        await databases.updateDocument(
+          appwriteConfig.dbId,
+          metaCollectionId,
+          "metadata_sort_order",
+          sortPayload,
+        );
+      } catch (err) {
+        if (err.code === 404) {
+          await databases.createDocument(
+            appwriteConfig.dbId,
+            metaCollectionId,
+            "metadata_sort_order",
+            sortPayload,
+          );
+        } else throw err;
+      }
+
+      // Step 3: Refresh and exit
+      await fetchItems(activeTab);
+      exitShuffleMode();
+      setMessage({ type: "success", text: "Shelf order saved!" });
+    } catch (err) {
+      console.error("Failed to save order:", err);
+      setMessage({ type: "error", text: "Failed to save order: " + err.message });
+    } finally {
+      setSavingOrder(false);
+    }
   };
 
   // --- Render ---
@@ -864,68 +1117,175 @@ const Edit = () => {
 
           <div className="flex justify-between items-center w-full">
             <h2 className="font-bold text-xs uppercase text-gray-500">
-              {activeTab === "ramen" ? "Ramen Box List" : "Toppings List"}
+              {shuffleMode
+                ? "Shuffle Mode"
+                : activeTab === "ramen"
+                  ? "Ramen Box List"
+                  : "Toppings List"}
             </h2>
-            <button
-              onClick={handleLogout}
-              className="text-xs text-red-500 hover:underline"
-            >
-              Logout
-            </button>
+            <div className="flex items-center gap-3">
+              {activeTab === "ramen" && !shuffleMode && (
+                <button
+                  onClick={enterShuffleMode}
+                  className="text-xs text-[#99564c] font-semibold hover:underline"
+                  title="Drag and drop to reorder the noodle shelf"
+                >
+                  Shuffle
+                </button>
+              )}
+              <button
+                onClick={handleLogout}
+                className="text-xs text-red-500 hover:underline"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
         <div className="flex-1 overflow-y-auto">
-          {itemsList.length === 0 && (
-            <div className="p-4 text-center">
-              <p className="text-sm text-gray-500 mb-4">No data found.</p>
-              <button
-                onClick={handleInitialMigration}
-                className="text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded border border-blue-200 hover:bg-blue-100"
-              >
-                Initialize {activeTab === "ramen" ? "Ramen" : "Toppings"} DB
-              </button>
-              {initStatus && (
-                <p className="text-xs mt-2 text-gray-500 break-words">
-                  {initStatus}
-                </p>
+          {/* ── SHUFFLE MODE ── */}
+          {shuffleMode && activeTab === "ramen" ? (
+            (() => {
+              const previewMap = getShufflePreviewIds(shuffleList);
+              return shuffleList.map((item) => {
+                const previewId = previewMap.get(item.id);
+                const isUnavailable =
+                  item.status === "coming_soon" ||
+                  item.status === "out_of_stock";
+                const isDragging = draggingId === item.id;
+                const isDragTarget = dragOverId === item.id;
+                return (
+                  <div
+                    key={item.id}
+                    draggable
+                    onDragStart={(e) => handleDragStart(e, item.id)}
+                    onDragOver={(e) => handleDragOver(e, item.id)}
+                    onDrop={(e) => handleDrop(e, item.id)}
+                    onDragEnd={handleDragEnd}
+                    className={`flex items-center gap-2 px-3 py-2.5 border-b border-gray-100 cursor-grab select-none transition-all
+                      ${isDragging ? "opacity-40 bg-orange-50" : "hover:bg-gray-50"}
+                      ${isDragTarget ? "border-t-2 border-t-[#99564c]" : ""}
+                      ${isUnavailable ? "bg-gray-50" : ""}
+                    `}
+                  >
+                    <span className="text-gray-400 text-base leading-none flex-shrink-0">
+                      ⠿
+                    </span>
+                    <span
+                      className={`text-xs font-bold w-10 flex-shrink-0 ${previewId ? "text-[#99564c]" : "text-gray-400"}`}
+                    >
+                      {previewId ?? "—"}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs text-gray-700 truncate">
+                        {item.name || "(empty)"}
+                      </div>
+                      <div className="text-[10px] text-gray-400">{item.id}</div>
+                    </div>
+                    {item._isNew && (
+                      <span className="text-[9px] px-1 py-0.5 bg-green-100 text-green-700 rounded font-bold uppercase flex-shrink-0">
+                        NEW
+                      </span>
+                    )}
+                    {!item._isNew && isUnavailable && (
+                      <span className="text-[9px] px-1 py-0.5 bg-yellow-100 text-yellow-700 rounded font-bold uppercase flex-shrink-0">
+                        {item.status === "coming_soon" ? "SOON" : "OOS"}
+                      </span>
+                    )}
+                  </div>
+                );
+              });
+            })()
+          ) : (
+            /* ── NORMAL MODE ── */
+            <>
+              {itemsList.length === 0 && (
+                <div className="p-4 text-center">
+                  <p className="text-sm text-gray-500 mb-4">No data found.</p>
+                  <button
+                    onClick={handleInitialMigration}
+                    className="text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded border border-blue-200 hover:bg-blue-100"
+                  >
+                    Initialize {activeTab === "ramen" ? "Ramen" : "Toppings"}{" "}
+                    DB
+                  </button>
+                  {initStatus && (
+                    <p className="text-xs mt-2 text-gray-500 break-words">
+                      {initStatus}
+                    </p>
+                  )}
+                </div>
               )}
-            </div>
+              {itemsList.map((item) => (
+                <button
+                  key={item.$id}
+                  onClick={() => handleSelect(item)}
+                  className={`w-full text-left px-4 py-3 border-b border-gray-100 hover:bg-gray-50 transition-colors ${selectedItem?.$id === item.$id ? "bg-orange-50 border-l-4 border-l-[#99564c]" : ""}`}
+                >
+                  <div className="flex items-center gap-2">
+                    {item.display_id && (
+                      <span className="font-bold text-gray-800">
+                        {item.display_id}
+                      </span>
+                    )}
+                    {!item.display_id && activeTab === "ramen" && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-yellow-100 text-yellow-700 font-semibold uppercase">
+                        {item.status === "coming_soon" ? "Soon" : "N/A"}
+                      </span>
+                    )}
+                    {!item.display_id && activeTab !== "ramen" && (
+                      <span className="font-bold text-gray-800">{item.id}</span>
+                    )}
+                  </div>
+                  <div className="text-xs text-gray-500 truncate">
+                    {item.name || "(empty)"}
+                    {!item.display_id && activeTab === "ramen" && (
+                      <span className="text-gray-400 ml-1">({item.id})</span>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </>
           )}
-          {itemsList.map((item) => (
-            <button
-              key={item.$id}
-              onClick={() => handleSelect(item)}
-              className={`w-full text-left px-4 py-3 border-b border-gray-100 hover:bg-gray-50 transition-colors ${selectedItem?.$id === item.$id ? "bg-orange-50 border-l-4 border-l-[#99564c]" : ""}`}
-            >
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-gray-800">
-                  {item.display_id || item.id}
-                </span>
-                {!item.display_id && activeTab === "ramen" && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-yellow-100 text-yellow-700 font-semibold uppercase">
-                    {item.status === "coming_soon" ? "Soon" : "N/A"}
-                  </span>
-                )}
-              </div>
-              <div className="text-xs text-gray-500 truncate">
-                {item.name || "(empty)"}
-                {!item.display_id && activeTab === "ramen" && (
-                  <span className="text-gray-400 ml-1">({item.id})</span>
-                )}
-              </div>
-            </button>
-          ))}
         </div>
         <div className="p-4 border-t border-gray-200">
-          <button
-            onClick={() => {
-              fetchBusinessHours();
-              setShowHoursModal(true);
-            }}
-            className="w-full py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded text-sm transition-colors"
-          >
-            Edit Business Hours
-          </button>
+          {shuffleMode && activeTab === "ramen" ? (
+            <div className="space-y-2">
+              <button
+                onClick={handleAddBlankTemplate}
+                disabled={savingOrder}
+                className="w-full text-xs py-2 border border-dashed border-gray-400 rounded text-gray-600 hover:border-[#99564c] hover:text-[#99564c] transition-colors font-semibold disabled:opacity-50"
+              >
+                + Add Blank Noodle
+              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={exitShuffleMode}
+                  disabled={savingOrder}
+                  className="flex-1 text-xs py-2 rounded border border-gray-300 text-gray-600 hover:bg-gray-100 font-semibold disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSaveOrder}
+                  disabled={savingOrder}
+                  className="flex-1 text-xs py-2 rounded bg-[#99564c] text-white font-bold hover:bg-[#7a453d] disabled:opacity-50 transition-colors"
+                >
+                  {savingOrder ? "Saving..." : "Save Order"}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => {
+                fetchBusinessHours();
+                setShowHoursModal(true);
+              }}
+              className="w-full py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded text-sm transition-colors"
+            >
+              Edit Business Hours
+            </button>
+          )}
         </div>
       </div>
 
@@ -1127,6 +1487,128 @@ const Edit = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Crop Modal */}
+      {cropModal.open && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg flex flex-col" style={{ maxHeight: "90vh" }}>
+
+            {/* Header */}
+            <div className="px-5 py-4 border-b border-gray-200 flex-shrink-0">
+              <h2 className="text-lg font-bold text-gray-800">Crop Image</h2>
+              <p className="text-xs text-gray-500 mt-0.5">Drag to reposition · pinch or slider to zoom</p>
+            </div>
+
+            {/* Cropper area — checkerboard indicates transparency */}
+            <div
+              className="relative flex-shrink-0"
+              style={{
+                height: 360,
+                backgroundImage:
+                  "repeating-conic-gradient(#d1d5db 0% 25%, #ffffff 0% 50%)",
+                backgroundSize: "20px 20px",
+              }}
+            >
+              <Cropper
+                image={cropModal.src}
+                crop={cropPosition}
+                zoom={cropZoom}
+                minZoom={0.2}
+                maxZoom={4}
+                aspect={cropAspect ?? undefined}
+                restrictPosition={false}
+                onCropChange={setCropPosition}
+                onZoomChange={setCropZoom}
+                onCropComplete={(_, pixels) => setCroppedAreaPixels(pixels)}
+                style={{
+                  containerStyle: { borderRadius: 0, background: "transparent" },
+                  mediaStyle: { background: "transparent" },
+                }}
+              />
+            </div>
+
+            {/* Controls */}
+            <div className="px-5 py-4 space-y-4 flex-shrink-0">
+
+              {/* Aspect ratio */}
+              <div>
+                <p className="text-xs font-bold text-gray-500 uppercase mb-2">Aspect Ratio</p>
+                <div className="flex gap-2 flex-wrap">
+                  {[
+                    { label: "Free", value: null },
+                    { label: "Portrait 3:4", value: 3 / 4 },
+                    { label: "Square 1:1", value: 1 },
+                    { label: "Landscape 4:3", value: 4 / 3 },
+                  ].map(({ label, value }) => (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => {
+                        setCropAspect(value);
+                        setCropZoom(1);
+                        setCropPosition({ x: 0, y: 0 });
+                      }}
+                      className={`px-3 py-1.5 rounded text-sm font-semibold border transition-colors ${
+                        cropAspect === value
+                          ? "bg-[#99564c] text-white border-[#99564c]"
+                          : "border-gray-300 text-gray-600 hover:bg-gray-50"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Zoom slider */}
+              <div>
+                <p className="text-xs font-bold text-gray-500 uppercase mb-2">
+                  Zoom — {cropZoom.toFixed(2)}×
+                </p>
+                <input
+                  type="range"
+                  min={0.2}
+                  max={4}
+                  step={0.01}
+                  value={cropZoom}
+                  onChange={(e) => setCropZoom(Number(e.target.value))}
+                  className="w-full accent-[#99564c]"
+                />
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-5 pb-5 flex justify-end gap-2 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => setCropModal({ open: false, src: null, file: null })}
+                className="px-4 py-2 text-sm rounded border border-gray-300 text-gray-600 hover:bg-gray-100 font-semibold"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const f = cropModal.file;
+                  setCropModal({ open: false, src: null, file: null });
+                  doUploadFile(f);
+                }}
+                className="px-4 py-2 text-sm rounded border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold"
+              >
+                Upload Original
+              </button>
+              <button
+                type="button"
+                onClick={handleCropAndUpload}
+                disabled={!croppedAreaPixels}
+                className="px-4 py-2 text-sm rounded bg-[#99564c] text-white font-bold hover:bg-[#7a453d] transition-colors disabled:opacity-50"
+              >
+                Crop &amp; Upload
+              </button>
+            </div>
           </div>
         </div>
       )}
