@@ -518,9 +518,7 @@ const Edit = () => {
     const map = new Map();
     let counter = 1;
     for (const item of list) {
-      const isUnavailable =
-        item.status === "coming_soon" || item.status === "out_of_stock";
-      if (isUnavailable || counter > 30) {
+      if (counter > 30) {
         map.set(item.id, null);
       } else {
         map.set(item.id, `N${String(counter).padStart(2, "0")}`);
@@ -531,7 +529,11 @@ const Edit = () => {
   };
 
   const enterShuffleMode = () => {
-    setShuffleList([...itemsList]);
+    setShuffleList(
+      itemsList.filter(
+        (item) => item.status !== "coming_soon" && item.status !== "out_of_stock"
+      )
+    );
     setShuffleMode(true);
   };
 
@@ -1149,9 +1151,6 @@ const Edit = () => {
               const previewMap = getShufflePreviewIds(shuffleList);
               return shuffleList.map((item) => {
                 const previewId = previewMap.get(item.id);
-                const isUnavailable =
-                  item.status === "coming_soon" ||
-                  item.status === "out_of_stock";
                 const isDragging = draggingId === item.id;
                 const isDragTarget = dragOverId === item.id;
                 return (
@@ -1165,7 +1164,6 @@ const Edit = () => {
                     className={`flex items-center gap-2 px-3 py-2.5 border-b border-gray-100 cursor-grab select-none transition-all
                       ${isDragging ? "opacity-40 bg-orange-50" : "hover:bg-gray-50"}
                       ${isDragTarget ? "border-t-2 border-t-[#99564c]" : ""}
-                      ${isUnavailable ? "bg-gray-50" : ""}
                     `}
                   >
                     <span className="text-gray-400 text-base leading-none flex-shrink-0">
@@ -1185,11 +1183,6 @@ const Edit = () => {
                     {item._isNew && (
                       <span className="text-[9px] px-1 py-0.5 bg-green-100 text-green-700 rounded font-bold uppercase flex-shrink-0">
                         NEW
-                      </span>
-                    )}
-                    {!item._isNew && isUnavailable && (
-                      <span className="text-[9px] px-1 py-0.5 bg-yellow-100 text-yellow-700 rounded font-bold uppercase flex-shrink-0">
-                        {item.status === "coming_soon" ? "SOON" : "OOS"}
                       </span>
                     )}
                   </div>
