@@ -7,6 +7,7 @@ export default function ProductCard({
   price,
   hidePrice,
   uniformScale,
+  coverMode,
   status,
   id,
 }) {
@@ -38,13 +39,15 @@ export default function ProductCard({
   return (
     <div className="group">
       {/* Invisible frame that reserves consistent space */}
-      <div className="relative w-full h-56 sm:h-60 md:h-64 lg:h-72 flex items-center justify-center border border-transparent">
+      <div className={`relative w-full border border-transparent ${coverMode ? "aspect-square overflow-hidden rounded-xl" : "h-56 sm:h-60 md:h-64 lg:h-72 flex items-center justify-center"}`}>
         <img
           src={image}
           alt={name}
           onLoad={handleLoad}
           className={
-            uniformScale
+            coverMode
+              ? "w-full h-full object-cover"
+              : uniformScale
               ? "max-h-[calc(100%-3rem)] max-w-[85%] object-contain"
               : orientation === "portrait"
               ? "max-h-[calc(100%-3rem)] max-w-[70%] object-contain"

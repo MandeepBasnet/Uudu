@@ -128,7 +128,9 @@ export default function MenuMobile() {
                 const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
                 if (aFlag && !bFlag) return 1;
                 if (!aFlag && bFlag) return -1;
-                return 0;
+                if (!aFlag && !bFlag)
+                  return (a.display_id || a.id).localeCompare(b.display_id || b.id);
+                return (a.id || "").localeCompare(b.id || "");
               }).map((product) => (
                 <MobileProductCard
                   key={product.id}
@@ -197,6 +199,7 @@ export default function MenuMobile() {
                             onClick={() => handleProductClick(product, false)}
                             status={product.status}
                             id={null}
+                            coverMode
                           />
                         ))}
                       </div>

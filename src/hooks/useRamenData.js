@@ -10,15 +10,12 @@ import localRamenData from "../data/updatedRamen.json";
  * by raw id. Falls back to pure id-based sort when sortOrder is null/empty.
  */
 export function assignDisplayIds(items, sortOrder = null) {
-  const isUnavailable = (item) =>
-    item.status === "coming_soon" || item.status === "out_of_stock";
-
-  const available = items.filter((item) => !isUnavailable(item));
-  const unavailable = items.filter((item) => isUnavailable(item));
-
-  let sortedAvailable;
+  // Sort ALL items (available + unavailable) by their sortOrder position so
+  // unavailable items hold their reserved slot. N-numbers are only assigned
+  // to available items; unavailable items keep their position but get null.
+  let sorted;
   if (sortOrder && sortOrder.length > 0) {
-    sortedAvailable = [...available].sort((a, b) => {
+    sorted = [...items].sort((a, b) => {
       const posA = sortOrder.indexOf(a.id);
       const posB = sortOrder.indexOf(b.id);
       const rankA =
@@ -32,7 +29,7 @@ export function assignDisplayIds(items, sortOrder = null) {
       return rankA - rankB;
     });
   } else {
-    sortedAvailable = [...available].sort((a, b) => {
+    sorted = [...items].sort((a, b) => {
       const numA = parseInt((a.id || "").replace(/\D/g, ""), 10) || 999;
       const numB = parseInt((b.id || "").replace(/\D/g, ""), 10) || 999;
       return numA - numB;
@@ -40,14 +37,15 @@ export function assignDisplayIds(items, sortOrder = null) {
   }
 
   let counter = 1;
-  const withIds = sortedAvailable.map((item) => {
+  return sorted.map((item) => {
+    const isUnavailable =
+      item.status === "coming_soon" || item.status === "out_of_stock";
+    if (isUnavailable) return { ...item, display_id: null };
     if (counter > 30) return { ...item, display_id: null };
     const display_id = `N${String(counter).padStart(2, "0")}`;
     counter++;
     return { ...item, display_id };
   });
-
-  return [...withIds, ...unavailable.map((item) => ({ ...item, display_id: null }))];
 }
 
 export function useRamenData() {

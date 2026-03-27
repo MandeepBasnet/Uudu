@@ -12,6 +12,7 @@ import {
 import localRamenData from "../data/updatedRamen.json";
 import localToppingsData from "../data/updatedToppings.json";
 import { assignDisplayIds } from "../hooks/useRamenData";
+import { assignToppingDisplayIds } from "../hooks/useToppingsData";
 
 // Helper to check if a string is a valid ID for Appwrite (alphanumeric, -, _, .)
 const isValidId = (str) => /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(str);
@@ -173,7 +174,17 @@ const Edit = () => {
         });
         setItemsList(withDisplayIds);
       } else {
-        setItemsList(sorted);
+        const withDisplayIds = assignToppingDisplayIds(sorted, fetchedSortOrder);
+        withDisplayIds.sort((a, b) => {
+          const aUnavail = a.display_id === null;
+          const bUnavail = b.display_id === null;
+          if (aUnavail && !bUnavail) return 1;
+          if (!aUnavail && bUnavail) return -1;
+          if (!aUnavail && !bUnavail)
+            return a.display_id.localeCompare(b.display_id);
+          return a.id.localeCompare(b.id);
+        });
+        setItemsList(withDisplayIds);
       }
     } catch (err) {
       console.error("Fetch error", err);
@@ -289,7 +300,18 @@ const Edit = () => {
           });
           return withDisplayIds;
         }
-        return updated;
+        // toppings
+        const withDisplayIds = assignToppingDisplayIds(updated, sortOrder);
+        withDisplayIds.sort((a, b) => {
+          const aUnavail = a.display_id === null;
+          const bUnavail = b.display_id === null;
+          if (aUnavail && !bUnavail) return 1;
+          if (!aUnavail && bUnavail) return -1;
+          if (!aUnavail && !bUnavail)
+            return a.display_id.localeCompare(b.display_id);
+          return a.id.localeCompare(b.id);
+        });
+        return withDisplayIds;
       });
       setOriginalItem(selectedItem); // Update original to new state
     } catch (err) {
@@ -515,13 +537,16 @@ const Edit = () => {
 
   // Compute live preview N-numbers for the current shuffle list order.
   const getShufflePreviewIds = (list) => {
+    const prefix = activeTab === "ramen" ? "N" : "T";
     const map = new Map();
     let counter = 1;
     for (const item of list) {
-      if (counter > 30) {
+      const isUnavailable =
+        item.status === "coming_soon" || item.status === "out_of_stock";
+      if (isUnavailable || counter > 30) {
         map.set(item.id, null);
       } else {
-        map.set(item.id, `N${String(counter).padStart(2, "0")}`);
+        map.set(item.id, `${prefix}${String(counter).padStart(2, "0")}`);
         counter++;
       }
     }
@@ -529,11 +554,14 @@ const Edit = () => {
   };
 
   const enterShuffleMode = () => {
-    setShuffleList(
-      itemsList.filter(
-        (item) => item.status !== "coming_soon" && item.status !== "out_of_stock"
-      )
+    // Available items first (in current slot order), unavailable at the bottom
+    const available = itemsList.filter(
+      (item) => item.status !== "coming_soon" && item.status !== "out_of_stock"
     );
+    const unavailable = itemsList.filter(
+      (item) => item.status === "coming_soon" || item.status === "out_of_stock"
+    );
+    setShuffleList([...available, ...unavailable]);
     setShuffleMode(true);
   };
 
@@ -545,38 +573,52 @@ const Edit = () => {
   };
 
   const handleAddBlankTemplate = () => {
-    const rawId = window.prompt(
-      "Enter an ID for the new noodle slot (e.g. N31, N32):",
-    );
+    const label = activeTab === "ramen" ? "noodle slot (e.g. N31, N32)" : "topping slot (e.g. T31, T32)";
+    const rawId = window.prompt(`Enter an ID for the new ${label}:`);
     if (!rawId) return;
     const trimmed = rawId.trim().toUpperCase();
     if (!isValidId(trimmed)) {
-      alert("Invalid ID. Use alphanumeric characters only (e.g. N31).");
+      alert("Invalid ID. Use alphanumeric characters only.");
       return;
     }
     if (shuffleList.some((item) => item.id === trimmed)) {
       alert(`ID "${trimmed}" already exists in the list.`);
       return;
     }
-    const blankItem = {
-      id: trimmed,
-      $id: trimmed,
-      name: "(New Noodle)",
-      status: "available",
-      type: "Soup",
-      country: "S. Korea",
-      description: "",
-      price_packet: 0,
-      price_bowl: 0,
-      spiciness: "5 out of 10 flames",
-      menu: "Menu 1",
-      manufacturer_url: "",
-      suggested_toppings: "",
-      suggested_videos: "[]",
-      image_url: "",
-      display_id: null,
-      _isNew: true,
-    };
+    const blankItem =
+      activeTab === "ramen"
+        ? {
+            id: trimmed,
+            $id: trimmed,
+            name: "(New Noodle)",
+            status: "available",
+            type: "Soup",
+            country: "S. Korea",
+            description: "",
+            price_packet: 0,
+            price_bowl: 0,
+            spiciness: "5 out of 10 flames",
+            menu: "Menu 1",
+            manufacturer_url: "",
+            suggested_toppings: "",
+            suggested_videos: "[]",
+            image_url: "",
+            display_id: null,
+            _isNew: true,
+          }
+        : {
+            id: trimmed,
+            $id: trimmed,
+            name: "(New Topping)",
+            status: "available",
+            category: "Veggies",
+            description: "",
+            price: 0,
+            spiciness: "1 out of 10 flames",
+            image_url: "",
+            display_id: null,
+            _isNew: true,
+          };
     setShuffleList((prev) => [...prev, blankItem]);
   };
 
@@ -614,26 +656,38 @@ const Edit = () => {
   const handleSaveOrder = async () => {
     setSavingOrder(true);
     try {
-      const metaCollectionId = appwriteConfig.collectionId;
+      const metaCollectionId = getCollectionId(activeTab);
 
       // Step 1: Create any new (_isNew) items in Appwrite
       for (const item of shuffleList.filter((i) => i._isNew)) {
-        const payload = {
-          id: item.id,
-          name: item.name,
-          status: item.status,
-          type: item.type,
-          country: item.country,
-          description: item.description,
-          price_packet: item.price_packet,
-          price_bowl: item.price_bowl,
-          spiciness: item.spiciness,
-          menu: item.menu,
-          manufacturer_url: item.manufacturer_url,
-          suggested_toppings: item.suggested_toppings,
-          suggested_videos: item.suggested_videos,
-          image_url: item.image_url,
-        };
+        const payload =
+          activeTab === "ramen"
+            ? {
+                id: item.id,
+                name: item.name,
+                status: item.status,
+                type: item.type,
+                country: item.country,
+                description: item.description,
+                price_packet: item.price_packet,
+                price_bowl: item.price_bowl,
+                spiciness: item.spiciness,
+                menu: item.menu,
+                manufacturer_url: item.manufacturer_url,
+                suggested_toppings: item.suggested_toppings,
+                suggested_videos: item.suggested_videos,
+                image_url: item.image_url,
+              }
+            : {
+                id: item.id,
+                name: item.name,
+                status: item.status,
+                category: item.category,
+                description: item.description,
+                price: item.price,
+                spiciness: item.spiciness,
+                image_url: item.image_url,
+              };
         try {
           await databases.createDocument(
             appwriteConfig.dbId,
@@ -648,19 +702,31 @@ const Edit = () => {
 
       // Step 2: Save sort order array as metadata document
       const orderedIds = shuffleList.map((i) => i.id);
-      const sortPayload = {
-        id: "metadata_sort_order",
-        name: "Sort Order Metadata",
-        status: "available",
-        type: "Soup",
-        country: "Other Asia",
-        description: JSON.stringify(orderedIds),
-        image_url: "placeholder",
-        price_packet: 0,
-        price_bowl: 0,
-        spiciness: "None",
-        menu: "None",
-      };
+      const sortPayload =
+        activeTab === "ramen"
+          ? {
+              id: "metadata_sort_order",
+              name: "Sort Order Metadata",
+              status: "available",
+              type: "Soup",
+              country: "Other Asia",
+              description: JSON.stringify(orderedIds),
+              image_url: "placeholder",
+              price_packet: 0,
+              price_bowl: 0,
+              spiciness: "None",
+              menu: "None",
+            }
+          : {
+              id: "metadata_sort_order",
+              name: "Sort Order Metadata",
+              status: "available",
+              category: "Veggies",
+              description: JSON.stringify(orderedIds),
+              image_url: "placeholder",
+              price: 0,
+              spiciness: "None",
+            };
       try {
         await databases.updateDocument(
           appwriteConfig.dbId,
@@ -682,7 +748,7 @@ const Edit = () => {
       // Step 3: Refresh and exit
       await fetchItems(activeTab);
       exitShuffleMode();
-      setMessage({ type: "success", text: "Shelf order saved!" });
+      setMessage({ type: "success", text: "Order saved!" });
     } catch (err) {
       console.error("Failed to save order:", err);
       setMessage({ type: "error", text: "Failed to save order: " + err.message });
@@ -1126,11 +1192,11 @@ const Edit = () => {
                   : "Toppings List"}
             </h2>
             <div className="flex items-center gap-3">
-              {activeTab === "ramen" && !shuffleMode && (
+              {!shuffleMode && (
                 <button
                   onClick={enterShuffleMode}
                   className="text-xs text-[#99564c] font-semibold hover:underline"
-                  title="Drag and drop to reorder the noodle shelf"
+                  title="Drag and drop to reorder"
                 >
                   Shuffle
                 </button>
@@ -1146,11 +1212,13 @@ const Edit = () => {
         </div>
         <div className="flex-1 overflow-y-auto">
           {/* ── SHUFFLE MODE ── */}
-          {shuffleMode && activeTab === "ramen" ? (
+          {shuffleMode ? (
             (() => {
               const previewMap = getShufflePreviewIds(shuffleList);
               return shuffleList.map((item) => {
                 const previewId = previewMap.get(item.id);
+                const isUnavailable =
+                  item.status === "coming_soon" || item.status === "out_of_stock";
                 const isDragging = draggingId === item.id;
                 const isDragTarget = dragOverId === item.id;
                 return (
@@ -1164,6 +1232,7 @@ const Edit = () => {
                     className={`flex items-center gap-2 px-3 py-2.5 border-b border-gray-100 cursor-grab select-none transition-all
                       ${isDragging ? "opacity-40 bg-orange-50" : "hover:bg-gray-50"}
                       ${isDragTarget ? "border-t-2 border-t-[#99564c]" : ""}
+                      ${isUnavailable ? "bg-gray-50" : ""}
                     `}
                   >
                     <span className="text-gray-400 text-base leading-none flex-shrink-0">
@@ -1178,11 +1247,15 @@ const Edit = () => {
                       <div className="text-xs text-gray-700 truncate">
                         {item.name || "(empty)"}
                       </div>
-                      <div className="text-[10px] text-gray-400">{item.id}</div>
                     </div>
                     {item._isNew && (
                       <span className="text-[9px] px-1 py-0.5 bg-green-100 text-green-700 rounded font-bold uppercase flex-shrink-0">
                         NEW
+                      </span>
+                    )}
+                    {!item._isNew && isUnavailable && (
+                      <span className="text-[9px] px-1 py-0.5 bg-yellow-100 text-yellow-700 rounded font-bold uppercase flex-shrink-0">
+                        {item.status === "coming_soon" ? "SOON" : "OOS"}
                       </span>
                     )}
                   </div>
@@ -1221,18 +1294,15 @@ const Edit = () => {
                         {item.display_id}
                       </span>
                     )}
-                    {!item.display_id && activeTab === "ramen" && (
+                    {!item.display_id && (
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-yellow-100 text-yellow-700 font-semibold uppercase">
                         {item.status === "coming_soon" ? "Soon" : "N/A"}
                       </span>
                     )}
-                    {!item.display_id && activeTab !== "ramen" && (
-                      <span className="font-bold text-gray-800">{item.id}</span>
-                    )}
                   </div>
                   <div className="text-xs text-gray-500 truncate">
                     {item.name || "(empty)"}
-                    {!item.display_id && activeTab === "ramen" && (
+                    {!item.display_id && (
                       <span className="text-gray-400 ml-1">({item.id})</span>
                     )}
                   </div>
@@ -1242,14 +1312,14 @@ const Edit = () => {
           )}
         </div>
         <div className="p-4 border-t border-gray-200">
-          {shuffleMode && activeTab === "ramen" ? (
+          {shuffleMode ? (
             <div className="space-y-2">
               <button
                 onClick={handleAddBlankTemplate}
                 disabled={savingOrder}
                 className="w-full text-xs py-2 border border-dashed border-gray-400 rounded text-gray-600 hover:border-[#99564c] hover:text-[#99564c] transition-colors font-semibold disabled:opacity-50"
               >
-                + Add Blank Noodle
+                + Add Blank {activeTab === "ramen" ? "Noodle" : "Topping"}
               </button>
               <div className="flex gap-2">
                 <button
@@ -1356,11 +1426,199 @@ const Edit = () => {
               </div>
             </form>
           </div>
-        ) : (
+        ) : activeTab === "ramen" ? (() => {
+          const displayList = shuffleMode ? shuffleList : itemsList;
+          const previewMap = shuffleMode ? getShufflePreviewIds(shuffleList) : null;
+          const slots = [...displayList].slice(0, 30);
+          while (slots.length < 30) slots.push(null);
+          const countryColor = {
+            "S. Korea": "#DC2626",
+            "Japan": "#2563EB",
+            "Taiwan": "#059669",
+            "Other Asia": "#7C3AED",
+          };
+          return (
+            <div className="p-6 max-w-5xl mx-auto w-full">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <h2 className="text-xl font-black text-gray-800 tracking-tight" style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}>
+                    Ramen Shelf
+                  </h2>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    {shuffleMode
+                      ? "Drag cards to reorder · Click a card to edit"
+                      : "Click any slot to edit · Use Shuffle in the sidebar to reorder"}
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  {Object.entries(countryColor).map(([country, color]) => (
+                    <div key={country} className="flex items-center gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full shadow-sm" style={{ background: color }} />
+                      <span className="text-[10px] text-gray-500 font-medium">{country}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Shelf */}
+              <div
+                className="rounded-2xl overflow-hidden shadow-2xl"
+                style={{ background: "linear-gradient(160deg, #4a2810 0%, #6b3d1a 40%, #4a2810 100%)" }}
+              >
+                {[0, 1, 2, 3, 4].map((row) => (
+                  <div key={row}>
+                    {/* Shelf board */}
+                    <div
+                      className="relative h-5"
+                      style={{
+                        background: "linear-gradient(to bottom, #c8832a 0%, #a0651a 40%, #7a4a10 100%)",
+                        boxShadow: "inset 0 1px 0 rgba(255,220,130,0.3), 0 4px 10px rgba(0,0,0,0.5)",
+                      }}
+                    >
+                      <div
+                        className="absolute inset-0 opacity-10"
+                        style={{
+                          backgroundImage:
+                            "repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.15) 40px, rgba(255,255,255,0.15) 41px)",
+                        }}
+                      />
+                    </div>
+
+                    {/* Row of slots */}
+                    <div className="grid grid-cols-6 gap-2 px-3 py-3">
+                      {[0, 1, 2, 3, 4, 5].map((col) => {
+                        const idx = row * 6 + col;
+                        const item = slots[idx];
+                        const previewId = shuffleMode && item
+                          ? previewMap.get(item.id)
+                          : item?.display_id;
+                        const isUnavailable =
+                          item?.status === "coming_soon" || item?.status === "out_of_stock";
+                        const isDragging = shuffleMode && draggingId === item?.id;
+                        const isDragTarget = shuffleMode && dragOverId === item?.id;
+                        const isSelected = selectedItem?.$id === item?.$id;
+                        const borderColor = item?.country ? (countryColor[item.country] || "#6b7280") : "transparent";
+                        const imageUrl = item?.image_url
+                          ? item.image_url.startsWith("http")
+                            ? item.image_url
+                            : `/images/${item.image_url}`
+                          : null;
+
+                        return (
+                          <div
+                            key={idx}
+                            draggable={shuffleMode && !!item}
+                            onDragStart={shuffleMode && item ? (e) => handleDragStart(e, item.id) : undefined}
+                            onDragOver={shuffleMode && item ? (e) => handleDragOver(e, item.id) : undefined}
+                            onDrop={shuffleMode && item ? (e) => handleDrop(e, item.id) : undefined}
+                            onDragEnd={shuffleMode ? handleDragEnd : undefined}
+                            onClick={() => item && handleSelect(item)}
+                            className={`relative aspect-square rounded-lg overflow-hidden transition-all duration-150 select-none
+                              ${item ? "cursor-pointer shadow-md" : ""}
+                              ${isDragging ? "opacity-30 scale-95" : ""}
+                              ${isDragTarget ? "ring-2 ring-orange-400 scale-[1.06] z-10" : ""}
+                              ${isSelected ? "ring-2 ring-white/80 scale-[1.04] z-10" : ""}
+                              ${item && !isDragging && !isDragTarget && !isSelected ? "hover:scale-[1.05] hover:shadow-xl hover:z-10" : ""}
+                              ${shuffleMode && item ? "cursor-grab" : ""}
+                            `}
+                            style={{ borderTop: `3px solid ${borderColor}` }}
+                          >
+                            {item ? (
+                              <>
+                                {/* Image or placeholder */}
+                                {imageUrl ? (
+                                  <img
+                                    src={imageUrl}
+                                    alt={item.name}
+                                    className="w-full h-full object-cover"
+                                    draggable={false}
+                                  />
+                                ) : (
+                                  <div
+                                    className="w-full h-full flex items-center justify-center"
+                                    style={{ background: "linear-gradient(135deg, #374151, #1f2937)" }}
+                                  >
+                                    <span className="text-3xl opacity-20">🍜</span>
+                                  </div>
+                                )}
+
+                                {/* N-number badge */}
+                                <div className="absolute top-1.5 left-1.5">
+                                  <span
+                                    className="text-[11px] font-black px-2 py-0.5 rounded-md shadow-lg"
+                                    style={{ background: "rgba(0,0,0,0.82)", color: "#ffffff", letterSpacing: "0.03em" }}
+                                  >
+                                    {previewId ?? "—"}
+                                  </span>
+                                </div>
+
+                                {/* Drag handle badge (shuffle mode) */}
+                                {shuffleMode && !isUnavailable && (
+                                  <div className="absolute top-1.5 right-1.5 text-white/70 text-sm leading-none">
+                                    ⠿
+                                  </div>
+                                )}
+
+                                {/* Name overlay */}
+                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pt-6 pb-1.5">
+                                  <p className="text-white text-[10px] font-bold leading-tight truncate drop-shadow">
+                                    {item.name}
+                                  </p>
+                                </div>
+
+                                {/* Status overlays */}
+                                {item.status === "coming_soon" && (
+                                  <div className="absolute inset-0 bg-black/55 flex items-center justify-center">
+                                    <span className="text-[10px] font-black text-white bg-amber-500 px-2 py-1 rounded-full uppercase tracking-wider shadow">
+                                      Soon
+                                    </span>
+                                  </div>
+                                )}
+                                {item.status === "out_of_stock" && (
+                                  <div className="absolute inset-0 bg-black/55 flex items-center justify-center">
+                                    <span className="text-[10px] font-black text-white bg-red-600 px-2 py-1 rounded-full uppercase tracking-wider shadow">
+                                      OOS
+                                    </span>
+                                  </div>
+                                )}
+                              </>
+                            ) : (
+                              <div
+                                className="w-full h-full flex items-center justify-center rounded-lg"
+                                style={{ background: "rgba(0,0,0,0.25)", border: "1px dashed rgba(255,255,255,0.1)" }}
+                              >
+                                <span className="text-white/15 text-[10px] font-bold">
+                                  {String(idx + 1).padStart(2, "0")}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Bottom board */}
+                <div
+                  className="h-6"
+                  style={{
+                    background: "linear-gradient(to bottom, #c8832a 0%, #7a4a10 100%)",
+                    boxShadow: "inset 0 1px 0 rgba(255,220,130,0.2), 0 6px 16px rgba(0,0,0,0.6)",
+                  }}
+                />
+              </div>
+
+              {/* Slot count */}
+              <p className="text-center text-[10px] text-gray-400 mt-3">
+                {itemsList.filter(i => i.display_id).length} / 30 slots filled
+              </p>
+            </div>
+          );
+        })() : (
           <div className="h-full flex flex-col items-center justify-center text-gray-400">
-            <p className="text-lg">
-              Select a {activeTab === "ramen" ? "Ramen Box" : "Topping"} to edit
-            </p>
+            <p className="text-lg">Select a Topping to edit</p>
           </div>
         )}
       </div>
@@ -1492,7 +1750,7 @@ const Edit = () => {
             {/* Header */}
             <div className="px-5 py-4 border-b border-gray-200 flex-shrink-0">
               <h2 className="text-lg font-bold text-gray-800">Crop Image</h2>
-              <p className="text-xs text-gray-500 mt-0.5">Drag to reposition · pinch or slider to zoom</p>
+              <p className="text-xs text-gray-500 mt-0.5">Drag to reposition · pinch or slider to zoom in</p>
             </div>
 
             {/* Cropper area — checkerboard indicates transparency */}
@@ -1509,7 +1767,7 @@ const Edit = () => {
                 image={cropModal.src}
                 crop={cropPosition}
                 zoom={cropZoom}
-                minZoom={0.2}
+                minZoom={1}
                 maxZoom={4}
                 aspect={cropAspect ?? undefined}
                 restrictPosition={false}
@@ -1519,6 +1777,7 @@ const Edit = () => {
                 style={{
                   containerStyle: { borderRadius: 0, background: "transparent" },
                   mediaStyle: { background: "transparent" },
+                  cropAreaStyle: { borderRadius: 12 },
                 }}
               />
             </div>
@@ -1563,7 +1822,7 @@ const Edit = () => {
                 </p>
                 <input
                   type="range"
-                  min={0.2}
+                  min={1}
                   max={4}
                   step={0.01}
                   value={cropZoom}

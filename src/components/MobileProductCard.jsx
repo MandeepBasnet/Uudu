@@ -1,7 +1,7 @@
 // src/components/MobileProductCard.jsx
 import React, { useState, useCallback } from "react";
 
-export default function MobileProductCard({ image, onClick, status, id }) {
+export default function MobileProductCard({ image, onClick, status, id, coverMode }) {
   const [orientation, setOrientation] = useState("square");
 
   const handleLoad = useCallback((e) => {
@@ -24,13 +24,15 @@ export default function MobileProductCard({ image, onClick, status, id }) {
 
   return (
     <div onClick={onClick} className="cursor-pointer group">
-      <div className="relative w-full h-32 sm:h-40 flex items-center justify-center">
+      <div className={`relative w-full ${coverMode ? "aspect-square overflow-hidden rounded-xl" : "h-32 sm:h-40 flex items-center justify-center"}`}>
         <img
           src={image}
           alt="Product"
           onLoad={handleLoad}
           className={
-            orientation === "portrait"
+            coverMode
+              ? "w-full h-full object-cover"
+              : orientation === "portrait"
               ? "max-h-[calc(100%-2rem)] max-w-[70%] object-contain"
               : orientation === "landscape"
               ? "max-h-[calc(100%-2rem)] max-w-[95%] object-contain"

@@ -385,7 +385,9 @@ export default function MenuDesktop() {
                           const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
                           if (aFlag && !bFlag) return 1;
                           if (!aFlag && bFlag) return -1;
-                          return 0;
+                          if (!aFlag && !bFlag)
+                            return (a.display_id || a.id).localeCompare(b.display_id || b.id);
+                          return (a.id || "").localeCompare(b.id || "");
                         });
                       } else if (category.slug === "toppers") {
                         const allToppings = toppingsItems || [];
@@ -443,7 +445,7 @@ export default function MenuDesktop() {
                                   </div>
 
                                   {/* Subsection Products Grid */}
-                                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10">
+                                  <div className="flex flex-wrap gap-6">
                                     {categoryToppings.map((product) => (
                                       <div
                                         key={product.id}
@@ -453,7 +455,7 @@ export default function MenuDesktop() {
                                             category.slug
                                           )
                                         }
-                                        className="cursor-pointer"
+                                        className="cursor-pointer w-56"
                                       >
                                         <ProductCard
                                           name={product.name}
@@ -467,7 +469,7 @@ export default function MenuDesktop() {
                                             product.price_packet
                                           }
                                           hidePrice
-                                          uniformScale
+                                          coverMode
                                           status={product.status}
                                           id={null}
                                         />
