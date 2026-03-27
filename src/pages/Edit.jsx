@@ -48,6 +48,7 @@ const Edit = () => {
   const [draggingId, setDraggingId] = useState(null);
   const [dragOverId, setDragOverId] = useState(null);
   const [savingOrder, setSavingOrder] = useState(false);
+  const [pendingDeletes, setPendingDeletes] = useState([]);
 
   // Business Hours State
   const [showHoursModal, setShowHoursModal] = useState(false);
@@ -570,6 +571,7 @@ const Edit = () => {
     setShuffleList([]);
     setDraggingId(null);
     setDragOverId(null);
+    setPendingDeletes([]);
   };
 
   const handleAddBlankTemplate = () => {
@@ -625,6 +627,13 @@ const Edit = () => {
             _isNew: true,
           };
     setShuffleList((prev) => [...prev, blankItem]);
+  };
+
+  const handleDeleteShuffleItem = (item) => {
+    setShuffleList((prev) => prev.filter((i) => i.id !== item.id));
+    if (!item._isNew) {
+      setPendingDeletes((prev) => [...prev, { id: item.id, $id: item.$id || item.id }]);
+    }
   };
 
   const handleDragStart = (e, itemId) => {
@@ -750,7 +759,16 @@ const Edit = () => {
         } else throw err;
       }
 
-      // Step 3: Refresh and exit
+      // Step 3: Delete removed unavailable items from Appwrite
+      for (const del of pendingDeletes) {
+        try {
+          await databases.deleteDocument(appwriteConfig.dbId, metaCollectionId, del.$id);
+        } catch (err) {
+          if (err.code !== 404) throw err;
+        }
+      }
+
+      // Step 4: Refresh and exit
       await fetchItems(activeTab);
       exitShuffleMode();
       setMessage({ type: "success", text: "Order saved!" });
@@ -1259,9 +1277,19 @@ const Edit = () => {
                       </span>
                     )}
                     {!item._isNew && isUnavailable && (
-                      <span className="text-[9px] px-1 py-0.5 bg-yellow-100 text-yellow-700 rounded font-bold uppercase flex-shrink-0">
-                        {item.status === "coming_soon" ? "SOON" : "OOS"}
-                      </span>
+                      <>
+                        <span className="text-[9px] px-1 py-0.5 bg-yellow-100 text-yellow-700 rounded font-bold uppercase flex-shrink-0">
+                          {item.status === "coming_soon" ? "SOON" : "OOS"}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); handleDeleteShuffleItem(item); }}
+                          className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded text-red-400 hover:bg-red-50 hover:text-red-600 transition-colors"
+                          title="Delete noodle permanently"
+                        >
+                          ✕
+                        </button>
+                      </>
                     )}
                   </div>
                 );
