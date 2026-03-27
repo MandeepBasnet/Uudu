@@ -573,6 +573,15 @@ const Edit = () => {
   };
 
   const handleAddBlankTemplate = () => {
+    const limit = 30;
+    const activeCount = shuffleList.filter(
+      (item) => item.status !== "coming_soon" && item.status !== "out_of_stock"
+    ).length;
+    if (activeCount >= limit) {
+      alert(`Maximum ${limit} active ${activeTab === "ramen" ? "noodles" : "toppings"} reached. Mark one as unavailable before adding a new one.`);
+      return;
+    }
+
     // Auto-generate a unique internal ID — the user never needs to manage this.
     // The N-number slot is determined by position in the shuffle list, not this ID.
     const prefix = activeTab === "ramen" ? "NEW" : "TNEW";
