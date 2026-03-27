@@ -573,18 +573,14 @@ const Edit = () => {
   };
 
   const handleAddBlankTemplate = () => {
-    const label = activeTab === "ramen" ? "noodle slot (e.g. N31, N32)" : "topping slot (e.g. T31, T32)";
-    const rawId = window.prompt(`Enter an ID for the new ${label}:`);
-    if (!rawId) return;
-    const trimmed = rawId.trim().toUpperCase();
-    if (!isValidId(trimmed)) {
-      alert("Invalid ID. Use alphanumeric characters only.");
-      return;
+    // Auto-generate a unique internal ID — the user never needs to manage this.
+    // The N-number slot is determined by position in the shuffle list, not this ID.
+    const prefix = activeTab === "ramen" ? "NEW" : "TNEW";
+    let newId = `${prefix}${Date.now()}`;
+    while (shuffleList.some((item) => item.id === newId)) {
+      newId = `${prefix}${Date.now()}${Math.floor(Math.random() * 1000)}`;
     }
-    if (shuffleList.some((item) => item.id === trimmed)) {
-      alert(`ID "${trimmed}" already exists in the list.`);
-      return;
-    }
+    const trimmed = newId;
     const blankItem =
       activeTab === "ramen"
         ? {
