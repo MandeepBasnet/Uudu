@@ -19,17 +19,17 @@ const Login = () => {
             // or we could just catch the "already logged in" error.
             // Let's try to create a session.
             try {
-               await account.createEmailPasswordSession(email, password);
+                await account.createEmailPasswordSession(email, password);
             } catch (sessionError) {
-                // If creation fails, maybe we are already logged in?
-                // Or maybe wrong password.
-                // Appwrite throws 401 for wrong credentials.
-                // If 409 (Conflict), it means already logged in.
-                if (sessionError.code === 401) {
+                if (sessionError.type === 'user_session_already_exists') {
+                    // Delete existing session and retry
+                    await account.deleteSession('current');
+                    await account.createEmailPasswordSession(email, password);
+                } else if (sessionError.code === 401) {
                     throw new Error("Invalid credentials");
+                } else {
+                    throw sessionError;
                 }
-                // If generic error, rethrow
-                throw sessionError;
             }
             
             // Set session storage flag to mark this tab as authenticated
