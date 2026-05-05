@@ -1064,11 +1064,12 @@ const Edit = () => {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
-            ID
+            Display #{" "}
+            {selectedItem.display_id ? "" : `(slot: ${selectedItem.id})`}
           </label>
           <input
             disabled
-            value={selectedItem.id}
+            value={selectedItem.display_id || selectedItem.id}
             className="w-full bg-gray-100 border border-gray-300 rounded px-3 py-2 text-gray-500 cursor-not-allowed"
           />
         </div>
