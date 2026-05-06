@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRamenData } from "../../hooks/useRamenData";
 import { useToppingsData } from "../../hooks/useToppingsData";
+import { useBeveragesData } from "../../hooks/useBeveragesData";
 // import toppingsData from "../../data/updatedToppings.json";
 import categories from "../../data/categories.json";
 import ProductCard from "../../components/ProductCard";
@@ -24,10 +25,11 @@ export default function MenuDesktop() {
   // Appwrite Data Hook
   const { data: ramenItems, loading } = useRamenData();
   const { data: toppingsItems } = useToppingsData();
+  const { data: beveragesItems } = useBeveragesData();
 
   useEffect(() => {
     loadProducts(activeCategory);
-  }, [activeCategory, ramenItems, toppingsItems]);
+  }, [activeCategory, ramenItems, toppingsItems, beveragesItems]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -110,8 +112,10 @@ export default function MenuDesktop() {
       );
     } else if (categorySlug === "toppers") {
       items = toppingsItems || [];
+    } else if (categorySlug === "bev") {
+      items = beveragesItems || [];
     } else {
-      items = []; // placeholder for bev/snax/specials
+      items = [];
     }
     setProducts(items);
   };

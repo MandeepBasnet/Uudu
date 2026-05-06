@@ -13,6 +13,7 @@ import localRamenData from "../data/updatedRamen.json";
 import localToppingsData from "../data/updatedToppings.json";
 import { assignDisplayIds } from "../hooks/useRamenData";
 import { assignToppingDisplayIds } from "../hooks/useToppingsData";
+import { assignBeverageDisplayIds } from "../hooks/useBeveragesData";
 
 // Helper to check if a string is a valid ID for Appwrite (alphanumeric, -, _, .)
 const isValidId = (str) => /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(str);
@@ -20,7 +21,7 @@ const isValidId = (str) => /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(str);
 const Edit = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [activeTab, setActiveTab] = useState("ramen"); // 'ramen' | 'toppings'
+  const [activeTab, setActiveTab] = useState("ramen"); // 'ramen' | 'toppings' | 'beverages'
 
   // Generic List State
   const [itemsList, setItemsList] = useState([]);
@@ -66,9 +67,9 @@ const Edit = () => {
   // --- Helpers ---
 
   const getCollectionId = (tab) => {
-    return tab === "ramen"
-      ? appwriteConfig.collectionId
-      : appwriteConfig.toppingsCollectionId;
+    if (tab === "ramen") return appwriteConfig.collectionId;
+    if (tab === "toppings") return appwriteConfig.toppingsCollectionId;
+    return appwriteConfig.beveragesCollectionId;
   };
 
   const hasChanges = () => {
@@ -161,32 +162,21 @@ const Edit = () => {
         .sort((a, b) => a.id.localeCompare(b.id));
       console.log("Sorted list after filter:", sorted.length, "items");
 
-      // For ramen: compute display_ids and sort available first, unavailable at bottom
-      if (tab === "ramen") {
-        const withDisplayIds = assignDisplayIds(sorted, fetchedSortOrder);
-        withDisplayIds.sort((a, b) => {
-          const aUnavail = a.display_id === null;
-          const bUnavail = b.display_id === null;
-          if (aUnavail && !bUnavail) return 1;
-          if (!aUnavail && bUnavail) return -1;
-          if (!aUnavail && !bUnavail)
-            return a.display_id.localeCompare(b.display_id);
-          return a.id.localeCompare(b.id);
-        });
-        setItemsList(withDisplayIds);
-      } else {
-        const withDisplayIds = assignToppingDisplayIds(sorted, fetchedSortOrder);
-        withDisplayIds.sort((a, b) => {
-          const aUnavail = a.display_id === null;
-          const bUnavail = b.display_id === null;
-          if (aUnavail && !bUnavail) return 1;
-          if (!aUnavail && bUnavail) return -1;
-          if (!aUnavail && !bUnavail)
-            return a.display_id.localeCompare(b.display_id);
-          return a.id.localeCompare(b.id);
-        });
-        setItemsList(withDisplayIds);
-      }
+      const assignFn =
+        tab === "ramen" ? assignDisplayIds
+        : tab === "toppings" ? assignToppingDisplayIds
+        : assignBeverageDisplayIds;
+
+      const withDisplayIds = assignFn(sorted, fetchedSortOrder);
+      withDisplayIds.sort((a, b) => {
+        const aUnavail = a.display_id === null;
+        const bUnavail = b.display_id === null;
+        if (aUnavail && !bUnavail) return 1;
+        if (!aUnavail && bUnavail) return -1;
+        if (!aUnavail && !bUnavail) return a.display_id.localeCompare(b.display_id);
+        return a.id.localeCompare(b.id);
+      });
+      setItemsList(withDisplayIds);
     } catch (err) {
       console.error("Fetch error", err);
     } finally {
@@ -288,28 +278,17 @@ const Edit = () => {
         const updated = prev.map((item) =>
           item.$id === selectedItem.$id ? { ...item, ...cleanPayload } : item,
         );
-        if (activeTab === "ramen") {
-          const withDisplayIds = assignDisplayIds(updated, sortOrder);
-          withDisplayIds.sort((a, b) => {
-            const aUnavail = a.display_id === null;
-            const bUnavail = b.display_id === null;
-            if (aUnavail && !bUnavail) return 1;
-            if (!aUnavail && bUnavail) return -1;
-            if (!aUnavail && !bUnavail)
-              return a.display_id.localeCompare(b.display_id);
-            return a.id.localeCompare(b.id);
-          });
-          return withDisplayIds;
-        }
-        // toppings
-        const withDisplayIds = assignToppingDisplayIds(updated, sortOrder);
+        const assignFn =
+          activeTab === "ramen" ? assignDisplayIds
+          : activeTab === "toppings" ? assignToppingDisplayIds
+          : assignBeverageDisplayIds;
+        const withDisplayIds = assignFn(updated, sortOrder);
         withDisplayIds.sort((a, b) => {
           const aUnavail = a.display_id === null;
           const bUnavail = b.display_id === null;
           if (aUnavail && !bUnavail) return 1;
           if (!aUnavail && bUnavail) return -1;
-          if (!aUnavail && !bUnavail)
-            return a.display_id.localeCompare(b.display_id);
+          if (!aUnavail && !bUnavail) return a.display_id.localeCompare(b.display_id);
           return a.id.localeCompare(b.id);
         });
         return withDisplayIds;
@@ -538,7 +517,7 @@ const Edit = () => {
 
   // Compute live preview N-numbers for the current shuffle list order.
   const getShufflePreviewIds = (list) => {
-    const prefix = activeTab === "ramen" ? "N" : "T";
+    const prefix = activeTab === "ramen" ? "N" : activeTab === "toppings" ? "T" : "B";
     const map = new Map();
     let counter = 1;
     for (const item of list) {
@@ -579,14 +558,13 @@ const Edit = () => {
     const activeCount = shuffleList.filter(
       (item) => item.status !== "coming_soon" && item.status !== "out_of_stock"
     ).length;
+    const tabLabel = activeTab === "ramen" ? "noodles" : activeTab === "toppings" ? "toppings" : "beverages";
     if (activeCount >= limit) {
-      alert(`Maximum ${limit} active ${activeTab === "ramen" ? "noodles" : "toppings"} reached. Mark one as unavailable before adding a new one.`);
+      alert(`Maximum ${limit} active ${tabLabel} reached. Mark one as unavailable before adding a new one.`);
       return;
     }
 
-    // Auto-generate a unique internal ID — the user never needs to manage this.
-    // The N-number slot is determined by position in the shuffle list, not this ID.
-    const prefix = activeTab === "ramen" ? "NEW" : "TNEW";
+    const prefix = activeTab === "ramen" ? "NEW" : activeTab === "toppings" ? "TNEW" : "BNEW";
     let newId = `${prefix}${Date.now()}`;
     while (shuffleList.some((item) => item.id === newId)) {
       newId = `${prefix}${Date.now()}${Math.floor(Math.random() * 1000)}`;
@@ -613,7 +591,8 @@ const Edit = () => {
             display_id: null,
             _isNew: true,
           }
-        : {
+        : activeTab === "toppings"
+        ? {
             id: trimmed,
             $id: trimmed,
             name: "(New Topping)",
@@ -622,6 +601,17 @@ const Edit = () => {
             description: "",
             price: 0,
             spiciness: "1 out of 10 flames",
+            image_url: "",
+            display_id: null,
+            _isNew: true,
+          }
+        : {
+            id: trimmed,
+            $id: trimmed,
+            name: "(New Beverage)",
+            status: "available",
+            description: "",
+            price: 0,
             image_url: "",
             display_id: null,
             _isNew: true,
@@ -1058,6 +1048,79 @@ const Edit = () => {
     </>
   );
 
+  const renderBeveragesForm = () => (
+    <>
+      {/* ID & Status */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+            Display #{" "}
+            {selectedItem.display_id ? "" : `(slot: ${selectedItem.id})`}
+          </label>
+          <input
+            disabled
+            value={selectedItem.display_id || selectedItem.id}
+            className="w-full bg-gray-100 border border-gray-300 rounded px-3 py-2 text-gray-500 cursor-not-allowed"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+            Status
+          </label>
+          <select
+            value={selectedItem.status}
+            onChange={(e) => handleChange("status", e.target.value)}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+          >
+            <option value="available">Available</option>
+            <option value="coming_soon">Coming Soon</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Name */}
+      <div>
+        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+          Name
+        </label>
+        <input
+          value={selectedItem.name}
+          onChange={(e) => handleChange("name", e.target.value)}
+          className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-[#99564c]"
+        />
+      </div>
+
+      {/* Description */}
+      <div>
+        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+          Description
+        </label>
+        <textarea
+          value={selectedItem.description || ""}
+          onChange={(e) => handleChange("description", e.target.value)}
+          rows={3}
+          className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-[#99564c]"
+        />
+      </div>
+
+      {/* Price */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+            Price ($)
+          </label>
+          <input
+            type="number"
+            step="0.25"
+            value={selectedItem.price}
+            onChange={(e) => handleChange("price", parseFloat(e.target.value))}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+          />
+        </div>
+      </div>
+    </>
+  );
+
   const renderToppingsForm = () => (
     <>
       {/* ID & Status */}
@@ -1205,6 +1268,12 @@ const Edit = () => {
             >
               Toppings
             </button>
+            <button
+              onClick={() => setActiveTab("beverages")}
+              className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all ${activeTab === "beverages" ? "bg-white shadow text-[#99564c]" : "text-gray-500 hover:text-gray-700"}`}
+            >
+              Bêv
+            </button>
           </div>
 
           <div className="flex justify-between items-center w-full">
@@ -1213,7 +1282,9 @@ const Edit = () => {
                 ? "Shuffle Mode"
                 : activeTab === "ramen"
                   ? "Ramen Box List"
-                  : "Toppings List"}
+                  : activeTab === "toppings"
+                  ? "Toppings List"
+                  : "Beverages List"}
             </h2>
             <div className="flex items-center gap-3">
               {!shuffleMode && (
@@ -1412,7 +1483,7 @@ const Edit = () => {
             </div>
 
             <form onSubmit={handleSave} className="space-y-6">
-              {activeTab === "ramen" ? renderRamenForm() : renderToppingsForm()}
+              {activeTab === "ramen" ? renderRamenForm() : activeTab === "toppings" ? renderToppingsForm() : renderBeveragesForm()}
 
               {/* Image Upload (Shared) */}
               <div className="border-t border-gray-200 pt-4">
