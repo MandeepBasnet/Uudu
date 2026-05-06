@@ -13,6 +13,7 @@ import ProductCard from "../../components/ProductCard";
 import CategoryInfo from "../../components/CategoryInfo";
 import RamenInfo from "../../components/RamenInfo";
 import ToppingsInfo from "../../components/ToppingsInfo";
+import BeveragesInfo from "../../components/BeveragesInfo";
 
 export default function MenuDesktop() {
   const [activeCategory, setActiveCategory] = useState("korea");
@@ -156,6 +157,11 @@ export default function MenuDesktop() {
     if (selectedProduct.categorySlug === "toppers") {
       return (
         <ToppingsInfo product={selectedProduct} onBack={handleBackToCategory} />
+      );
+    }
+    if (selectedProduct.categorySlug === "bev") {
+      return (
+        <BeveragesInfo product={selectedProduct} onBack={handleBackToCategory} />
       );
     }
     return (
@@ -485,6 +491,14 @@ export default function MenuDesktop() {
                             })}
                           </div>
                         );
+                      } else if (category.slug === "bev") {
+                        items = (beveragesItems || []).sort((a, b) => {
+                          const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                          const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                          if (aFlag && !bFlag) return 1;
+                          if (!aFlag && bFlag) return -1;
+                          return (a.display_id || a.id || "").localeCompare(b.display_id || b.id || "");
+                        });
                       }
 
                       return items.length > 0 ? (
