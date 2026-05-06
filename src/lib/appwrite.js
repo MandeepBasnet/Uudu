@@ -8,6 +8,7 @@ export const appwriteConfig = {
     bucketId: import.meta.env.VITE_APPWRITE_BUCKET_ID,
     toppingsCollectionId: import.meta.env.VITE_APPWRITE_TOPPINGS_COLLECTION_ID,
     beveragesCollectionId: import.meta.env.VITE_APPWRITE_BEVERAGES_COLLECTION_ID,
+    sideDishesCollectionId: import.meta.env.VITE_APPWRITE_SIDE_DISHES_COLLECTION_ID,
 };
 
 const client = new Client();

@@ -14,6 +14,8 @@ import CategoryInfo from "../../components/CategoryInfo";
 import RamenInfo from "../../components/RamenInfo";
 import ToppingsInfo from "../../components/ToppingsInfo";
 import BeveragesInfo from "../../components/BeveragesInfo";
+import SideDishInfo from "../../components/SideDishInfo";
+import { useSideDishesData } from "../../hooks/useSideDishesData";
 
 export default function MenuDesktop() {
   const [activeCategory, setActiveCategory] = useState("korea");
@@ -27,10 +29,11 @@ export default function MenuDesktop() {
   const { data: ramenItems, loading } = useRamenData();
   const { data: toppingsItems } = useToppingsData();
   const { data: beveragesItems } = useBeveragesData();
+  const { data: sideDishesItems } = useSideDishesData();
 
   useEffect(() => {
     loadProducts(activeCategory);
-  }, [activeCategory, ramenItems, toppingsItems, beveragesItems]);
+  }, [activeCategory, ramenItems, toppingsItems, beveragesItems, sideDishesItems]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -115,6 +118,8 @@ export default function MenuDesktop() {
       items = toppingsItems || [];
     } else if (categorySlug === "bev") {
       items = beveragesItems || [];
+    } else if (categorySlug === "sides") {
+      items = sideDishesItems || [];
     } else {
       items = [];
     }
@@ -162,6 +167,11 @@ export default function MenuDesktop() {
     if (selectedProduct.categorySlug === "bev") {
       return (
         <BeveragesInfo product={selectedProduct} onBack={handleBackToCategory} />
+      );
+    }
+    if (selectedProduct.categorySlug === "sides") {
+      return (
+        <SideDishInfo product={selectedProduct} onBack={handleBackToCategory} />
       );
     }
     return (
@@ -265,7 +275,7 @@ export default function MenuDesktop() {
                         ? "#fff7ed"
                         : category.slug === "bev"
                         ? "#f0f9ff"
-                        : category.slug === "snax"
+                        : category.slug === "sides"
                         ? "#fefce8"
                         : "transparent",
                     padding: [
@@ -275,7 +285,7 @@ export default function MenuDesktop() {
                       "other-asia",
                       "toppers",
                       "bev",
-                      "snax",
+                      "sides",
                       ].includes(category.slug)
                       ? "2rem 1rem"
                       : "0",
@@ -286,7 +296,7 @@ export default function MenuDesktop() {
                       "other-asia",
                       "toppers",
                       "bev",
-                      "snax",
+                      "sides",
                     ].includes(category.slug)
                       ? "3rem"
                       : "2rem",
@@ -493,6 +503,14 @@ export default function MenuDesktop() {
                         );
                       } else if (category.slug === "bev") {
                         items = (beveragesItems || []).sort((a, b) => {
+                          const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                          const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                          if (aFlag && !bFlag) return 1;
+                          if (!aFlag && bFlag) return -1;
+                          return (a.display_id || a.id || "").localeCompare(b.display_id || b.id || "");
+                        });
+                      } else if (category.slug === "sides") {
+                        items = (sideDishesItems || []).sort((a, b) => {
                           const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
                           const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
                           if (aFlag && !bFlag) return 1;

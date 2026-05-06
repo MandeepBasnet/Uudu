@@ -36,10 +36,10 @@
     "description": "Refresh your palate with drinks that complement your ramen experience. From Arizona teas and Jarritos sodas to Milkis, Mogu Mogu, and Topo Chico sparkling water — the perfect sip to go with your bowl."
   },
   {
-    "name": "Snax",
-    "slug": "snax",
-    "flag": "🍢",
-    "description": "Perfect sides and snacks to round out your meal. From crispy treats to traditional accompaniments, these items enhance your ramen adventure."
+    "name": "Sides",
+    "slug": "sides",
+    "flag": "🍱",
+    "description": "Golden egg rolls, bouncy fish balls, K-Spam Crunch, and popcorn chicken — hearty sides built to complement your bowl or hack right into it."
   }
 
 ]

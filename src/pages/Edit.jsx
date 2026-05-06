@@ -14,6 +14,7 @@ import localToppingsData from "../data/updatedToppings.json";
 import { assignDisplayIds } from "../hooks/useRamenData";
 import { assignToppingDisplayIds } from "../hooks/useToppingsData";
 import { assignBeverageDisplayIds } from "../hooks/useBeveragesData";
+import { assignSideDishDisplayIds } from "../hooks/useSideDishesData";
 
 // Helper to check if a string is a valid ID for Appwrite (alphanumeric, -, _, .)
 const isValidId = (str) => /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(str);
@@ -69,7 +70,8 @@ const Edit = () => {
   const getCollectionId = (tab) => {
     if (tab === "ramen") return appwriteConfig.collectionId;
     if (tab === "toppings") return appwriteConfig.toppingsCollectionId;
-    return appwriteConfig.beveragesCollectionId;
+    if (tab === "beverages") return appwriteConfig.beveragesCollectionId;
+    return appwriteConfig.sideDishesCollectionId;
   };
 
   const hasChanges = () => {
@@ -165,7 +167,8 @@ const Edit = () => {
       const assignFn =
         tab === "ramen" ? assignDisplayIds
         : tab === "toppings" ? assignToppingDisplayIds
-        : assignBeverageDisplayIds;
+        : tab === "beverages" ? assignBeverageDisplayIds
+        : assignSideDishDisplayIds;
 
       const withDisplayIds = assignFn(sorted, fetchedSortOrder);
       withDisplayIds.sort((a, b) => {
@@ -281,7 +284,8 @@ const Edit = () => {
         const assignFn =
           activeTab === "ramen" ? assignDisplayIds
           : activeTab === "toppings" ? assignToppingDisplayIds
-          : assignBeverageDisplayIds;
+          : activeTab === "beverages" ? assignBeverageDisplayIds
+          : assignSideDishDisplayIds;
         const withDisplayIds = assignFn(updated, sortOrder);
         withDisplayIds.sort((a, b) => {
           const aUnavail = a.display_id === null;
@@ -517,7 +521,7 @@ const Edit = () => {
 
   // Compute live preview N-numbers for the current shuffle list order.
   const getShufflePreviewIds = (list) => {
-    const prefix = activeTab === "ramen" ? "N" : activeTab === "toppings" ? "T" : "B";
+    const prefix = activeTab === "ramen" ? "N" : activeTab === "toppings" ? "T" : activeTab === "beverages" ? "B" : "S";
     const map = new Map();
     let counter = 1;
     for (const item of list) {
@@ -558,13 +562,13 @@ const Edit = () => {
     const activeCount = shuffleList.filter(
       (item) => item.status !== "coming_soon" && item.status !== "out_of_stock"
     ).length;
-    const tabLabel = activeTab === "ramen" ? "noodles" : activeTab === "toppings" ? "toppings" : "beverages";
+    const tabLabel = activeTab === "ramen" ? "noodles" : activeTab === "toppings" ? "toppings" : activeTab === "beverages" ? "beverages" : "side dishes";
     if (activeCount >= limit) {
       alert(`Maximum ${limit} active ${tabLabel} reached. Mark one as unavailable before adding a new one.`);
       return;
     }
 
-    const prefix = activeTab === "ramen" ? "NEW" : activeTab === "toppings" ? "TNEW" : "BNEW";
+    const prefix = activeTab === "ramen" ? "NEW" : activeTab === "toppings" ? "TNEW" : activeTab === "beverages" ? "BNEW" : "SDNEW";
     let newId = `${prefix}${Date.now()}`;
     while (shuffleList.some((item) => item.id === newId)) {
       newId = `${prefix}${Date.now()}${Math.floor(Math.random() * 1000)}`;
@@ -605,7 +609,8 @@ const Edit = () => {
             display_id: null,
             _isNew: true,
           }
-        : {
+        : activeTab === "beverages"
+        ? {
             id: trimmed,
             $id: trimmed,
             name: "(New Beverage)",
@@ -613,6 +618,18 @@ const Edit = () => {
             description: "",
             price: 0,
             image_url: "",
+            display_id: null,
+            _isNew: true,
+          }
+        : {
+            id: trimmed,
+            $id: trimmed,
+            name: "(New Side Dish)",
+            status: "available",
+            description: "",
+            price: 2.75,
+            image_url: "",
+            color_code: "#FF66FF",
             display_id: null,
             _isNew: true,
           };
@@ -682,7 +699,8 @@ const Edit = () => {
                 suggested_videos: item.suggested_videos,
                 image_url: item.image_url,
               }
-            : {
+            : activeTab === "toppings"
+            ? {
                 id: item.id,
                 name: item.name,
                 status: item.status,
@@ -691,6 +709,24 @@ const Edit = () => {
                 price: item.price,
                 spiciness: item.spiciness,
                 image_url: item.image_url,
+              }
+            : activeTab === "beverages"
+            ? {
+                id: item.id,
+                name: item.name,
+                status: item.status,
+                description: item.description,
+                price: item.price,
+                image_url: item.image_url,
+              }
+            : {
+                id: item.id,
+                name: item.name,
+                status: item.status,
+                description: item.description,
+                price: item.price,
+                image_url: item.image_url,
+                color_code: item.color_code || "",
               };
         try {
           await databases.createDocument(
@@ -721,7 +757,8 @@ const Edit = () => {
               spiciness: "None",
               menu: "None",
             }
-          : {
+          : activeTab === "toppings"
+          ? {
               id: "metadata_sort_order",
               name: "Sort Order Metadata",
               status: "available",
@@ -730,6 +767,14 @@ const Edit = () => {
               image_url: "placeholder",
               price: 0,
               spiciness: "None",
+            }
+          : {
+              id: "metadata_sort_order",
+              name: "Sort Order Metadata",
+              status: "available",
+              description: JSON.stringify(orderedIds),
+              image_url: "placeholder",
+              price: 0,
             };
       try {
         await databases.updateDocument(
@@ -1154,6 +1199,108 @@ const Edit = () => {
     </>
   );
 
+  const renderSideDishesForm = () => (
+    <>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+            Display #{" "}
+            {selectedItem.display_id ? "" : `(slot: ${selectedItem.id})`}
+          </label>
+          <input
+            disabled
+            value={selectedItem.display_id || selectedItem.id}
+            className="w-full bg-gray-100 border border-gray-300 rounded px-3 py-2 text-gray-500 cursor-not-allowed"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+            Status
+          </label>
+          <select
+            value={selectedItem.status}
+            onChange={(e) => handleChange("status", e.target.value)}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+          >
+            <option value="available">Available</option>
+            <option value="coming_soon">Coming Soon</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+          Name
+        </label>
+        <input
+          value={selectedItem.name}
+          onChange={(e) => handleChange("name", e.target.value)}
+          className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-[#99564c]"
+        />
+      </div>
+
+      <div>
+        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+          Description
+        </label>
+        <textarea
+          value={selectedItem.description || ""}
+          onChange={(e) => handleChange("description", e.target.value)}
+          rows={3}
+          className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-[#99564c]"
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+            Price ($)
+          </label>
+          <input
+            type="number"
+            step="0.25"
+            value={selectedItem.price}
+            onChange={(e) => handleChange("price", parseFloat(e.target.value))}
+            className="w-full border border-gray-300 rounded px-3 py-2"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+            Color (circle)
+          </label>
+          {(() => {
+            const colorOptions = [
+              { label: "Auto", value: "" },
+              { label: "Pink",   value: "#FF66FF" },
+              { label: "Black",  value: "#000000" },
+              { label: "Green",  value: "#00DE64" },
+              { label: "Blue",   value: "#53D2FF" },
+              { label: "Orange", value: "#FF8B28" },
+            ];
+            const current = selectedItem.color_code || "";
+            return (
+              <div className="flex items-center gap-2">
+                <div
+                  className="w-8 h-8 rounded-full border border-gray-300 flex-shrink-0"
+                  style={{ backgroundColor: current || "#FF66FF" }}
+                />
+                <select
+                  value={current}
+                  onChange={(e) => handleChange("color_code", e.target.value)}
+                  className="flex-1 border border-gray-300 rounded px-3 py-2"
+                >
+                  {colorOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+            );
+          })()}
+        </div>
+      </div>
+    </>
+  );
+
   const renderToppingsForm = () => (
     <>
       {/* ID & Status */}
@@ -1322,25 +1469,21 @@ const Edit = () => {
           </a>
 
           {/* Tabs */}
-          <div className="flex rounded-lg bg-gray-100 p-1">
-            <button
-              onClick={() => setActiveTab("ramen")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all ${activeTab === "ramen" ? "bg-white shadow text-[#99564c]" : "text-gray-500 hover:text-gray-700"}`}
-            >
-              Ramen
-            </button>
-            <button
-              onClick={() => setActiveTab("toppings")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all ${activeTab === "toppings" ? "bg-white shadow text-[#99564c]" : "text-gray-500 hover:text-gray-700"}`}
-            >
-              Toppings
-            </button>
-            <button
-              onClick={() => setActiveTab("beverages")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all ${activeTab === "beverages" ? "bg-white shadow text-[#99564c]" : "text-gray-500 hover:text-gray-700"}`}
-            >
-              Bêv
-            </button>
+          <div className="flex rounded-lg bg-gray-100 p-1 gap-0.5">
+            {[
+              { key: "ramen",      label: "Ndle" },
+              { key: "toppings",   label: "Tops" },
+              { key: "beverages",  label: "Bêv"  },
+              { key: "side_dishes", label: "Side" },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setActiveTab(key)}
+                className={`flex-1 py-1.5 text-[11px] font-bold rounded-md transition-all ${activeTab === key ? "bg-white shadow text-[#99564c]" : "text-gray-500 hover:text-gray-700"}`}
+              >
+                {label}
+              </button>
+            ))}
           </div>
 
           <div className="flex justify-between items-center w-full">
@@ -1351,7 +1494,9 @@ const Edit = () => {
                   ? "Ramen Box List"
                   : activeTab === "toppings"
                   ? "Toppings List"
-                  : "Beverages List"}
+                  : activeTab === "beverages"
+                  ? "Beverages List"
+                  : "Side Dishes List"}
             </h2>
             <div className="flex items-center gap-3">
               {!shuffleMode && (
@@ -1491,7 +1636,7 @@ const Edit = () => {
                 disabled={savingOrder}
                 className="w-full text-xs py-2 border border-dashed border-gray-400 rounded text-gray-600 hover:border-[#99564c] hover:text-[#99564c] transition-colors font-semibold disabled:opacity-50"
               >
-                + Add Blank {activeTab === "ramen" ? "Noodle" : "Topping"}
+                + Add Blank {activeTab === "ramen" ? "Noodle" : activeTab === "toppings" ? "Topping" : activeTab === "beverages" ? "Beverage" : "Side Dish"}
               </button>
               <div className="flex gap-2">
                 <button
@@ -1550,7 +1695,7 @@ const Edit = () => {
             </div>
 
             <form onSubmit={handleSave} className="space-y-6">
-              {activeTab === "ramen" ? renderRamenForm() : activeTab === "toppings" ? renderToppingsForm() : renderBeveragesForm()}
+              {activeTab === "ramen" ? renderRamenForm() : activeTab === "toppings" ? renderToppingsForm() : activeTab === "beverages" ? renderBeveragesForm() : renderSideDishesForm()}
 
               {/* Image Upload (Shared) */}
               <div className="border-t border-gray-200 pt-4">
@@ -1790,7 +1935,7 @@ const Edit = () => {
           );
         })() : (
           <div className="h-full flex flex-col items-center justify-center text-gray-400">
-            <p className="text-lg">Select a Topping to edit</p>
+            <p className="text-lg">Select an item to edit</p>
           </div>
         )}
       </div>
