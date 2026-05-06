@@ -896,6 +896,39 @@ const Edit = () => {
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
+        <div>
+          <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+            Color (price circle)
+          </label>
+          {(() => {
+            const colorOptions = [
+              { label: "Auto (from price)", value: "" },
+              { label: "Red", value: "#FF0000" },
+              { label: "Gray", value: "#BFBFBF" },
+              { label: "Yellow", value: "#FFFF00" },
+            ];
+            const current = selectedItem.color_code || "";
+            return (
+              <div className="flex items-center gap-2">
+                <div
+                  className="w-8 h-8 rounded-full border border-gray-300 flex-shrink-0"
+                  style={{ backgroundColor: current || "#e5e7eb" }}
+                />
+                <select
+                  value={current}
+                  onChange={(e) => handleChange("color_code", e.target.value)}
+                  className="flex-1 border border-gray-300 rounded px-3 py-2"
+                >
+                  {colorOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            );
+          })()}
+        </div>
         <div className="col-span-3">
           <label className="block text-xs font-bold text-gray-500 uppercase mb-2">
             Spiciness

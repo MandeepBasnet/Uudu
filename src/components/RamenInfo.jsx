@@ -17,8 +17,9 @@ const RamenInfo = ({ product, onBack }) => {
     return match ? Number.parseInt(match[1]) : 5;
   };
 
-  // Circle color by price tier (RGB per price sheet)
+  // Circle color: explicit override wins, else derive from price tier
   const getPriceCircleColor = (packetPrice, bowlPrice) => {
+    if (selectedRamen.color_code) return selectedRamen.color_code;
     const p = Number(packetPrice);
     const b = Number(bowlPrice);
     const is = (x, y) => Math.abs(x - y) < 0.001;
