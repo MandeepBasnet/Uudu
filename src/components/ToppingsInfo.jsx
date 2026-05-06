@@ -8,16 +8,16 @@ const ToppingsInfo = ({ product, onBack }) => {
   // Use the product prop if provided, otherwise default to first topping
   const selectedTopping = product || toppingsData.toppings[0];
 
-  // Determine triangle color: prefer explicit color_code, else map by price
+  // Determine triangle color: prefer explicit color_code, else map by price tier (RGB per price sheet)
   const getTriangleColor = () => {
     const hex = selectedTopping.color_code;
     if (hex) return hex;
     const price = Number(selectedTopping.price || 0);
-    if (Math.abs(price - 0.65) < 0.001) return "#f2960c"; // orange
-    if (Math.abs(price - 0.35) < 0.001) return "#26e320"; // green
-    if (Math.abs(price - 0.95) < 0.001) return "#e320dc"; // pink
-    if (Math.abs(price - 1.25) < 0.001) return "#0d0c0d"; // black
-    return "#9ca3af"; // gray-400 fallback
+    if (Math.abs(price - 0.00) < 0.001) return "#000000"; // black  — free
+    if (Math.abs(price - 0.40) < 0.001) return "#00DE64"; // green  — $0.40
+    if (Math.abs(price - 0.75) < 0.001) return "#53D2FF"; // blue   — $0.75
+    if (Math.abs(price - 1.10) < 0.001) return "#FF8B28"; // orange — $1.10
+    return "#9ca3af"; // gray fallback (side dishes etc.)
   };
 
   // Extract spiciness level from text (e.g., "8 out of 10 flames" -> 8)

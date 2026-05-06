@@ -17,17 +17,15 @@ const RamenInfo = ({ product, onBack }) => {
     return match ? Number.parseInt(match[1]) : 5;
   };
 
-  // Circle color by price breakdown
+  // Circle color by price tier (RGB per price sheet)
   const getPriceCircleColor = (packetPrice, bowlPrice) => {
     const p = Number(packetPrice);
     const b = Number(bowlPrice);
     const is = (x, y) => Math.abs(x - y) < 0.001;
-    if (is(p, 2.25) && is(b, 3.0)) return "bg-blue-600";
-    if (is(p, 1.75) && is(b, 3.0)) return "bg-blue-600"; // $4.75
-    if (is(p, 1.5) && is(b, 3.0)) return "bg-red-600";
-    if (is(p, 5.75) && is(b, 3.0)) return "bg-red-600"; // $8.75
-    if (is(p, 5.5) && is(b, 3.0)) return "bg-yellow-400";
-    return "bg-gray-400";
+    if (is(p, 1.75) && is(b, 3.0)) return "#FF0000"; // $4.75 — Red
+    if (is(p, 3.00) && is(b, 3.0)) return "#BFBFBF"; // $6.00 — Gray
+    if (is(p, 5.50) && is(b, 3.0)) return "#FFFF00"; // $8.50 — Yellow
+    return "#BFBFBF";
   };
 
   // Flame SVG (provided) with dynamic colors via palette per variant
@@ -283,10 +281,8 @@ const RamenInfo = ({ product, onBack }) => {
             <div className="flex-1 space-y-2">
               <div className="flex items-center gap-2 text-sm text-gray-900">
                 <div
-                  className={`w-5 h-5 rounded-full flex-shrink-0 ${getPriceCircleColor(
-                    selectedRamen.price_packet,
-                    selectedRamen.price_bowl
-                  )}`}
+                  className="w-5 h-5 rounded-full flex-shrink-0 border border-gray-300"
+                  style={{ backgroundColor: getPriceCircleColor(selectedRamen.price_packet, selectedRamen.price_bowl) }}
                 ></div>
                 <span className="tracking-tight font-normal">{`$ ${(
                   selectedRamen.price_packet + selectedRamen.price_bowl
@@ -382,10 +378,8 @@ const RamenInfo = ({ product, onBack }) => {
               <div className="space-y-2">
                 <div className="flex items-center gap-3 text-lg lg:text-xl text-gray-900">
                   <div
-                    className={`w-8 h-8 rounded-full ${getPriceCircleColor(
-                      selectedRamen.price_packet,
-                      selectedRamen.price_bowl
-                    )}`}
+                    className="w-8 h-8 rounded-full border border-gray-300"
+                    style={{ backgroundColor: getPriceCircleColor(selectedRamen.price_packet, selectedRamen.price_bowl) }}
                   ></div>
                   <span className="tracking-tight font-normal">{`$ ${(
                     selectedRamen.price_packet + selectedRamen.price_bowl
