@@ -219,14 +219,8 @@ const ToppingsInfo = ({ product, onBack }) => {
               <div className="flex items-center gap-2 text-sm text-gray-900">
                 <div
                   aria-hidden
-                  style={{
-                    width: 0,
-                    height: 0,
-                    borderLeft: "10px solid transparent",
-                    borderRight: "10px solid transparent",
-                    borderBottom: `16px solid ${getTriangleColor()}`,
-                  }}
-                  className="flex-shrink-0"
+                  className="w-5 h-5 rounded-full flex-shrink-0 border border-gray-300"
+                  style={{ backgroundColor: getTriangleColor() }}
                 />
                 <span className="tracking-tight font-normal">{`$ ${selectedTopping.price.toFixed(
                   2
@@ -277,25 +271,8 @@ const ToppingsInfo = ({ product, onBack }) => {
                 <div className="flex items-center gap-3 text-lg lg:text-xl text-gray-900">
                   <div
                     aria-hidden
-                    style={{
-                      width: 0,
-                      height: 0,
-                      borderLeft: "10px solid transparent",
-                      borderRight: "10px solid transparent",
-                      borderBottom: `16px solid ${getTriangleColor()}`,
-                    }}
-                    className="md:hidden"
-                  />
-                  <div
-                    aria-hidden
-                    style={{
-                      width: 0,
-                      height: 0,
-                      borderLeft: "20px solid transparent",
-                      borderRight: "20px solid transparent",
-                      borderBottom: `36px solid ${getTriangleColor()}`,
-                    }}
-                    className="hidden md:block"
+                    className="w-8 h-8 rounded-full border border-gray-300 flex-shrink-0"
+                    style={{ backgroundColor: getTriangleColor() }}
                   />
                   <span className="tracking-tight font-normal">{`$ ${selectedTopping.price.toFixed(
                     2

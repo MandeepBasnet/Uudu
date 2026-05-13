@@ -30,16 +30,16 @@
     "description": "Instant noodles are just the starting point as the real upgrade begins with UUDU’s bold toppings. From classic veggies like bok choy and popular garnishes like Flamin’ Hot Cheetos to lip-smackin’ proteins like Korean mini smokies. Add sauces from Kewpie mayo to UUDU’s “rocket boosters” — our own house-made hack blends —, and suddenly the broth pops, the noodles hit harder, and any packet becomes a truly elevated bowl."
   },
   {
-    "name": "BÊV",
-    "slug": "bev",
-    "flag": "🥤",
-    "description": "Refresh your palate with drinks that complement your ramen experience. From Arizona teas and Jarritos sodas to Milkis, Mogu Mogu, and Topo Chico sparkling water — the perfect sip to go with your bowl."
-  },
-  {
     "name": "Sides",
     "slug": "sides",
     "flag": "🍱",
     "description": "Golden egg rolls, bouncy fish balls, K-Spam Crunch, and popcorn chicken — hearty sides built to complement your bowl or hack right into it."
+  },
+  {
+    "name": "BÊV",
+    "slug": "bev",
+    "flag": "🥤",
+    "description": "Refresh your palate with drinks that complement your ramen experience. From Arizona teas and Jarritos sodas to Milkis, Mogu Mogu, and Topo Chico sparkling water — the perfect sip to go with your bowl."
   }
 
 ]

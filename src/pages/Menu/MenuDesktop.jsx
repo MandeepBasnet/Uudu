@@ -539,6 +539,7 @@ export default function MenuDesktop() {
                               hidePrice
                               status={product.status}
                               id={product.display_id}
+                              uniformScale={category.slug === "bev" || category.slug === "sides"}
                             />
                           </div>
                         ))
