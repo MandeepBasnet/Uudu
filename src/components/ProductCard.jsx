@@ -48,7 +48,7 @@ export default function ProductCard({
             coverMode
               ? "w-full h-full object-cover"
               : uniformScale
-              ? "max-h-[calc(100%-3rem)] max-w-[85%] object-contain"
+              ? "w-full h-full object-contain p-2"
               : orientation === "portrait"
               ? "max-h-[calc(100%-3rem)] max-w-[70%] object-contain"
               : orientation === "landscape"
