@@ -194,17 +194,6 @@ export default function MenuDesktop() {
               <div className="py-3 px-4">
                 {/* Desktop: split groups */}
                 <div className="flex items-center justify-between px-2 relative">
-                  {/* Center Label */}
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                    <span
-                      className="text-[#FF6B00] font-extrabold text-2xl whitespace-nowrap"
-                      style={{
-                        fontFamily: "Bahnschrift, system-ui, sans-serif",
-                      }}
-                    >
-                      [ Temporary Website ]
-                    </span>
-                  </div>
                   <div className="flex items-center space-x-6">
                     <span className="text-gray-500 font-medium whitespace-nowrap">
                       NUUDU
