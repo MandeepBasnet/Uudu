@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import { useRamenData } from "../../hooks/useRamenData";
 import { useToppingsData } from "../../hooks/useToppingsData";
-// import toppingsData from "../../data/updatedToppings.json"; // Hook handles fallback
+import { useBeveragesData } from "../../hooks/useBeveragesData";
+import { useSideDishesData } from "../../hooks/useSideDishesData";
 import MobileProductCard from "../../components/MobileProductCard";
 import RamenInfo from "../../components/RamenInfo";
 import ToppingsInfo from "../../components/ToppingsInfo";
+import BeveragesInfo from "../../components/BeveragesInfo";
+import SideDishInfo from "../../components/SideDishInfo";
 
 export default function MenuMobile() {
   const [activeTab, setActiveTab] = useState("ramen");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  
+
   // Appwrite Data Hook
   const { data: ramenItems } = useRamenData();
   const { data: toppingsItems } = useToppingsData();
+  const { data: beveragesItems } = useBeveragesData();
+  const { data: sideDishesItems } = useSideDishesData();
 
-  const handleProductClick = (product, isRamen) => {
+  const handleProductClick = (product, kind) => {
     if (product.status === "coming_soon" || product.status === "out_of_stock") return;
-    setSelectedProduct({
-      ...product,
-      isRamen: isRamen,
-    });
+    setSelectedProduct({ ...product, kind });
   };
 
   // ... (keep handleBackToCategory and renderMobileModal unchanged)
@@ -31,7 +33,11 @@ export default function MenuMobile() {
   const renderMobileModal = () => {
     if (!selectedProduct) return null;
 
-    const InfoComponent = selectedProduct.isRamen ? RamenInfo : ToppingsInfo;
+    const InfoComponent =
+      selectedProduct.kind === "ramen" ? RamenInfo
+      : selectedProduct.kind === "bev" ? BeveragesInfo
+      : selectedProduct.kind === "sides" ? SideDishInfo
+      : ToppingsInfo;
 
     return (
       <div className="fixed inset-0 z-50" role="dialog" aria-modal="true">
@@ -87,34 +93,28 @@ export default function MenuMobile() {
         {/* Tabs */}
         <div className="sticky top-0 z-30 bg-[#F2F2F2] border-b-2 border-gray-300">
           <div className="flex">
-            <button
-              onClick={() => setActiveTab("ramen")}
-              className={`flex-1 py-4 text-center font-semibold transition-colors ${
-                activeTab === "ramen"
-                  ? "text-[#99564c] border-b-4 border-[#99564c]"
-                  : "text-gray-600 hover:text-gray-800"
-              }`}
-              style={{
-                fontFamily: "Bahnschrift, system-ui, sans-serif",
-                fontSize: "1.125rem",
-              }}
-            >
-              Ramen Info
-            </button>
-            <button
-              onClick={() => setActiveTab("addon")}
-              className={`flex-1 py-4 text-center font-semibold transition-colors ${
-                activeTab === "addon"
-                  ? "text-[#99564c] border-b-4 border-[#99564c]"
-                  : "text-gray-600 hover:text-gray-800"
-              }`}
-              style={{
-                fontFamily: "Bahnschrift, system-ui, sans-serif",
-                fontSize: "1.125rem",
-              }}
-            >
-              Add-on Info
-            </button>
+            {[
+              { key: "ramen", label: "Ramen" },
+              { key: "addon", label: "Toppings" },
+              { key: "sides", label: "Sides" },
+              { key: "bev",   label: "Bêv" },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setActiveTab(key)}
+                className={`flex-1 py-4 text-center font-semibold transition-colors ${
+                  activeTab === key
+                    ? "text-[#99564c] border-b-4 border-[#99564c]"
+                    : "text-gray-600 hover:text-gray-800"
+                }`}
+                style={{
+                  fontFamily: "Bahnschrift, system-ui, sans-serif",
+                  fontSize: "1rem",
+                }}
+              >
+                {label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -139,7 +139,7 @@ export default function MenuMobile() {
                       ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
                       : "/images/placeholder.jpg"
                   }
-                  onClick={() => handleProductClick(product, true)}
+                  onClick={() => handleProductClick(product, "ramen")}
                   status={product.status}
                   id={product.display_id}
                 />
@@ -196,7 +196,7 @@ export default function MenuMobile() {
                                 ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
                                 : "/images/placeholder.jpg"
                             }
-                            onClick={() => handleProductClick(product, false)}
+                            onClick={() => handleProductClick(product, "toppings")}
                             status={product.status}
                             id={null}
                             coverMode
@@ -207,6 +207,58 @@ export default function MenuMobile() {
                   );
                 });
               })()}
+            </div>
+          )}
+
+          {/* Sides Tab */}
+          {activeTab === "sides" && (
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
+              {(sideDishesItems || []).slice().sort((a, b) => {
+                const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                if (aFlag && !bFlag) return 1;
+                if (!aFlag && bFlag) return -1;
+                return (a.display_id || a.id || "").localeCompare(b.display_id || b.id || "");
+              }).map((product) => (
+                <MobileProductCard
+                  key={product.id}
+                  image={
+                    product.image_url
+                      ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
+                      : "/images/placeholder.jpg"
+                  }
+                  onClick={() => handleProductClick(product, "sides")}
+                  status={product.status}
+                  id={product.display_id}
+                  coverMode
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Bêv Tab */}
+          {activeTab === "bev" && (
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
+              {(beveragesItems || []).slice().sort((a, b) => {
+                const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                if (aFlag && !bFlag) return 1;
+                if (!aFlag && bFlag) return -1;
+                return (a.display_id || a.id || "").localeCompare(b.display_id || b.id || "");
+              }).map((product) => (
+                <MobileProductCard
+                  key={product.id}
+                  image={
+                    product.image_url
+                      ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
+                      : "/images/placeholder.jpg"
+                  }
+                  onClick={() => handleProductClick(product, "bev")}
+                  status={product.status}
+                  id={product.display_id}
+                  coverMode
+                />
+              ))}
             </div>
           )}
         </div>
