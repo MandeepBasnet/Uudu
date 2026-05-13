@@ -59,9 +59,9 @@ export default function MobileProductCard({ image, onClick, status, id, coverMod
         )}
       </div>
       {id && (
-        <div className="flex justify-center -mt-2 mb-1 relative z-10">
+        <div className={`flex justify-center mb-1 relative z-10 ${coverMode ? "mt-1" : "-mt-2"}`}>
           <span
-            className="bg-transparent text-gray-800 border border-gray-400 font-bold px-2 py-0.5 rounded-full shadow-sm text-xs"
+            className="bg-white/95 text-gray-800 border border-gray-400 font-bold px-2 py-0.5 rounded-full shadow-sm text-xs"
             style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
           >
             {id}

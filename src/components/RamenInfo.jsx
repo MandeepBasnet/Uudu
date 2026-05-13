@@ -302,7 +302,7 @@ const RamenInfo = ({ product, onBack }) => {
             <img
               src={
                 selectedRamen.image_url
-                  ? `/images/${selectedRamen.image_url}`
+                  ? (selectedRamen.image_url.startsWith('http') ? selectedRamen.image_url : `/images/${selectedRamen.image_url}`)
                   : "/images/placeholder.jpg"
               }
               alt={selectedRamen.name}
