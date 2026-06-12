@@ -40,6 +40,12 @@
     "slug": "bev",
     "flag": "🥤",
     "description": "Refresh your palate with drinks that complement your ramen experience. From Arizona teas and Jarritos sodas to Milkis, Mogu Mogu, and Topo Chico sparkling water — the perfect sip to go with your bowl."
+  },
+  {
+    "name": "SNAX",
+    "slug": "snax",
+    "flag": "🍿",
+    "description": "Crunchy, savory, and sweet bites to munch on between slurps — chips, crackers, candy, and other grab-and-go treats to round out your UUDU haul."
   }
 
 ]

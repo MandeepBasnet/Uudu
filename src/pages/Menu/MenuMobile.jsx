@@ -3,11 +3,13 @@ import { useRamenData } from "../../hooks/useRamenData";
 import { useToppingsData } from "../../hooks/useToppingsData";
 import { useBeveragesData } from "../../hooks/useBeveragesData";
 import { useSideDishesData } from "../../hooks/useSideDishesData";
+import { useSnaxData } from "../../hooks/useSnaxData";
 import MobileProductCard from "../../components/MobileProductCard";
 import RamenInfo from "../../components/RamenInfo";
 import ToppingsInfo from "../../components/ToppingsInfo";
 import BeveragesInfo from "../../components/BeveragesInfo";
 import SideDishInfo from "../../components/SideDishInfo";
+import SnaxInfo from "../../components/SnaxInfo";
 
 export default function MenuMobile() {
   const [activeTab, setActiveTab] = useState("ramen");
@@ -18,6 +20,7 @@ export default function MenuMobile() {
   const { data: toppingsItems } = useToppingsData();
   const { data: beveragesItems } = useBeveragesData();
   const { data: sideDishesItems } = useSideDishesData();
+  const { data: snaxItems } = useSnaxData();
 
   const handleProductClick = (product, kind) => {
     if (product.status === "coming_soon" || product.status === "out_of_stock") return;
@@ -37,6 +40,7 @@ export default function MenuMobile() {
       selectedProduct.kind === "ramen" ? RamenInfo
       : selectedProduct.kind === "bev" ? BeveragesInfo
       : selectedProduct.kind === "sides" ? SideDishInfo
+      : selectedProduct.kind === "snax" ? SnaxInfo
       : ToppingsInfo;
 
     return (
@@ -98,6 +102,7 @@ export default function MenuMobile() {
               { key: "addon", label: "Toppings" },
               { key: "sides", label: "Sides" },
               { key: "bev",   label: "Bêv" },
+              { key: "snax",  label: "Snax" },
             ].map(({ key, label }) => (
               <button
                 key={key}
@@ -254,6 +259,32 @@ export default function MenuMobile() {
                       : "/images/placeholder.jpg"
                   }
                   onClick={() => handleProductClick(product, "bev")}
+                  status={product.status}
+                  id={product.display_id}
+                  coverMode
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Snax Tab */}
+          {activeTab === "snax" && (
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
+              {(snaxItems || []).slice().sort((a, b) => {
+                const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                if (aFlag && !bFlag) return 1;
+                if (!aFlag && bFlag) return -1;
+                return (a.display_id || a.id || "").localeCompare(b.display_id || b.id || "");
+              }).map((product) => (
+                <MobileProductCard
+                  key={product.id}
+                  image={
+                    product.image_url
+                      ? (product.image_url.startsWith('http') ? product.image_url : `/images/${product.image_url}`)
+                      : "/images/placeholder.jpg"
+                  }
+                  onClick={() => handleProductClick(product, "snax")}
                   status={product.status}
                   id={product.display_id}
                   coverMode

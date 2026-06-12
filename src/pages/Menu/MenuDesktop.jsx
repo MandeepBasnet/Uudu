@@ -15,7 +15,9 @@ import RamenInfo from "../../components/RamenInfo";
 import ToppingsInfo from "../../components/ToppingsInfo";
 import BeveragesInfo from "../../components/BeveragesInfo";
 import SideDishInfo from "../../components/SideDishInfo";
+import SnaxInfo from "../../components/SnaxInfo";
 import { useSideDishesData } from "../../hooks/useSideDishesData";
+import { useSnaxData } from "../../hooks/useSnaxData";
 
 export default function MenuDesktop() {
   const [activeCategory, setActiveCategory] = useState("korea");
@@ -30,10 +32,11 @@ export default function MenuDesktop() {
   const { data: toppingsItems } = useToppingsData();
   const { data: beveragesItems } = useBeveragesData();
   const { data: sideDishesItems } = useSideDishesData();
+  const { data: snaxItems } = useSnaxData();
 
   useEffect(() => {
     loadProducts(activeCategory);
-  }, [activeCategory, ramenItems, toppingsItems, beveragesItems, sideDishesItems]);
+  }, [activeCategory, ramenItems, toppingsItems, beveragesItems, sideDishesItems, snaxItems]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -120,6 +123,8 @@ export default function MenuDesktop() {
       items = beveragesItems || [];
     } else if (categorySlug === "sides") {
       items = sideDishesItems || [];
+    } else if (categorySlug === "snax") {
+      items = snaxItems || [];
     } else {
       items = [];
     }
@@ -172,6 +177,11 @@ export default function MenuDesktop() {
     if (selectedProduct.categorySlug === "sides") {
       return (
         <SideDishInfo product={selectedProduct} onBack={handleBackToCategory} />
+      );
+    }
+    if (selectedProduct.categorySlug === "snax") {
+      return (
+        <SnaxInfo product={selectedProduct} onBack={handleBackToCategory} />
       );
     }
     return (
@@ -266,6 +276,8 @@ export default function MenuDesktop() {
                         ? "#f0f9ff"
                         : category.slug === "sides"
                         ? "#fefce8"
+                        : category.slug === "snax"
+                        ? "#f0fdf4"
                         : "transparent",
                     padding: [
                       "korea",
@@ -275,6 +287,7 @@ export default function MenuDesktop() {
                       "toppers",
                       "bev",
                       "sides",
+                      "snax",
                       ].includes(category.slug)
                       ? "2rem 1rem"
                       : "0",
@@ -286,6 +299,7 @@ export default function MenuDesktop() {
                       "toppers",
                       "bev",
                       "sides",
+                      "snax",
                     ].includes(category.slug)
                       ? "3rem"
                       : "2rem",
@@ -506,6 +520,14 @@ export default function MenuDesktop() {
                           if (!aFlag && bFlag) return -1;
                           return (a.display_id || a.id || "").localeCompare(b.display_id || b.id || "");
                         });
+                      } else if (category.slug === "snax") {
+                        items = (snaxItems || []).sort((a, b) => {
+                          const aFlag = a.status === "coming_soon" || a.status === "out_of_stock";
+                          const bFlag = b.status === "coming_soon" || b.status === "out_of_stock";
+                          if (aFlag && !bFlag) return 1;
+                          if (!aFlag && bFlag) return -1;
+                          return (a.display_id || a.id || "").localeCompare(b.display_id || b.id || "");
+                        });
                       }
 
                       return items.length > 0 ? (
@@ -528,7 +550,7 @@ export default function MenuDesktop() {
                               hidePrice
                               status={product.status}
                               id={product.display_id}
-                              coverMode={category.slug === "bev" || category.slug === "sides"}
+                              coverMode={category.slug === "bev" || category.slug === "sides" || category.slug === "snax"}
                             />
                           </div>
                         ))
