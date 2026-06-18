@@ -38,7 +38,7 @@ export default function Footer() {
         <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/5">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 items-start">
             {/* Location Section */}
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-start md:items-end">
               <div className="text-left">
                 <h3
                   className="text-3xl font-semibold text-[#99564c] mb-4"
@@ -96,7 +96,7 @@ export default function Footer() {
             </div>
 
             {/* Hours Section */}
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col items-start md:items-end">
               <div className="text-left">
                 <h3
                   className="text-3xl font-semibold text-[#99564c] mb-4"

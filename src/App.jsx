@@ -56,9 +56,10 @@ function AppShell() {
   return (
     <div className="flex min-h-screen flex-col bg-[#F2F2F2]">
       {isMobile ? (
-        // Mobile: show only MenuMobile for any route, no navbar/footer
+        // Mobile: show Location on /location, MenuMobile for any other route
         <main className="flex-1">
           <Routes>
+            <Route path="/location" element={<Location />} />
             <Route path="*" element={<MenuMobile />} />
           </Routes>
         </main>
