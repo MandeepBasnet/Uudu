@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { Play, ChevronDown, X, CheckSquare, Square } from "lucide-react";
 import ramenData from "../data/updatedRamen.json";
 import NoodleInstructions from "./NoodleInstructions";
+import { resolveAllergen } from "../data/allergenDefaults";
 
 const RamenInfo = ({ product, onBack }) => {
   // Use the product prop if provided, otherwise default to first ramen
@@ -621,8 +622,8 @@ const RamenInfo = ({ product, onBack }) => {
             </div>
           </div>
            <div className="md:col-span-9">
-             <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800">
-               Please refer to each product's packaging for detailed allergen information.
+             <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800 whitespace-pre-line">
+               {resolveAllergen(selectedRamen.allergen, "ramen")}
              </p>
            </div>
         </div>

@@ -16,6 +16,7 @@ import { assignToppingDisplayIds } from "../hooks/useToppingsData";
 import { assignBeverageDisplayIds } from "../hooks/useBeveragesData";
 import { assignSideDishDisplayIds } from "../hooks/useSideDishesData";
 import { assignSnaxDisplayIds } from "../hooks/useSnaxData";
+import { ALLERGEN_DEFAULTS } from "../data/allergenDefaults";
 
 // Helper to check if a string is a valid ID for Appwrite (alphanumeric, -, _, .)
 const isValidId = (str) => /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(str);
@@ -258,7 +259,6 @@ const Edit = () => {
         // Cleanup deletions
         delete payload.cooker_menu;
         delete payload.cooker_settings;
-        delete payload.allergen;
       } else {
         // Toppings specific cleanup if any
       }
@@ -849,6 +849,26 @@ const Edit = () => {
       </div>
     );
 
+  // Reusable allergen editor. When left blank, the public menu falls back to the
+  // default text for this type (see src/data/allergenDefaults.js).
+  const renderAllergenField = (type) => (
+    <div>
+      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+        Allergen
+      </label>
+      <textarea
+        value={selectedItem.allergen || ""}
+        onChange={(e) => handleChange("allergen", e.target.value)}
+        rows={4}
+        className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-[#99564c]"
+        placeholder={ALLERGEN_DEFAULTS[type] || ""}
+      />
+      <p className="text-xs text-gray-400 mt-1">
+        Leave blank to show the default allergen notice.
+      </p>
+    </div>
+  );
+
   const renderRamenForm = () => (
     <>
       {/* Ramen Specific Fields */}
@@ -1148,6 +1168,9 @@ const Edit = () => {
           </button>
         </div>
       </div>
+
+      {/* Allergen */}
+      {renderAllergenField("ramen")}
     </>
   );
 
@@ -1221,6 +1244,9 @@ const Edit = () => {
           />
         </div>
       </div>
+
+      {/* Allergen */}
+      {renderAllergenField("beverages")}
     </>
   );
 
@@ -1396,6 +1422,9 @@ const Edit = () => {
           })()}
         </div>
       </div>
+
+      {/* Allergen */}
+      {renderAllergenField("side_dishes")}
     </>
   );
 
@@ -1550,6 +1579,9 @@ const Edit = () => {
           </div>
         </div>
       </div>
+
+      {/* Allergen */}
+      {renderAllergenField("toppings")}
     </>
   );
 

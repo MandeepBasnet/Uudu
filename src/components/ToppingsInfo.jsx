@@ -3,6 +3,7 @@
 import React, { useId } from "react";
 import { ChevronDown } from "lucide-react";
 import toppingsData from "../data/updatedToppings.json";
+import { resolveAllergen } from "../data/allergenDefaults";
 
 const ToppingsInfo = ({ product, onBack }) => {
   // Use the product prop if provided, otherwise default to first topping
@@ -339,9 +340,8 @@ const ToppingsInfo = ({ product, onBack }) => {
             </div>
           </div>
           <div className="md:col-span-9">
-            <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800">
-              {selectedTopping.allergen ||
-                "Our toppings are prepared in-house and may contain or come into contact with common allergens (milk, eggs, peanuts, tree nuts, soy, wheat, sesame, fish, shellfish, msg). Ingredient details available on request. Shared equipment and oil prevent allergen-free preparation."}
+            <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800 whitespace-pre-line">
+              {resolveAllergen(selectedTopping.allergen, "toppings")}
             </p>
           </div>
         </div>
