@@ -3,7 +3,7 @@
 import React, { useId } from "react";
 import { ChevronDown } from "lucide-react";
 import toppingsData from "../data/updatedToppings.json";
-import { resolveAllergen } from "../data/allergenDefaults";
+import { resolveAllergen, resolveRawFoodAdvisory } from "../data/allergenDefaults";
 
 const ToppingsInfo = ({ product, onBack }) => {
   // Use the product prop if provided, otherwise default to first topping
@@ -342,6 +342,22 @@ const ToppingsInfo = ({ product, onBack }) => {
           <div className="md:col-span-9">
             <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800 whitespace-pre-line">
               {resolveAllergen(selectedTopping.allergen, "toppings")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Raw Food Advisory */}
+      <section className="mt-6 md:mt-12 lg:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
+          <div className="md:col-span-3">
+            <div className="text-sm md:text-lg lg:text-xl font-bold text-black">
+              Raw Food Advisory:
+            </div>
+          </div>
+          <div className="md:col-span-9">
+            <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800 whitespace-pre-line">
+              {resolveRawFoodAdvisory(selectedTopping.raw_food_advisory)}
             </p>
           </div>
         </div>

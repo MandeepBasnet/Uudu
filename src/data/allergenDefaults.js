@@ -15,3 +15,11 @@ export const ALLERGEN_DEFAULTS = {
 // Returns the saved allergen text if present (non-empty), otherwise the default for that type.
 export const resolveAllergen = (value, type) =>
   (typeof value === "string" && value.trim()) || ALLERGEN_DEFAULTS[type] || "";
+
+// Raw Food Advisory applies only to Toppings and Side Dishes. When left blank,
+// items fall back to "N/A"; specific items (e.g. the extra-crispy egg) carry the
+// full undercooked-food statement, editable per item via /edit.
+export const RAW_FOOD_ADVISORY_DEFAULT = "N/A";
+
+export const resolveRawFoodAdvisory = (value) =>
+  (typeof value === "string" && value.trim()) || RAW_FOOD_ADVISORY_DEFAULT;

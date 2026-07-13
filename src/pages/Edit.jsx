@@ -16,7 +16,7 @@ import { assignToppingDisplayIds } from "../hooks/useToppingsData";
 import { assignBeverageDisplayIds } from "../hooks/useBeveragesData";
 import { assignSideDishDisplayIds } from "../hooks/useSideDishesData";
 import { assignSnaxDisplayIds } from "../hooks/useSnaxData";
-import { ALLERGEN_DEFAULTS } from "../data/allergenDefaults";
+import { ALLERGEN_DEFAULTS, RAW_FOOD_ADVISORY_DEFAULT } from "../data/allergenDefaults";
 
 // Helper to check if a string is a valid ID for Appwrite (alphanumeric, -, _, .)
 const isValidId = (str) => /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(str);
@@ -869,6 +869,25 @@ const Edit = () => {
     </div>
   );
 
+  // Raw Food Advisory editor (toppings & side dishes only). Blank shows "N/A".
+  const renderRawFoodAdvisoryField = () => (
+    <div>
+      <label className="block text-xs font-bold text-gray-500 uppercase mb-1">
+        Raw Food Advisory
+      </label>
+      <textarea
+        value={selectedItem.raw_food_advisory || ""}
+        onChange={(e) => handleChange("raw_food_advisory", e.target.value)}
+        rows={3}
+        className="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-[#99564c]"
+        placeholder={RAW_FOOD_ADVISORY_DEFAULT}
+      />
+      <p className="text-xs text-gray-400 mt-1">
+        Leave blank to show &quot;{RAW_FOOD_ADVISORY_DEFAULT}&quot;.
+      </p>
+    </div>
+  );
+
   const renderRamenForm = () => (
     <>
       {/* Ramen Specific Fields */}
@@ -1425,6 +1444,9 @@ const Edit = () => {
 
       {/* Allergen */}
       {renderAllergenField("side_dishes")}
+
+      {/* Raw Food Advisory */}
+      {renderRawFoodAdvisoryField()}
     </>
   );
 
@@ -1582,6 +1604,9 @@ const Edit = () => {
 
       {/* Allergen */}
       {renderAllergenField("toppings")}
+
+      {/* Raw Food Advisory */}
+      {renderRawFoodAdvisoryField()}
     </>
   );
 

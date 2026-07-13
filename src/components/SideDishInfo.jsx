@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { ChevronDown } from "lucide-react";
-import { resolveAllergen } from "../data/allergenDefaults";
+import { resolveAllergen, resolveRawFoodAdvisory } from "../data/allergenDefaults";
 
 const SideDishInfo = ({ product, onBack }) => {
   const dish = product;
@@ -99,6 +99,20 @@ const SideDishInfo = ({ product, onBack }) => {
             <div className="md:col-span-9">
               <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800 whitespace-pre-line">
                 {resolveAllergen(dish.allergen, "side_dishes")}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Raw Food Advisory */}
+        <section className="mt-6 md:mt-12 lg:mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 lg:gap-10 items-start">
+            <div className="md:col-span-3">
+              <div className="text-sm md:text-lg lg:text-xl font-bold text-black">Raw Food Advisory:</div>
+            </div>
+            <div className="md:col-span-9">
+              <p className="text-sm md:text-lg lg:text-xl leading-relaxed text-gray-800 whitespace-pre-line">
+                {resolveRawFoodAdvisory(dish.raw_food_advisory)}
               </p>
             </div>
           </div>
