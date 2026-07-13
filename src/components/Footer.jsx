@@ -35,8 +35,8 @@ export default function Footer() {
   return (
     <footer className="pb-10 pt-6">
       <div className="w-full px-4 sm:px-6">
-        <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 items-start">
+        <div className="rounded-3xl bg-white p-6 md:p-8 shadow-sm ring-1 ring-black/5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-start">
             {/* Location Section */}
             <div className="flex flex-col items-start md:items-end">
               <div className="text-left">
@@ -95,8 +95,8 @@ export default function Footer() {
               />
             </div>
 
-            {/* Hours Section */}
-            <div className="flex flex-col items-start md:items-end">
+            {/* Hours Section — shown first on mobile */}
+            <div className="flex flex-col items-start md:items-end order-first md:order-none">
               <div className="text-left">
                 <h3
                   className="text-3xl font-semibold text-[#99564c] mb-4"
