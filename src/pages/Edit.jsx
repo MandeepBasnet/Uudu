@@ -63,6 +63,9 @@ const Edit = () => {
     hours2: "11:00 AM – 10:00 PM",
     day3: "Sun",
     hours3: "12:00 PM – 8:00 PM",
+    noticeTitle: "SOFT LAUNCH NOTICE:",
+    notice:
+      "We may occasionally\nclose early on slower days.\nPlease call (657) 256-1024\nif visiting within 1 hour of closing.",
   });
   const [originalBusinessHours, setOriginalBusinessHours] = useState(null);
   const [savingHours, setSavingHours] = useState(false);
@@ -2194,6 +2197,39 @@ const Edit = () => {
                       placeholder="12:00 PM – 8:00 PM"
                     />
                   </div>
+                </div>
+
+                <div className="pt-4 border-t border-gray-200 space-y-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Notice (leave blank to hide)
+                  </label>
+                  <input
+                    value={businessHours.noticeTitle}
+                    onChange={(e) =>
+                      setBusinessHours((prev) => ({
+                        ...prev,
+                        noticeTitle: e.target.value,
+                      }))
+                    }
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                    placeholder="SOFT LAUNCH NOTICE:"
+                  />
+                  <textarea
+                    rows={4}
+                    value={businessHours.notice}
+                    onChange={(e) =>
+                      setBusinessHours((prev) => ({
+                        ...prev,
+                        notice: e.target.value,
+                      }))
+                    }
+                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+                    placeholder="We may occasionally close early on slower days."
+                  />
+                  <p className="text-xs text-gray-500">
+                    Line breaks are kept as typed. Phone numbers are highlighted
+                    automatically.
+                  </p>
                 </div>
               </div>
               <div className="flex justify-end gap-2 pt-4">

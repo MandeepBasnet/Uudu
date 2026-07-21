@@ -9,7 +9,10 @@ export default function Footer() {
     day2: "Fri – Sat",
     hours2: "11:00 AM – 10:00 PM",
     day3: "Sun",
-    hours3: "12:00 PM – 8:00 PM"
+    hours3: "12:00 PM – 8:00 PM",
+    noticeTitle: "SOFT LAUNCH NOTICE:",
+    notice:
+      "We may occasionally\nclose early on slower days.\nPlease call (657) 256-1024\nif visiting within 1 hour of closing."
   });
 
   useEffect(() => {
@@ -109,6 +112,32 @@ export default function Footer() {
                   <p>{businessHours.day2}: {businessHours.hours2}</p>
                   <p>{businessHours.day3}: {businessHours.hours3}</p>
                 </div>
+
+                {/* Soft launch notice — hidden when the notice text is blank */}
+                {businessHours.notice?.trim() && (
+                  <div className="mt-5 rounded-2xl border-2 border-black p-1 max-w-sm">
+                    <div className="rounded-xl border-2 border-[#F26722] px-4 py-3 text-center">
+                      {businessHours.noticeTitle?.trim() && (
+                        <p className="text-[#F26722] font-bold text-lg">
+                          {businessHours.noticeTitle}
+                        </p>
+                      )}
+                      <p className="text-[#3E3E3E] whitespace-pre-line">
+                        {businessHours.notice
+                          .split(/(\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4})/)
+                          .map((part, i) =>
+                            /^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(part) ? (
+                              <span key={i} className="text-[#F26722] font-semibold">
+                                {part}
+                              </span>
+                            ) : (
+                              part
+                            )
+                          )}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
