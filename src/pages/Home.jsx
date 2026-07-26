@@ -77,7 +77,7 @@ function Hero() {
             transition: "opacity 0.3s ease-out",
           }}
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/25" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <h1
             className="text-3xl sm:text-6xl font-semibold text-[#C84E00] mb-4"
@@ -149,6 +149,7 @@ function Mothership() {
               src="/images/mothership-desktop.png"
               alt="The ramen hack mothership has landed"
               className="w-full h-[500px] sm:h-[580px] md:h-[650px] lg:h-[720px] rounded-3xl object-cover shadow-sm"
+              style={{ filter: "saturate(0.9) contrast(0.97)" }}
             />
           </div>
         </div>
@@ -209,7 +210,7 @@ function ValueBeyondHype() {
             >
               Value beyond
               <br />
-              The hype
+              the hype
             </h2>
             <p className="mt-3 text-[20px] lg:text-[25px] leading-relaxed text-[#374d64] text-justify">
               Self-serve ramen can be euphoric, but it shouldn't feel
@@ -293,7 +294,9 @@ function TakeoutReimagined() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#374d64] mb-6"
               style={{ fontFamily: "Bahnschrift, system-ui, sans-serif" }}
             >
-              Takeout, re-imagined
+              Takeout,
+              <br />
+              re-imagined
             </h2>
             <p className="mt-3 text-[20px] lg:text-[25px] leading-relaxed text-[#374d64] text-justify">
               Boring burgers and flimsy salads again at the cubicle? Break the
