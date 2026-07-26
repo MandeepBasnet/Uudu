@@ -3,7 +3,7 @@ import { databases, appwriteConfig, Query } from "../lib/appwrite";
 import localRamenData from "../data/updatedRamen.json";
 
 /**
- * Assigns sequential display_id (N01–N30) to available noodles.
+ * Assigns sequential display_id (N01–N40) to available noodles.
  * Unavailable noodles (coming_soon / out_of_stock) get display_id = null.
  * If sortOrder (array of IDs) is provided, items are sorted by their position
  * in that array. Items absent from sortOrder are appended at the end, sorted
@@ -41,7 +41,7 @@ export function assignDisplayIds(items, sortOrder = null) {
     const isUnavailable =
       item.status === "coming_soon" || item.status === "out_of_stock";
     if (isUnavailable) return { ...item, display_id: null };
-    if (counter > 30) return { ...item, display_id: null };
+    if (counter > 40) return { ...item, display_id: null };
     const display_id = `N${String(counter).padStart(2, "0")}`;
     counter++;
     return { ...item, display_id };

@@ -529,12 +529,13 @@ const Edit = () => {
   // Compute live preview N-numbers for the current shuffle list order.
   const getShufflePreviewIds = (list) => {
     const prefix = activeTab === "ramen" ? "N" : activeTab === "toppings" ? "T" : activeTab === "beverages" ? "B" : activeTab === "snax" ? "X" : "S";
+    const cap = activeTab === "ramen" ? 40 : 30;
     const map = new Map();
     let counter = 1;
     for (const item of list) {
       const isUnavailable =
         item.status === "coming_soon" || item.status === "out_of_stock";
-      if (isUnavailable || counter > 30) {
+      if (isUnavailable || counter > cap) {
         map.set(item.id, null);
       } else {
         map.set(item.id, `${prefix}${String(counter).padStart(2, "0")}`);
@@ -565,7 +566,7 @@ const Edit = () => {
   };
 
   const handleAddBlankTemplate = () => {
-    const limit = 30;
+    const limit = activeTab === "ramen" ? 40 : 30;
     const activeCount = shuffleList.filter(
       (item) => item.status !== "coming_soon" && item.status !== "out_of_stock"
     ).length;
@@ -660,6 +661,19 @@ const Edit = () => {
     if (!item._isNew) {
       setPendingDeletes((prev) => [...prev, { id: item.id, $id: item.$id || item.id }]);
     }
+  };
+
+  // Confirm before permanently deleting a persisted item. New (unsaved) items are
+  // just discarded from the list without a prompt.
+  const handleConfirmDeleteShuffleItem = (item) => {
+    if (item._isNew) {
+      handleDeleteShuffleItem(item);
+      return;
+    }
+    const ok = window.confirm(
+      `Delete "${item.name || item.id}" permanently?\n\nIt will be removed from the database when you click Save Order. This cannot be undone.`
+    );
+    if (ok) handleDeleteShuffleItem(item);
   };
 
   const handleDragStart = (e, itemId) => {
@@ -1722,20 +1736,18 @@ const Edit = () => {
                       </span>
                     )}
                     {!item._isNew && isUnavailable && (
-                      <>
-                        <span className="text-[9px] px-1 py-0.5 bg-yellow-100 text-yellow-700 rounded font-bold uppercase flex-shrink-0">
-                          {item.status === "coming_soon" ? "SOON" : "OOS"}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={(e) => { e.stopPropagation(); handleDeleteShuffleItem(item); }}
-                          className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded text-red-400 hover:bg-red-50 hover:text-red-600 transition-colors"
-                          title="Delete noodle permanently"
-                        >
-                          ✕
-                        </button>
-                      </>
+                      <span className="text-[9px] px-1 py-0.5 bg-yellow-100 text-yellow-700 rounded font-bold uppercase flex-shrink-0">
+                        {item.status === "coming_soon" ? "SOON" : "OOS"}
+                      </span>
                     )}
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); handleConfirmDeleteShuffleItem(item); }}
+                      className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded text-red-400 hover:bg-red-50 hover:text-red-600 transition-colors"
+                      title="Delete permanently"
+                    >
+                      ✕
+                    </button>
                   </div>
                 );
               });
@@ -1907,8 +1919,22 @@ const Edit = () => {
         ) : activeTab === "ramen" ? (() => {
           const displayList = shuffleMode ? shuffleList : itemsList;
           const previewMap = shuffleMode ? getShufflePreviewIds(shuffleList) : null;
-          const slots = [...displayList].slice(0, 30);
-          while (slots.length < 30) slots.push(null);
+          // The 40 "real" slots hold AVAILABLE noodles only. Unavailable items
+          // (coming soon / out of stock) don't consume a real slot — the next
+          // available noodle takes it. Unavailable items are shown afterwards as
+          // "peripheral" slots so they keep a spot without counting toward 40.
+          const isUnavail = (i) =>
+            i.status === "coming_soon" || i.status === "out_of_stock";
+          const availableItems = displayList.filter((i) => !isUnavail(i));
+          const peripheralItems = [
+            ...availableItems.slice(40),
+            ...displayList.filter(isUnavail),
+          ];
+          const realSlots = availableItems.slice(0, 40);
+          while (realSlots.length < 40) realSlots.push(null);
+          const slots = [...realSlots, ...peripheralItems];
+          const REAL_SLOT_COUNT = 40;
+          const rowCount = Math.max(8, Math.ceil(slots.length / 5));
           const countryColor = {
             "S. Korea": "#DC2626",
             "Japan": "#2563EB",
@@ -1944,8 +1970,16 @@ const Edit = () => {
                 className="rounded-2xl overflow-hidden shadow-2xl"
                 style={{ background: "linear-gradient(160deg, #4a2810 0%, #6b3d1a 40%, #4a2810 100%)" }}
               >
-                {[0, 1, 2, 3, 4].map((row) => (
+                {Array.from({ length: rowCount }, (_, row) => row).map((row) => (
                   <div key={row}>
+                    {/* Divider: everything below the 40 real slots is peripheral */}
+                    {row * 5 === REAL_SLOT_COUNT && peripheralItems.length > 0 && (
+                      <div className="px-3 pt-4 pb-1">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-white/40">
+                          Peripheral · not counted in the 40 (unavailable)
+                        </p>
+                      </div>
+                    )}
                     {/* Shelf board */}
                     <div
                       className="relative h-5"
@@ -1964,10 +1998,13 @@ const Edit = () => {
                     </div>
 
                     {/* Row of slots */}
-                    <div className="grid grid-cols-6 gap-2 px-3 py-3">
-                      {[0, 1, 2, 3, 4, 5].map((col) => {
-                        const idx = row * 6 + col;
+                    <div className="grid grid-cols-5 gap-2 px-3 py-3">
+                      {[0, 1, 2, 3, 4].map((col) => {
+                        const idx = row * 5 + col;
                         const item = slots[idx];
+                        // Empty cells past the 40 real slots are just filler in the
+                        // peripheral zone — not "+ Add" slots.
+                        const isPeripheralEmpty = !item && idx >= REAL_SLOT_COUNT;
                         const previewId = shuffleMode && item
                           ? previewMap.get(item.id)
                           : item?.display_id;
@@ -1991,9 +2028,14 @@ const Edit = () => {
                             onDragOver={shuffleMode && item ? (e) => handleDragOver(e, item.id) : undefined}
                             onDrop={shuffleMode && item ? (e) => handleDrop(e, item.id) : undefined}
                             onDragEnd={shuffleMode ? handleDragEnd : undefined}
-                            onClick={() => item && handleSelect(item)}
+                            onClick={() => {
+                              if (item) return handleSelect(item);
+                              if (isPeripheralEmpty) return undefined;
+                              if (shuffleMode) return handleAddBlankTemplate();
+                              return enterShuffleMode();
+                            }}
                             className={`relative aspect-square rounded-lg overflow-hidden transition-all duration-150 select-none
-                              ${item ? "cursor-pointer shadow-md" : ""}
+                              ${item ? "cursor-pointer shadow-md" : isPeripheralEmpty ? "" : "cursor-pointer"}
                               ${isDragging ? "opacity-30 scale-95" : ""}
                               ${isDragTarget ? "ring-2 ring-orange-400 scale-[1.06] z-10" : ""}
                               ${isSelected ? "ring-2 ring-white/80 scale-[1.04] z-10" : ""}
@@ -2061,12 +2103,16 @@ const Edit = () => {
                                   </div>
                                 )}
                               </>
+                            ) : isPeripheralEmpty ? (
+                              <div className="w-full h-full rounded-lg" style={{ background: "rgba(0,0,0,0.12)" }} />
                             ) : (
                               <div
-                                className="w-full h-full flex items-center justify-center rounded-lg"
+                                className="w-full h-full flex flex-col items-center justify-center rounded-lg transition-colors hover:bg-white/[0.06]"
                                 style={{ background: "rgba(0,0,0,0.25)", border: "1px dashed rgba(255,255,255,0.1)" }}
+                                title={shuffleMode ? "Add a noodle" : "Click to add a noodle"}
                               >
-                                <span className="text-white/15 text-[10px] font-bold">
+                                <span className="text-white/25 text-lg font-bold leading-none">+</span>
+                                <span className="text-white/15 text-[9px] font-bold mt-0.5">
                                   {String(idx + 1).padStart(2, "0")}
                                 </span>
                               </div>
@@ -2090,7 +2136,7 @@ const Edit = () => {
 
               {/* Slot count */}
               <p className="text-center text-[10px] text-gray-400 mt-3">
-                {itemsList.filter(i => i.display_id).length} / 30 slots filled
+                {itemsList.filter(i => i.display_id).length} / 40 slots filled
               </p>
             </div>
           );
