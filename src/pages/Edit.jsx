@@ -28,6 +28,15 @@ const parsePrice = (value) => Math.max(0, parseFloat(value) || 0);
 // schema has no minimum, so the input's min="0" is not the last word.
 const PRICE_FIELDS = ["price", "price_packet", "price_bowl"];
 
+const ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "image/avif",
+];
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+
 const Edit = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -408,11 +417,32 @@ const Edit = () => {
     }
   }, []);
 
-  // Opens the crop modal instead of uploading immediately
+  // Opens the crop modal instead of uploading immediately.
+  // This is the only entry point for both modal buttons ("Crop & Upload" and
+  // "Upload Original"), so validating here covers every upload path.
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     e.target.value = "";
+
+    // accept="image/*" is only a picker hint — the dialog can still be switched
+    // to "All files", so the type has to be checked here.
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      setMessage({
+        type: "error",
+        text: "Unsupported file type. Please upload a JPG, PNG, WEBP, GIF or AVIF image.",
+      });
+      return;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      setMessage({
+        type: "error",
+        text: `Image is too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Maximum is 5 MB.`,
+      });
+      return;
+    }
+    setMessage({ type: "", text: "" });
+
     const reader = new FileReader();
     reader.onload = (ev) => {
       setCropModal({ open: true, src: ev.target.result, file });
@@ -1920,7 +1950,7 @@ const Edit = () => {
                   <div className="flex-1">
                     <input
                       type="file"
-                      accept="image/*"
+                      accept={ALLOWED_IMAGE_TYPES.join(",")}
                       onChange={handleImageUpload}
                       className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
