@@ -21,6 +21,13 @@ import { ALLERGEN_DEFAULTS, RAW_FOOD_ADVISORY_DEFAULT } from "../data/allergenDe
 // Helper to check if a string is a valid ID for Appwrite (alphanumeric, -, _, .)
 const isValidId = (str) => /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(str);
 
+// Price fields are never negative, and an empty input must not become NaN.
+const parsePrice = (value) => Math.max(0, parseFloat(value) || 0);
+
+// Every price field on every tab — checked again on save because Appwrite's
+// schema has no minimum, so the input's min="0" is not the last word.
+const PRICE_FIELDS = ["price", "price_packet", "price_bowl"];
+
 const Edit = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -247,6 +254,19 @@ const Edit = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
+
+    const badPrice = PRICE_FIELDS.find((field) => {
+      const value = selectedItem[field];
+      return value !== undefined && (!Number.isFinite(Number(value)) || Number(value) < 0);
+    });
+    if (badPrice) {
+      setMessage({
+        type: "error",
+        text: "Prices cannot be negative or blank. Please correct them before saving.",
+      });
+      return;
+    }
+
     setSaving(true);
     setMessage({ type: "", text: "" });
 
@@ -1001,9 +1021,10 @@ const Edit = () => {
           <input
             type="number"
             step="0.25"
+            min="0"
             value={selectedItem.price_packet}
             onChange={(e) =>
-              handleChange("price_packet", parseFloat(e.target.value))
+              handleChange("price_packet", parsePrice(e.target.value))
             }
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
@@ -1015,9 +1036,10 @@ const Edit = () => {
           <input
             type="number"
             step="0.25"
+            min="0"
             value={selectedItem.price_bowl}
             onChange={(e) =>
-              handleChange("price_bowl", parseFloat(e.target.value))
+              handleChange("price_bowl", parsePrice(e.target.value))
             }
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
@@ -1274,8 +1296,9 @@ const Edit = () => {
           <input
             type="number"
             step="0.25"
+            min="0"
             value={selectedItem.price}
-            onChange={(e) => handleChange("price", parseFloat(e.target.value))}
+            onChange={(e) => handleChange("price", parsePrice(e.target.value))}
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
@@ -1350,8 +1373,9 @@ const Edit = () => {
           <input
             type="number"
             step="0.25"
+            min="0"
             value={selectedItem.price}
-            onChange={(e) => handleChange("price", parseFloat(e.target.value))}
+            onChange={(e) => handleChange("price", parsePrice(e.target.value))}
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
@@ -1419,8 +1443,9 @@ const Edit = () => {
           <input
             type="number"
             step="0.25"
+            min="0"
             value={selectedItem.price}
-            onChange={(e) => handleChange("price", parseFloat(e.target.value))}
+            onChange={(e) => handleChange("price", parsePrice(e.target.value))}
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
@@ -1548,8 +1573,9 @@ const Edit = () => {
           <input
             type="number"
             step="0.05"
+            min="0"
             value={selectedItem.price}
-            onChange={(e) => handleChange("price", parseFloat(e.target.value))}
+            onChange={(e) => handleChange("price", parsePrice(e.target.value))}
             className="w-full border border-gray-300 rounded px-3 py-2"
           />
         </div>
